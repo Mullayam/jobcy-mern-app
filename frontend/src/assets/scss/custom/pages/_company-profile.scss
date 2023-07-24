@@ -1,0 +1,15 @@
+ul.working-days {
+    padding: 0;
+    margin: 0;
+
+    li {
+        list-style: none;
+        padding: 8px 0;
+
+        span {
+            float: right;
+            color: #82858E;
+            font-size: 13px;
+        }
+    }
+}

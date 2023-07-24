@@ -1,0 +1,80 @@
+//
+//button.scss
+//
+
+@each $state in map-keys($theme-colors) {
+    .btn-soft-#{$state} {
+        background-color: var(--#{$prefix}#{$state}-bg-subtle) !important;
+        border-color: transparent;
+        color: var(--#{$prefix}#{$state}) !important;
+
+        &:hover,
+        &:focus,
+        &:active,
+        &.active,
+        &.focus,
+        &:not(:disabled):not(.disabled):active,
+        &:not(:disabled):not(.disabled):active:focus,
+        .open>.dropdown-toggle.btn-primary {
+            color: $white !important;
+            background: var(--#{$prefix}#{$state}) !important;
+            box-shadow: 0 0 0 0.15rem rgb(var(--#{$prefix}#{$state}-rgb), 50%);
+        }
+    }
+
+    .btn-outline-#{$state} {
+        // background: var(--#{$prefix}#{$state}) !important;
+        // border-color: transparent;
+        color: var(--#{$prefix}#{$state}) !important;
+
+        &:hover,
+        &:focus,
+        &:active,
+        &.active,
+        &.focus,
+        &:not(:disabled):not(.disabled):active,
+        &:not(:disabled):not(.disabled):active:focus,
+        .open>.dropdown-toggle.btn-primary {
+            color: $white !important;
+            background: var(--#{$prefix}#{$state}) !important;
+            box-shadow: 0 0 0 0.15rem rgb(var(--#{$prefix}#{$state}-rgb), 50%);
+        }
+    }
+}
+
+.btn-hover {
+    transition: all 0.5s ease;
+
+    &:hover {
+        transform: translateY(-6px);
+    }
+}
+
+.btn-outline-primary:hover {
+    color: $white !important;
+}
+
+.btn {
+    &.btn-info,
+    &.btn-purple,
+    &.btn-warning {
+        color: $white !important;
+    }
+}
+
+.btn-primary {
+    background-color: var(--#{$prefix}primary) !important;
+    border-color: var(--#{$prefix}primary) !important;
+
+    &:focus {
+        box-shadow: 0 0 0 0.15rem rgb(var(--#{$prefix}primary-rgb), 0.5);
+    }
+}
+
+.btn-outline-primary {
+    border-color: var(--#{$prefix}primary) !important;
+
+    &:hover {
+        background-color: var(--#{$prefix}primary) !important;
+    }
+}

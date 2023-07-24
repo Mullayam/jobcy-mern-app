@@ -1,0 +1,41 @@
+//
+//team.scss
+//
+
+.team-box {
+    overflow: hidden;
+    .team-img {
+        img {
+            position: relative;
+            width: 215px;
+            height: 215px;
+            border-radius: 50%;
+        }
+        .team-social{
+            position: absolute;
+            top: 58px;
+            left: 25px;
+            text-align: center;
+            opacity: 0;
+            transform: translate(-20px, -20px);
+            transition: all 0.3s ease-out;
+            a {
+                display: inline-block;
+                width: 30px;
+                height: 30px;
+                line-height: 30px;
+                font-size: 16px;
+                border-radius: 5px;
+                background-color: var(--#{$prefix}primary);
+                color: $white;
+            }
+        }
+    }
+    &:hover {
+        .team-social {
+            opacity: 1;
+            transform: translate(0, 0);
+            transition-delay: 0.15s;
+        }
+    }
+}

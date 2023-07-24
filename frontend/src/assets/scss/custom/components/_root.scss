@@ -1,0 +1,86 @@
+// 
+// root.scss
+//
+
+@mixin color-mode($mode: light, $root: false) {
+    @if $color-mode-type =="media-query" {
+        @if $root ==true {
+            @media (prefers-color-scheme: $mode) {
+                :root {
+                    @content;
+                }
+            }
+        }
+
+        @else {
+            @media (prefers-color-scheme: $mode) {
+                @content;
+            }
+        }
+    }
+
+    @else {
+        [data-bs-theme="#{$mode}"] {
+            @content;
+        }
+    }
+}
+
+
+//theme-light
+:root,
+[data-bs-theme="light"] {
+
+    --#{$prefix}topnav-bg: #f8f9fc;
+
+    // footer
+    --#{$prefix}footer-height: 60px;
+    --#{$prefix}footer-bg: #2e3538;
+    --#{$prefix}footer-color: #74788d;
+    
+    --#{$prefix}purple-bg-subtle:   #{$purple-bg-subtle};
+    --#{$prefix}blue-bg-subtle:     #{$blue-bg-subtle};
+}
+
+@if $enable-dark-mode {
+    @include color-mode(dark, true) {
+        --#{$prefix}light: #{$gray-900};
+        --#{$prefix}light-rgb: #{to-rgb($light-dark)};
+        --#{$prefix}dark: #{$light-dark};
+        --#{$prefix}dark-rgb: #{to-rgb($light-dark)};
+        --#{$prefix}bg-light: #{$gray-900};
+
+        --#{$prefix}header-dark-bg: #{$header-bg-dark};
+        --#{$prefix}header-dark-item-color: #{$header-item-color-dark};
+
+        --#{$prefix}topnav-bg: #3d454e;
+        --#{$prefix}header-item-sub-color: #{$text-muted};
+
+
+        // Vertical Sidebar  Light
+
+        --#{$prefix}footer-bg: #242c34;
+        --#{$prefix}boxed-body-bg: #0a121c;
+        --#{$prefix}input-bg: #222f40;
+    }
+}
+
+[data-theme="green"] {
+
+    $primary: #02af74;
+    --#{$prefix}primary: #{$primary};
+    --#{$prefix}primary-rgb: #{to-rgb($primary)};
+    --#{$prefix}primary-text: #{shade-color($primary, 20%)};
+    --#{$prefix}primary-bg-subtle: #{tint-color($primary, 80%)};
+    --#{$prefix}primary-border-subtle: #{tint-color($primary, 60%)};
+}
+
+[data-theme="blue"] {
+
+    $primary: #1f86ef;
+    --#{$prefix}primary: #{$primary};
+    --#{$prefix}primary-rgb: #{to-rgb($primary)};
+    --#{$prefix}primary-text: #{shade-color($primary, 20%)};
+    --#{$prefix}primary-bg-subtle: #{tint-color($primary, 80%)};
+    --#{$prefix}primary-border-subtle: #{tint-color($primary, 60%)};
+}

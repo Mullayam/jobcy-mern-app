@@ -1,0 +1,51 @@
+//
+//category.scss
+//
+
+.popu-category-box{
+    padding: 2.5rem 1.5rem;
+    transition: all 0.5s ease;
+    .popu-category-icon{
+        width: 64px;
+        height: 64px;
+        line-height: 64px;
+        border-radius: 8px;
+        text-align: center;
+        font-size: 28px;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: rgba(var(--#{$prefix}primary-rgb), 0.1);
+    }
+    &:hover {
+        transform: translateY(-8px);
+    }
+}
+
+.job-Categories-box{
+    .job-Categories-list {
+        li{
+            background-color: $white;
+            padding: 8px 14px;
+            border-radius: 4px;
+            margin-bottom: 14px;
+            box-shadow: $box-shadow-sm;
+            &:last-child {
+                margin-bottom: 0px;
+            }
+        }
+    }
+}
+
+
+
+/*****************dark-mode******************/
+
+body[data-bs-theme='dark'] {
+    .job-Categories-box{
+        .job-Categories-list {
+            li{ 
+                background-color: $gray-700;
+            }
+        }
+    }
+}

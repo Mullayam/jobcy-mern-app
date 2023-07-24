@@ -1,0 +1,60 @@
+/*
+Template Name: Jobcy
+Author: Themesdesign
+Version: 1.0.0
+Website: https://themeforest.net/search/themesdesign
+Contact: themesdesign.in@gmail.com
+File: Main Css File
+*/
+
+//Fonts
+@import "custom/fonts/fonts";
+
+
+//Core files
+@import "./node_modules/bootstrap/scss/functions";
+@import "./node_modules/bootstrap/scss/variables";
+@import "variables";
+@import "variables-dark";
+@import "./node_modules/bootstrap/scss/mixins.scss";
+
+
+
+// Structure
+@import "custom/structure/topbar";
+@import "custom/structure/page-title";
+@import "custom/structure/footer";
+
+// Components
+@import "custom/components/helper";
+@import "custom/components/components";
+@import "custom/components/form";
+@import "custom/components/preloader";
+
+
+// Plugins
+@import "custom/plugins/select";
+@import "custom/plugins/glight-box";
+
+// Pages
+@import "custom/pages/home";
+@import "custom/pages/categories";
+@import "custom/pages/job-list";
+@import "custom/pages/cta";
+@import "custom/pages/process";
+@import "custom/pages/testimonial";
+@import "custom/pages/blog";
+@import "custom/pages/about";
+@import "custom/pages/service";
+@import "custom/pages/team";
+@import "custom/pages/pricing";
+@import "custom/pages/faq";
+@import "custom/pages/job-grid";
+@import "custom/pages/job-details";
+@import "custom/pages/candidate-list";
+@import "custom/pages/candidate-datails";
+@import "custom/pages/authentication";
+@import "custom/pages/coming-soon";
+@import "custom/pages/profile";
+@import "custom/pages/company-profile";
+@import "custom/pages/switcher";

@@ -1,0 +1,53 @@
+//
+//footer.scss
+//
+
+.bg-footer {
+    background: var(--#{$prefix}footer-bg);
+    padding: 60px 0;
+    position: relative;
+    font-size: 14px;
+}
+
+
+.footer-social-menu {
+    li {
+        a {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            line-height: 30px;
+            text-align: center;
+            color: rgba($white, 0.50);
+            border: 1px solid rgba($white, 0.45);
+            border-radius: 40px;
+            transition: all 0.5s ease;
+            &:hover {
+                background-color: $white;
+                color: var(--#{$prefix}primary);
+                border-color: $white;
+            }
+        }
+    }
+}
+
+.footer-list {
+    li {
+        a {
+            display: inline-block;
+            padding-bottom: 16px;
+            color: rgba($white, 0.50);
+            transition: all 0.5s ease;
+            &:hover {
+                color: $white;
+                letter-spacing: 0.4px;
+            }
+        }
+    }
+}
+
+.footer-alt{
+    background: var(--#{$prefix}footer-bg);
+    padding: 20px 0px;
+    border-top: 1px solid var(--#{$prefix}gray-700);
+}

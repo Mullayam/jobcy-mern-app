@@ -1,0 +1,37 @@
+//
+//faq.scss
+//
+
+.faq-menu {
+    &.nav-pills {
+        .nav-item {
+            .nav-link {
+                color: var(--#{$prefix}dark);
+                font-weight: 500;
+                border-bottom: 2px solid transparent;
+                border-radius: 0;
+                font-size: 17px;
+
+                &.active {
+                    color: var(--#{$prefix}primary);
+                    background-color: transparent !important;
+                    border-bottom-color: var(--#{$prefix}primary);
+                }
+            }
+        }
+    }
+}
+
+.faq-box {
+    .accordion-item {
+        .accordion-header {
+            .accordion-button {
+                &:not(.collapsed) {
+                    color: var(--#{$prefix}primary);
+                    box-shadow: none;
+                }
+            }
+        }
+    }
+}
+

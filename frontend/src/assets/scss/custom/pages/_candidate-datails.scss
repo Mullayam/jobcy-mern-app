@@ -1,0 +1,111 @@
+//
+//candidate-datails.scss
+//
+
+.page-sub-title {
+    font-weight: 17px;
+    font-weight: 500px;
+    letter-spacing: 0.5px;
+}
+
+.candidate-detail-social-menu {
+    li {
+        .social-link {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 18px;
+            border-radius: 40px;
+            color: $gray-600;
+            background-color: var(--#{$prefix}light);
+            transition: all 0.5s ease;
+
+            &:hover {
+                color: $white;
+                background-color: var(--#{$prefix}primary);
+            }
+        }
+    }
+}
+
+.candidate-profile-overview, .profile-contact {
+    li {
+        padding: 10px 0;
+
+        label {
+            min-width: 118px;
+            font-weight: $font-weight-medium;
+        }
+    }
+}
+
+.candidate-education-content {
+    position: relative;
+
+    .circle {
+        width: 35px;
+        height: 35px;
+        line-height: 35px;
+        text-align: center;
+        border-radius: 40px;
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        border: 1px dashed rgba(var(--#{$prefix}primary-rgb), 0.40);
+        height: 98px;
+        left: 16px;
+        top: 44px;
+    }
+
+    &:last-child {
+        &::before {
+            opacity: 0;
+        }
+    }
+}
+
+.review-rating {
+    i {
+        font-size: 16px;
+        letter-spacing: -0.016rem;
+    }
+}
+
+.candidate-portfolio-box {
+    overflow: hidden;
+    .bg-overlay {
+        background-color: rgba($dark, 0.0);
+    }
+    img,
+    .bg-overlay,
+    .zoom-icon {
+        transition: all 0.5s ease;
+    }
+
+    .zoom-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        font-size: 26px;
+        color: $white;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+    }
+
+    &:hover {
+        img {
+            transform: scale(1.2);
+        }
+
+        .bg-overlay {
+            background-color: rgba($dark, 0.30);
+        }
+
+        .zoom-icon {
+            opacity: 1;
+        }
+    }
+}

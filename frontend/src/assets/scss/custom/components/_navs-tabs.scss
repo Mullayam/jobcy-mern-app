@@ -1,0 +1,26 @@
+//
+//navs=tabs.scss
+//
+
+.nav-tabs {
+    .nav-item {
+        .nav-link {
+            color: var(--#{$prefix}dark);
+            transition: all 0.5s ease;
+        }
+    }
+}
+
+.nav-pills {
+    .nav-item {
+        .nav-link {
+            color: var(--#{$prefix}dark);
+
+            &.active {
+                color: $gray-100;
+                background-color: var(--#{$prefix}primary);
+            }
+        }
+    }
+}
+

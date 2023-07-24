@@ -1,0 +1,115 @@
+//
+//select.scss
+//
+
+.choices__list--multiple .choices__item {
+    background-color: var(--#{$prefix}primary);
+    border-color: var(--#{$prefix}primary);
+    margin-bottom: 0;
+}
+
+.choices__list--dropdown {
+    z-index: 2;
+    border-color: var(--#{$prefix}border-color);
+    font-weight: 500;
+    max-height: 280px;
+
+    .choices__item--selectable {
+        padding: 0;
+        line-height: 43px;
+        min-height: 44px;
+        padding-left: 15px;
+        padding-right: 29px;
+        text-align: left;
+        font-size: 15px;
+
+        &::after {
+            display: none;
+        }
+
+        &.is-highlighted {
+            color: var(--#{$prefix}primary);
+            background-color: var(--#{$prefix}light);
+        }
+
+    }
+    &.choices__list[aria-expanded] {
+        background-color: var(--#{$prefix}secondary-bg) !important;
+        border-color: var(--#{$prefix}border-color) !important;
+    }
+}
+
+.choices__input {
+    background-color: var(--#{$prefix}secondary-bg);
+    margin-bottom: 0;
+}
+
+.choices__inner {
+    color: var(--#{$prefix}dark);
+    background-color: var(--#{$prefix}secondary-bg);
+    padding: 6px 10px;
+    min-height: 39px;
+    border: 1px solid;
+    border-color: var(--#{$prefix}border-color);
+    font-weight: 500;
+
+    &:focus {
+        border: 1px solid;
+        border-color: var(--#{$prefix}border-color);
+    }
+}
+
+.choices[data-type*=select-one] {
+    .choices__input {
+        background-color: var(--#{$prefix}secondary-bg);
+        border: 1px solid var(--#{$prefix}primary);
+        margin: 10px;
+        border-radius: 5px;
+        width: 90%;
+    }
+
+    &::after {
+        border: 0;
+        right: 11.5px;
+        left: auto;
+        content: "\F0140";
+        font-family: 'Material Design Icons';
+        top: 35%;
+        right: 28px;
+    }
+
+    &.is-open {
+
+        .choices__list--dropdown,
+        .choices__inner {
+            box-shadow: var(--#{$prefix}box-shadow);
+            border-color: darken($gray-400, 2.5%);
+        }
+
+        &::after {
+            margin-top: -2.5px;
+        }
+    }
+
+    .is-focused .choices__inner,
+    .is-open .choices__inner {
+        border: 1px solid;
+        border-color: darken($gray-400, 2.5%);
+    }
+
+    .selection-widget {
+        .form-select {
+            padding: 8px 20px;
+            color: $gray-700;
+            border-color: darken($gray-400, 2.5%);
+
+            &:focus {
+                box-shadow: none;
+            }
+
+            option {
+                padding: 20px;
+            }
+        }
+    }
+}

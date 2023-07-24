@@ -1,0 +1,71 @@
+//
+// switcher.scss
+//
+
+#style-switcher {
+    transition: all 0.4s;
+    background: none repeat scroll 0 0 var(--#{$prefix}light);
+    box-shadow: 0px 4px 12px rgba($dark,0.07);
+	left: -165px;
+	position: fixed;
+	top: 35.5%;
+	width: 165px;
+	z-index: 999;
+	padding: 10px 5px;
+	.settings {
+		background: $gray-800;
+		color: $white;
+		font-size: 20px;
+		position: absolute;
+		right: -45px;
+		top: 0;
+		height: 45px;
+		width: 45px;
+		line-height: 45px;
+		text-align: center;
+	}
+}
+ul.pattern {
+	overflow: hidden;
+	border-radius: 0px;
+	li {
+		float: left;
+		margin: 2px;
+		.color-list {
+			display: block;
+			height: 35px;
+			width: 35px;
+			border-radius: 30px;
+			margin: 5px;
+		}
+	}
+	.color1 {
+		background-color: $purple;
+	}
+	.color2 {
+		background-color:$blue;
+	}
+	.color3 {
+		background-color: $green;
+	}
+}
+
+.mode-btn{
+	height: 40px;
+    width: 80px;
+    display: inline-block;
+    line-height: 40px;
+	background-color: var(--#{$prefix}primary);
+    text-align: center;
+}
+
+.mode-dark {
+	display: none;
+	transition: all 0.5s ease;
+}
+
+.mode-light {
+	display: blog;
+	transition: all 0.5s ease;
+}
+

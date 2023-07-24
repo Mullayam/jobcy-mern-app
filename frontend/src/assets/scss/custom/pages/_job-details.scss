@@ -1,0 +1,52 @@
+//
+//job-details.scss
+//
+
+.job-overview, .candidate-contact-details {
+  .icon {
+    height: 46px;
+    line-height: 46px;
+    width: 46px;
+    border-radius: 46px;
+    text-align: center;
+    font-size: 20px;
+  }
+}
+
+.job-details-compnay-profile {
+  margin-top: -34px;
+  position: relative;
+  margin-left: 24px;
+}
+
+.job-details-menu {
+    position: sticky;
+    top: 120px;
+  .nav-link {
+    color: $dark;
+    border: 1px solid $gray-200;
+    margin-top: 15px;
+    padding: 22px;
+    cursor: pointer;
+    &.active {
+      color: $dark;
+      background-color: rgba(var(--#{$prefix}primary-rgb), 0.07);
+    }
+  }
+}
+
+.job-detail-list {
+  li {
+    padding-left: 25px;
+    position: relative;
+    margin-top: 12px;
+    i {
+      color: $success;
+      font-size: 12px;
+      line-height: 23px;
+      left: 0;
+      position: absolute;
+      top: 0;
+    }
+  }
+}

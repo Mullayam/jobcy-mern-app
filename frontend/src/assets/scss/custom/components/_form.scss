@@ -1,0 +1,41 @@
+//
+//form.scss
+//
+
+.form-control,
+.form-select {
+  padding: 10px;
+  font-size: 14px;
+  border-color: var(--#{$prefix}border-color);
+  font-weight: 500;
+
+  &::-webkit-input-placeholder {
+    color: $gray-500;
+    font-size: 13px;
+  }
+
+  &::-moz-placeholder {
+    /* Firefox 19+ */
+    color: $gray-500;
+    font-size: 13px;
+  }
+
+  &:-ms-input-placeholder {
+    /* IE 10+ */
+    color: $gray-500;
+    font-size: 13px;
+  }
+
+  &:-moz-placeholder {
+    /* Firefox 18- */
+    color: $gray-500;
+    font-size: 13px;
+  }
+}
+
+[type="search"]::-webkit-search-cancel-button,
+.form-check-label,
+.form-check-input {
+  cursor: pointer;
+}
+

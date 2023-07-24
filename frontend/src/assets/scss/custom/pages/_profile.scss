@@ -1,0 +1,82 @@
+//
+//profile.scss
+//
+
+.profile-page {
+    padding: 180px 0 80px 0;
+    position: relative;
+
+    @media (max-width: 767.98px) {
+        padding: 95px 0 70px 0;
+    }
+}
+
+.profile-document {
+    .profile-document-list {
+        .icon {
+            width: 40px;
+            height: 40px;
+            line-height: 38px;
+            border: 1px solid rgba($text-muted, 0.2);
+            border-radius: 6px;
+            color: $text-muted;
+            text-align: center;
+            font-size: 20px;
+        }
+    }
+}
+
+.profile-content-nav{
+    &.nav-pills {
+        .nav-item {
+            .nav-link {
+                color: var(--#{$prefix}dark);
+                font-weight: 500;
+                border-bottom: 2px solid transparent;
+                border-radius: 0;
+                font-size: 16px;
+                padding: 12px 26px;
+                &.active {
+                    color: var(--#{$prefix}primary);
+                    background-color: transparent !important;
+                    border-bottom-color: var(--#{$prefix}primary);
+                }
+            }
+        }
+    }
+}
+
+.profile-user {
+    position: relative;
+    display: inline-block;
+
+    .profile-photo-edit {
+        position: absolute;
+        bottom: 5px;
+        right: 0px;
+
+        i {
+            color: $dark;
+            display: inline-block;
+            width: 34px;
+            height: 34px;
+            line-height: 34px;
+            text-align: center;
+            margin-bottom: 0;
+            border-radius: 100%;
+            background: $white;
+            box-shadow: $box-shadow;
+            cursor: pointer;
+        }
+    }
+
+    .profile-img-file-input {
+        display: none;
+    }
+
+    .profile-img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+    }
+}

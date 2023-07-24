@@ -1,0 +1,62 @@
+// 
+// coming-soon.scss
+//
+
+.bg-coming-soon {
+    position: relative;
+    @media (max-width: 991.98px) {
+        padding: 150px 0;
+        height: auto;
+    }
+}
+
+.coming-soon-subacribe{
+    .form-control { 
+        border-color: rgba($gray-500, 0.5);
+        background-color: transparent;
+    }
+}
+
+.countdownlist-item {
+    width: 25%;
+    text-align: center;
+
+    &:last-of-type {
+        .count-num {
+            &::after {
+                display: none;
+            }
+        }
+    }
+}
+
+.count-title {
+    font-size: 13px;
+    font-weight: $font-weight-medium;
+    display: block;
+    margin-bottom: 8px;
+    color: rgba($dark, 0.5);
+    text-transform: uppercase;
+}
+
+.count-num {
+    padding: 16px 8px;
+    position: relative;
+    font-weight: $font-weight-semibold;
+    font-size: 32px;
+
+    @media (max-width: 575.98px) {
+        font-size: 18px;
+    }
+
+    &::after {
+        content: ":";
+        font-size: 20px;
+        position: absolute;
+        right: -12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: $dark;
+    }
+}
+

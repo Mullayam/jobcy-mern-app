@@ -1,0 +1,13 @@
+//
+//general.scss
+//
+
+/*****************dark-mode******************/
+
+body[data-bs-theme='dark'] {
+
+    .bg-light {
+        background-color: var(--#{$prefix}bg-light) !important;
+    }
+
+}

@@ -1,0 +1,67 @@
+//
+//process.scss
+//
+
+.process-box {
+  transition: all 0.5s ease;
+  padding: 1.5rem;
+
+  .process-img {
+    width: 110px;
+    height: 110px;
+    line-height: 110px;
+    border-radius: 50%;
+    background-color: rgba(var(--#{$prefix}primary-rgb), 0.05);
+  }
+
+  &:hover {
+    transform: translateY(-8px);
+  }
+}
+
+.process-menu {
+  &.nav-pills{
+    .nav-link {
+      color: var(--#{$prefix}dark);
+      margin-bottom: 22px;
+      position: relative;
+      padding: 10px 0;
+
+      .number {
+        height: 35px;
+        width: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba($secondary, 0.15);
+        color: $secondary;
+        border-radius: 40px;
+      }
+
+      &.active {
+        background-color: transparent !important;
+        color: var(--#{$prefix}primary);
+
+        .number {
+          color: $white;
+          background-color: var(--#{$prefix}primary);
+        }
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        border: 1px dashed rgba(var(--#{$prefix}primary-rgb), 0.4);
+        height: 65px;
+        left: 17px;
+        top: 54px;
+      }
+
+      &:last-child {
+        &::before {
+          border: none;
+        }
+      }
+    }
+  }
+}

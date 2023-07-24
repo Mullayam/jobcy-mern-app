@@ -1,0 +1,43 @@
+//
+//cta.scss
+//
+
+.bg-subscribe {
+  position: relative;
+  padding: 80px 0px;
+  overflow: hidden;
+  background-color: #343c3f; //#242c34;
+  bottom: -1px;
+  .email-img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    opacity: 0.35;
+  }
+}
+
+.subscribe-form {
+  .form-control {
+    max-width: 350px;
+    padding: 9px 20px;
+    border-color: rgba($gray-400, 0.35);
+    border-radius: 8px;
+    font-size: 14px;
+    color: $white;
+    background-color: transparent;
+  }
+}
+
+// dark
+[data-bs-theme="dark"] {
+  .bg-subscribe {
+    background-color: #242c34;
+  }
+  .subscribe-form {
+    .form-control {
+      border-color: $gray-700;
+      background-color: $gray-900;
+    }
+  }
+}

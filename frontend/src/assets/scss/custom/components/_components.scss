@@ -1,0 +1,31 @@
+//
+// components.scss
+//
+
+.ui-elements-bar {
+  padding: 24px;
+  background-color: var(--#{$prefix}secondary-bg);
+  position: sticky;
+  overflow-y: auto;
+  top: 90px;
+  height: calc(100vh - 165px);
+  margin-right: 20px;
+  .nav {
+    .nav-item {
+      .nav-link {
+        color: $text-muted;
+        font-weight: 500;
+  
+        &:hover {
+          color: var(--#{$prefix}dark);
+        }
+      }
+      &.active {
+        .nav-link {
+          color: var(--#{$prefix}dark);
+        }
+      }
+    }
+  }
+}
+

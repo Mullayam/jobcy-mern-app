@@ -1,0 +1,125 @@
+//
+//about.scss
+//
+
+.about-feature {
+    box-shadow: $box-shadow;
+    border: 15px;
+    transition: all 0.5s ease;
+  .featrue-icon {
+    height: 45px;
+    width: 45px;
+    line-height: 40px;
+    border-radius: 8px;
+    font-size: 24px;
+    text-align: center;
+    color: var(--#{$prefix}primary);
+    background: linear-gradient(-45deg, transparent, rgba(var(--#{$prefix}primary-rgb), 0.15));
+  }
+  &:hover {
+      transform: scale(1.02);
+      box-shadow: var(--#{$prefix}box-shadow);
+  }
+}
+
+.about-social-menu {
+  li {
+    a {
+      font-size: 17px;
+      color: $text-muted;
+      transition: all 0.5s ease;
+      &:hover {
+        color: var(--#{$prefix}primary);
+      }
+    }
+  }
+}
+
+.about-testimonial-menu {
+  &.nav-pills {
+    .nav-link {
+      img {
+        max-width: 100%;
+      }
+      .about-testi-bg-overlay {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        background-color: rgba($dark, 0.4);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.5s ease;
+        opacity: 0;
+      }
+      &.active,
+      &:hover {
+        background-color: transparent !important;
+        .about-testi-bg-overlay {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+.about-tab-content {
+  .tab-pane {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.about-cta {
+  padding: 50px 40px;
+  border: 1px solid $gray-300;
+  border-radius: 20px;
+}
+
+.counter {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  justify-content: center;
+  height: 2.4rem;
+  font-size: 2.4rem;
+  font-weight: 600;
+  &>span {
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      transition: transform 2s ease;
+      transform: translateY(0);
+      line-height: 1;
+      span {
+          flex: 0 0 100%;
+          height: 100%;
+      }
+  }
+}
+
+.about-list{
+  li {
+    margin-bottom: 14px;
+    padding-left: 25px;
+    &::before {
+      font-family: Material Design Icons;   
+      content: '\F0E1E';
+      position: absolute;
+      left: 12px;
+      color: $success;
+    }
+  }
+}
+
+.about-img {
+  @media (min-width: 1200px) {
+    width: 180%;
+  }
+}

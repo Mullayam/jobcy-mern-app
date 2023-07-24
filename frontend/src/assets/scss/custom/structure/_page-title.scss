@@ -1,0 +1,71 @@
+//
+// page-title.scss
+//
+
+.page-title-box {
+  background-image: url("../../../images/home/page-title.png");
+  background-size: cover;
+  background-color: var(--#{$prefix}primary-text);
+  position: relative;
+  padding-top: 225px;
+  padding-bottom: 110px;
+  background-position: center;
+}
+
+.shape {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  pointer-events: none;
+
+  & > svg {
+    width: 100%;
+    height: auto;
+    path {
+      fill: var(--#{$prefix}body-bg) !important;
+    }
+  }
+}
+
+.breadcrumb {
+  letter-spacing: 0.5px;
+  text-align: center;
+
+  .breadcrumb-item {
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 600;
+
+    &::before {
+      content: "\F0142";
+      font-size: 14px;
+      color: $white;
+      font-family: "Material Design Icons";
+      padding-left: 8px;
+    }
+
+    &:first-child {
+      &::before {
+        content: "";
+      }
+    }
+
+    a {
+      color: $white;
+      transition: all 0.5s ease;
+
+      &:hover {
+        color: var(--#{$prefix}white);
+      }
+    }
+  }
+}
+
+/*****************dark-mode******************/
+
+body[data-bs-theme="dark"] {
+  .page-title-box {
+    background-color: #242c34;
+  }
+}
