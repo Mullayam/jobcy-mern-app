@@ -114,7 +114,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
   </tr>
   <tr  >
     <td align="center">
-      <img mc:edit="mc1" style="width:189px;border:0px;display: inline!important;" src="images/logo.png" width="189" border="0"       alt="logo">
+      <img mc:edit="mc1" style="width:189px;border:0px;display: inline!important;" src="${url}/logo.png" width="189" border="0"       alt="logo">
     </td>
   </tr>
   <tr>
@@ -124,24 +124,15 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
 </table>
 
 <table data-outer-table border="0" align="center" cellpadding="0" cellspacing="0" class="outer-table row" role="presentation" width="580" style="width:580px;max-width:580px;" >
-  <!-- black-intro-9 -->
+  <!-- black-intro-6 -->
   <tr>
     <td height="30" style="font-size:30px;line-height:30px;" >&nbsp;</td>
   </tr>
   <tr  >
-    <td  align="center" style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:48px;line-height:63px;font-weight:300;font-style:normal;color:#FF69AF;text-decoration:none;letter-spacing:0px;">
-        
-          <div mc:edit="mc2" >
-            Your opinion matters
-          </div>
-        
-    </td>
-  </tr>
-  <tr  >
     <td class="type48"  align="center" style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:64px;line-height:84px;font-weight:700;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
         
-          <div mc:edit="mc3" >
-            Rate our Services
+          <div mc:edit="mc2" >
+            Your invitation to Black is here!
           </div>
         
     </td>
@@ -152,7 +143,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
   <tr  >
     <td  align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:18px;line-height:32px;font-weight:400;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
         
-          <div mc:edit="mc4" >
+          <div mc:edit="mc3" >
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi accus antium iste natus. 
           </div>
         
@@ -161,11 +152,11 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
   <tr>
     <td height="10" style="font-size:10px;line-height:10px;" >&nbsp;</td>
   </tr>
-  <!-- black-intro-9 -->
+  <!-- black-intro-6 -->
 </table>
 
 <table data-outer-table border="0" align="center" cellpadding="0" cellspacing="0" class="outer-table row" role="presentation" width="580" style="width:580px;max-width:580px;" >
-  <!-- black-rate-service -->
+  <!-- black-invitation-message --> 
   <tr>
     <td height="10" style="font-size:10px;line-height:10px;" >&nbsp;</td>
   </tr>
@@ -175,90 +166,102 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
     <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation" width="100%" style="width:100%;max-width:100%;">
       <tr  >
         <td align="center">
-          <img mc:edit="mc5" style="width:34px;border:0px;display: inline!important;" src="images/arrow.png" width="34" border="0"       alt="arrow">
+          <img mc:edit="mc4" style="width:34px;border:0px;display: inline!important;" src="${url}/arrow.png" width="34" border="0"       alt="arrow">
         </td>
       </tr>
       <tr>
         <td align="center" bgcolor="#333333" > 
-        <!-- Inner -->
+        <!-- rwd-col -->
         <table border="0" cellpadding="0" cellspacing="0" align="center" class="row container-padding" width="93.1%" style="width:93.1%;max-width:93.1%;">
           <tr>
-            <td height="30" style="font-size:30px;line-height:30px;" >&nbsp;</td>
+            <td height="40" style="font-size:40px;line-height:40px;" >&nbsp;</td>
           </tr>
-          <tr  > 
+          <tr  >
+            <td  align="left" style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:48px;line-height:48px;font-weight:300;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
+                
+                  <div mc:edit="mc5" >
+                    Hey Mike,
+                  </div>
+                
+            </td>
+          </tr>
+          <tr  >
+            <td height="20" style="font-size:20px;line-height:20px;">&nbsp;</td>
+          </tr>
+          <tr  >
+            <td class="center-text"  align="left" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:18px;line-height:32px;font-weight:400;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
+                
+                  <div mc:edit="mc6" >
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi accus antium. 
+<br><br>
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi accus antium iste natus. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque. 
+                  </div>
+                
+            </td>
+          </tr>
+          <tr  >
+            <td height="36" style="font-size:36px;line-height:36px;">&nbsp;</td> 
+          </tr>
+          <tr  >
+            <td align="center" height="1"  bgcolor="#555555" style="font-size:1px;line-height:1px;">&nbsp;</td>
+          </tr>
+          <tr  >
+            <td height="34" style="font-size:34px;line-height:34px;">&nbsp;</td> 
+          </tr>
+          <tr  >
             <td align="center">
-              <!-- Rate Service -->
-              <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation" width="100%" style="width:100%;max-width:100%;">
+              <!-- rwd-col -->
+              <table border="0" cellpadding="0" cellspacing="0" align="left" role="presentation" class="float-center">
                 <tr>
-                  <td align="center">
+                  <td class="rwd-col" align="center">
+
                     <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
-                      <tr class="center-on-mobile">
-                        <td   class="rwd-on-mobile" align="center" valign="middle" height="96" style="height: 96px;">
-                          <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
-                            <tr>
-                              <td align="center">
-                                <img mc:edit="mc6" style="width:96px;border:0px;display: inline!important;" src="images/one.png" width="96" border="0"       alt="One">
-                              </td>
-                              <td width="7"></td>
-                            </tr>
-                          </table>
-                        </td>
-                        <td   class="rwd-on-mobile" align="center" valign="middle" height="96" style="height: 96px;">
-                          <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
-                            <tr>
-                              <td width="7"></td>
-                              <td align="center">
-                                <img mc:edit="mc7" style="width:96px;border:0px;display: inline!important;" src="images/two.png" width="96" border="0"       alt="Two">
-                              </td>
-                              <td width="7"></td>
-                            </tr>
-                          </table>
-                        </td>
-                        <td   class="rwd-on-mobile" align="center" valign="middle" height="96" style="height: 96px;">
-                          <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
-                            <tr>
-                              <td width="7"></td>
-                              <td align="center">
-                                <img mc:edit="mc8" style="width:96px;border:0px;display: inline!important;" src="images/three.png" width="96" border="0"       alt="Three">
-                              </td>
-                              <td width="7"></td>
-                            </tr>
-                          </table>
-                        </td>
-                        <td   class="rwd-on-mobile" align="center" valign="middle" height="96" style="height: 96px;">
-                          <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
-                            <tr>
-                              <td width="7"></td>
-                              <td align="center">
-                                <img mc:edit="mc9" style="width:96px;border:0px;display: inline!important;" src="images/four.png" width="96" border="0"       alt="Four">
-                              </td>
-                              <td width="7"></td>
-                            </tr>
-                          </table>
-                        </td>
-                        <td   class="rwd-on-mobile" align="center" valign="middle" height="96" style="height: 96px;">
-                          <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
-                            <tr>
-                              <td width="7"></td>
-                              <td align="center">
-                                <img mc:edit="mc10" style="width:96px;border:0px;display: inline!important;" src="images/five.png" width="96" border="0"       alt="Five">
-                              </td>
-                            </tr>
-                          </table>
+                      <tr>
+                        <td align="center">
+                          <img mc:edit="mc7" style="width:60px;border:0px;display: inline!important;" src="${url}/img_avatar.png" width="60" border="0"      alt="Avatar">
                         </td>
                       </tr>
                     </table>
+
+                  </td>
+                  <td class="rwd-col" align="center" width="15" height="5" style="width:15px;max-width:15px;height:5px;">&nbsp;</td>
+                  <td class="rwd-col" align="center">
+
+                    <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
+                      <tr>
+                        <td class="center-text"  align="left" style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:24px;line-height:32px;font-weight:700;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
+                            
+                              <div mc:edit="mc8" >
+                               Jack McDowell
+                              </div>
+                            
+                        </td>
+                      </tr>
+                      <tr>
+                        <td height="5" style="font-size:5px;line-height:5px;">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td class="center-text"  align="left" style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:14px;line-height:14px;font-weight:400;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
+                            
+                              <div mc:edit="mc9" >
+                               Creative Director at Black 
+                              </div>
+                            
+                        </td>
+                      </tr>
+                    </table>
+
                   </td>
                 </tr>
               </table>
-              <!-- Rate Service -->
+              <!-- rwd-col -->
             </td>
           </tr>
           <tr>
-            <td height="30" style="font-size:30px;line-height:30px;" >&nbsp;</td> 
+            <td height="38" style="font-size:38px;line-height:38px;" >&nbsp;</td> 
           </tr>
         </table>
-        <!-- Inner -->
+        <!-- rwd-col -->
         </td>
       </tr>
     </table>
@@ -266,9 +269,45 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
     </td>
   </tr>
   <tr>
-    <td height="40" style="font-size:40px;line-height:40px;" >&nbsp;</td>
+    <td height="20" style="font-size:20px;line-height:20px;" >&nbsp;</td>
   </tr>
-  <!-- black-rate-service -->
+  <!-- black-invitation-message -->
+</table>
+
+<table data-outer-table border="0" align="center" cellpadding="0" cellspacing="0" class="outer-table row" role="presentation" width="580" style="width:580px;max-width:580px;" >
+  <tr>
+    <td height="30" style="font-size:30px;line-height:30px;" >&nbsp;</td>
+  </tr>
+  <tr  >
+    <td align="center">
+      <!-- Button -->
+      <table border="0" cellspacing="0" cellpadding="0" role="presentation" align="center">
+        <tr>
+          <td align="center"    bgcolor="#FF0076" style="border-radius: 6px;">
+      <!--[if (gte mso 9)|(IE)]>
+        <table border="0" cellpadding="0" cellspacing="0" align="center">
+          <tr>
+            <td align="center" width="38"></td>
+            <td align="center" height="60" style="height:60px;">
+            <![endif]-->
+              
+                <a href="#" mc:edit="mc10"   style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:18px;line-height:28px;font-weight:700;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;padding: 16px 38px 16px 38px;display: inline-block;"><span>JOIN ACCOUNT</span></a>
+              
+            <!--[if (gte mso 9)|(IE)]>
+            </td>
+            <td align="center" width="38"></td>
+          </tr>
+        </table>
+      <![endif]-->
+          </td>
+        </tr>
+      </table>
+      <!-- Buttons -->
+    </td>
+  </tr>
+  <tr>
+    <td height="30" style="font-size:30px;line-height:30px;" >&nbsp;</td>
+  </tr>
 </table>
 
 <table data-outer-table border="0" align="center" cellpadding="0" cellspacing="0" class="outer-table row" role="presentation" width="580" style="width:580px;max-width:580px;" >
@@ -370,7 +409,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
                   <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
                     <tr>
                       <td align="center">
-                        <img mc:edit="mc15" style="width:28px;border:0px;display: inline!important;" src="images/facebook.png" width="28" border="0"       alt="icon">
+                        <img mc:edit="mc15" style="width:28px;border:0px;display: inline!important;" src="${url}/facebook.png" width="28" border="0"       alt="icon">
                       </td>
                       <td width="7"></td>
                     </tr>
@@ -382,7 +421,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
                     <tr>
                       <td width="7"></td>
                       <td align="center">
-                        <img mc:edit="mc16" style="width:28px;border:0px;display: inline!important;" src="images/twitter.png" width="28" border="0"       alt="icon">
+                        <img mc:edit="mc16" style="width:28px;border:0px;display: inline!important;" src="${url}/twitter.png" width="28" border="0"       alt="icon">
                       </td>
                       <td width="7"></td>
                     </tr>
@@ -394,7 +433,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
                     <tr>
                       <td width="7"></td>
                       <td align="center">
-                        <img mc:edit="mc17" style="width:28px;border:0px;display: inline!important;" src="images/linkedin.png" width="28" border="0"       alt="icon">
+                        <img mc:edit="mc17" style="width:28px;border:0px;display: inline!important;" src="${url}/linkedin.png" width="28" border="0"       alt="icon">
                       </td>
                       <td width="7"></td>
                     </tr>
@@ -406,7 +445,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
                     <tr>
                       <td width="7"></td>
                       <td align="center">
-                        <img mc:edit="mc18" style="width:28px;border:0px;display: inline!important;" src="images/pinterest.png" width="28" border="0"       alt="icon">
+                        <img mc:edit="mc18" style="width:28px;border:0px;display: inline!important;" src="${url}/pinterest.png" width="28" border="0"       alt="icon">
                       </td>
                       <td width="7"></td>
                     </tr>
@@ -418,7 +457,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
                     <tr>
                       <td width="7"></td>
                       <td align="center">
-                        <img mc:edit="mc19" style="width:28px;border:0px;display: inline!important;" src="images/instagram.png" width="28" border="0"       alt="icon">
+                        <img mc:edit="mc19" style="width:28px;border:0px;display: inline!important;" src="${url}/instagram.png" width="28" border="0"       alt="icon">
                       </td>
                       <td width="7"></td>
                     </tr>
@@ -430,7 +469,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
                     <tr>
                       <td width="7"></td>
                       <td align="center">
-                        <img mc:edit="mc20" style="width:28px;border:0px;display: inline!important;" src="images/dribbble.png" width="28" border="0"       alt="icon">
+                        <img mc:edit="mc20" style="width:28px;border:0px;display: inline!important;" src="${url}/dribbble.png" width="28" border="0"       alt="icon">
                       </td>
                       <td width="7"></td>
                     </tr>
@@ -442,7 +481,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
                     <tr>
                       <td width="7"></td>
                       <td align="center">
-                        <img mc:edit="mc21" style="width:28px;border:0px;display: inline!important;" src="images/youtube.png" width="28" border="0"       alt="icon">
+                        <img mc:edit="mc21" style="width:28px;border:0px;display: inline!important;" src="${url}/youtube.png" width="28" border="0"       alt="icon">
                       </td>
                     </tr>
                   </table>
@@ -469,11 +508,11 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
             <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
               <tr  >
                 <td align="center">
-                  <img mc:edit="mc22" style="display:block;width:100%;max-width:117px;border:0px;"    width="117" src="images/App-Store.png" border="0"  alt="icon">
+                  <img mc:edit="mc22" style="display:block;width:100%;max-width:117px;border:0px;"    width="117" src="${url}/App-Store.png" border="0"  alt="icon">
                 </td>
                 <td width="10" style="width:10px;"></td>
                 <td align="center">
-                  <img mc:edit="mc23" style="display:block;width:100%;max-width:117px;border:0px;"    width="117" src="images/Google-play.png" border="0"  alt="icon"></td>
+                  <img mc:edit="mc23" style="display:block;width:100%;max-width:117px;border:0px;"    width="117" src="${url}/Google-play.png" border="0"  alt="icon"></td>
               </tr>
             </table>
             <!-- column -->

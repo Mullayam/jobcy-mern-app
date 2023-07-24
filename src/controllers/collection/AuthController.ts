@@ -7,7 +7,11 @@ import { SECRET_KEY } from '../../middlewares/index.js'
 import { Services } from "../../services/index.js";
 import Utils from '../../utils/index.js'
 import { LoginResponse } from '../../types/index.js'
-// import { SendEmail } from '../../services/EmailConfiguration.js'
+import {ForgetPassword} from "../../utils/templates/email/forgot-password.js"
+import {WelcomeMessage} from "../../utils/templates/email/welcome-message.js"
+import MailService from '../../services/EmailConfiguration.js'
+const Email = MailService.getInstance()
+
 class Authentication {
     async Login(req: Request, res: Response) {
         try {
@@ -81,7 +85,8 @@ class Authentication {
                 throw new Error("User doesn't not Exist");
             }
             JSONResponse.Response(req, res, "Email Sent", {}, 200)
-            // await SendEmail(req.body.email, "Reset Password", "Reset Password", "Reset Password")
+            const ForgetPasswordTemplate= ForgetPassword("http://localhost:7132/_static/jobcy/images",req.body.email)
+            Email.SendEmail(req.headers["X-Request-ID"]as string,{html:ForgetPasswordTemplate,to:req.body.email,subject:"Reset Password",})
             res.end()
         } catch (error: any) {
             return JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)

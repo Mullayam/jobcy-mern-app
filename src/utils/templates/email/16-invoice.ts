@@ -114,7 +114,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
   </tr>
   <tr  >
     <td align="center">
-      <img mc:edit="mc1" style="width:189px;border:0px;display: inline!important;" src="images/logo.png" width="189" border="0"       alt="logo">
+      <img mc:edit="mc1" style="width:189px;border:0px;display: inline!important;" src="${url}/logo.png" width="189" border="0"       alt="logo">
     </td>
   </tr>
   <tr>
@@ -124,7 +124,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
 </table>
 
 <table data-outer-table border="0" align="center" cellpadding="0" cellspacing="0" class="outer-table row" role="presentation" width="580" style="width:580px;max-width:580px;" >
-  <!-- black-intro-13 -->
+  <!-- black-intro-16 -->
   <tr>
     <td height="30" style="font-size:30px;line-height:30px;" >&nbsp;</td>
   </tr>
@@ -132,7 +132,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
     <td class="type48"  align="center" style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:64px;line-height:84px;font-weight:700;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
         
           <div mc:edit="mc2" >
-            Order Confirmation 
+            Invoice
           </div>
         
     </td>
@@ -184,7 +184,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
   <tr>
     <td height="30" style="font-size:30px;line-height:30px;" >&nbsp;</td>
   </tr>
-  <!-- black-intro-13 -->
+  <!-- black-intro-16 -->
 </table>
 
 <table data-outer-table border="0" align="center" cellpadding="0" cellspacing="0" class="outer-table row" role="presentation" width="580" style="width:580px;max-width:580px;" >
@@ -268,6 +268,42 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
 </table>
 
 <table data-outer-table border="0" align="center" cellpadding="0" cellspacing="0" class="outer-table row" role="presentation" width="580" style="width:580px;max-width:580px;" >
+  <tr>
+    <td height="10" style="font-size:10px;line-height:10px;" >&nbsp;</td>
+  </tr>
+  <tr  >
+    <td align="center">
+      <!-- Button -->
+      <table border="0" cellspacing="0" cellpadding="0" role="presentation" align="center">
+        <tr>
+          <td align="center"    bgcolor="#FF0076" style="border-radius: 6px;">
+      <!--[if (gte mso 9)|(IE)]>
+        <table border="0" cellpadding="0" cellspacing="0" align="center">
+          <tr>
+            <td align="center" width="38"></td>
+            <td align="center" height="60" style="height:60px;">
+            <![endif]-->
+              
+                <a href="#" mc:edit="mc9"   style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:18px;line-height:28px;font-weight:700;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;padding: 16px 38px 16px 38px;display: inline-block;"><span>MY ACCOUNT</span></a>
+              
+            <!--[if (gte mso 9)|(IE)]>
+            </td>
+            <td align="center" width="38"></td>
+          </tr>
+        </table>
+      <![endif]-->
+          </td>
+        </tr>
+      </table>
+      <!-- Buttons -->
+    </td>
+  </tr>
+  <tr>
+    <td height="30" style="font-size:30px;line-height:30px;" >&nbsp;</td>
+  </tr>
+</table>
+
+<table data-outer-table border="0" align="center" cellpadding="0" cellspacing="0" class="outer-table row" role="presentation" width="580" style="width:580px;max-width:580px;" >
   <!-- black-splitter -->
   <tr>
     <td height="30" style="font-size:30px;line-height:30px;" >&nbsp;</td>
@@ -289,7 +325,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
   <tr>
     <td  align="center" style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:48px;line-height:62px;font-weight:300;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
         
-          <div mc:edit="mc9" >
+          <div mc:edit="mc10" >
             Order details 
           </div>
         
@@ -302,28 +338,9 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
 </table>
 
 <table data-outer-table border="0" align="center" cellpadding="0" cellspacing="0" class="outer-table row" role="presentation" width="580" style="width:580px;max-width:580px;" >
-  <!-- black-product-1 -->
+  <!-- black-product-1-invoice -->
   <tr>
     <td height="20" style="font-size:20px;line-height:20px;" >&nbsp;</td>
-  </tr>
-  <tr  >
-    <td align="center" bgcolor="#FFFFFF" > 
-      <!-- row -->
-      <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation" width="93.1%" style="width:93.1%;max-width:93.1%;">
-        <tr>
-          <td height="20" style="font-size:20px;line-height:20px;">&nbsp;</td>
-        </tr>
-        <tr>
-          <td align="center">
-            <img mc:edit="mc10" class="auto-width" style="display:block;width:100%;max-width:100%;border:0px;"    width="540" src="images/product-1.jpg" border="0"  alt="picture">
-          </td>
-        </tr>
-        <tr>
-          <td height="20" style="font-size:20px;line-height:20px;">&nbsp;</td>
-        </tr>
-      </table>
-      <!-- row -->
-    </td>
   </tr>
   <tr  >
     <td align="center" height="5" style="font-size:5px;line-height:5px;" bgcolor="#FF69AF" >&nbsp;</td>
@@ -502,32 +519,13 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
   <tr>
     <td height="25" style="font-size:25px;line-height:25px;" >&nbsp;</td>
   </tr>
-  <!-- black-product-1 -->
+  <!-- black-product-1-invoice -->
 </table>
 
 <table data-outer-table border="0" align="center" cellpadding="0" cellspacing="0" class="outer-table row" role="presentation" width="580" style="width:580px;max-width:580px;" >
-  <!-- black-product-2 -->
+  <!-- black-product-2-invoice -->
   <tr>
     <td height="20" style="font-size:20px;line-height:20px;" >&nbsp;</td>
-  </tr>
-  <tr  >
-    <td align="center" bgcolor="#FFFFFF" > 
-      <!-- row -->
-      <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation" width="93.1%" style="width:93.1%;max-width:93.1%;">
-        <tr>
-          <td height="20" style="font-size:20px;line-height:20px;">&nbsp;</td>
-        </tr>
-        <tr>
-          <td align="center">
-            <img mc:edit="mc21" class="auto-width" style="display:block;width:100%;max-width:100%;border:0px;"    width="540" src="images/product-2.jpg" border="0"  alt="picture">
-          </td>
-        </tr>
-        <tr>
-          <td height="20" style="font-size:20px;line-height:20px;">&nbsp;</td>
-        </tr>
-      </table>
-      <!-- row -->
-    </td>
   </tr>
   <tr  >
     <td align="center" height="5" style="font-size:5px;line-height:5px;" bgcolor="#FF69AF" >&nbsp;</td>
@@ -542,7 +540,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
         <tr  >
           <td  align="center" style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:40px;line-height:53px;font-weight:700;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
               
-                <div mc:edit="mc22" >
+                <div mc:edit="mc21" >
                   16" Laptop 
                 </div>
               
@@ -554,7 +552,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
         <tr  >
           <td class="center-text"  align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:18px;line-height:36px;font-weight:400;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
               
-                <div mc:edit="mc23" >
+                <div mc:edit="mc22" >
 Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde omnis iste natus error sit volup tatem accus antium. Lorem ipsum dolor sit amet, consectetur. 
                 </div>
               
@@ -574,7 +572,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
                     <tr>
                       <td  align="right" style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:18px;line-height:28px;font-weight:400;font-style:normal;color:#FF69AF;text-decoration:none;letter-spacing:0px;">
                           
-                            <div mc:edit="mc24" >
+                            <div mc:edit="mc23" >
                              Item Code:
                             </div>
                           
@@ -590,7 +588,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
                     <tr>
                       <td  align="left" style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:18px;line-height:28px;font-weight:400;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
                           
-                            <div mc:edit="mc25" >
+                            <div mc:edit="mc24" >
                              #27493567
                             </div>
                           
@@ -622,7 +620,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
         <tr  >
           <td  align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:16px;line-height:26px;font-weight:400;font-style:normal;color:#FF69AF;text-decoration:none;letter-spacing:0px;padding:0!important;">
             
-              <div mc:edit="mc26" >
+              <div mc:edit="mc25" >
                 Color
               </div>
             
@@ -631,7 +629,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
         <tr  >
           <td  align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:32px;line-height:48px;font-weight:400;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;padding:0!important;">
             
-              <div mc:edit="mc27" >
+              <div mc:edit="mc26" >
                 Silver
               </div>
             
@@ -647,7 +645,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
         <tr  >
           <td  align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:16px;line-height:26px;font-weight:400;font-style:normal;color:#FF69AF;text-decoration:none;letter-spacing:0px;padding:0!important;">
             
-              <div mc:edit="mc28" >
+              <div mc:edit="mc27" >
                 Quantity
               </div>
             
@@ -656,7 +654,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
         <tr  >
           <td  align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:32px;line-height:48px;font-weight:400;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;padding:0!important;">
             
-              <div mc:edit="mc29" >
+              <div mc:edit="mc28" >
                 1
               </div>
             
@@ -672,7 +670,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
         <tr  >
           <td  align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:16px;line-height:26px;font-weight:400;font-style:normal;color:#FF69AF;text-decoration:none;letter-spacing:0px;padding:0!important;">
             
-              <div mc:edit="mc30" >
+              <div mc:edit="mc29" >
                 Price
               </div>
             
@@ -681,7 +679,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
         <tr  >
           <td  align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:32px;line-height:48px;font-weight:400;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;padding:0!important;">
             
-              <div mc:edit="mc31" >
+              <div mc:edit="mc30" >
                 $1,699
               </div>
             
@@ -706,7 +704,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
   <tr>
     <td height="25" style="font-size:25px;line-height:25px;" >&nbsp;</td>
   </tr>
-  <!-- black-product-2 -->
+  <!-- black-product-2-invoice -->
 </table>
 
 <table data-outer-table border="0" align="center" cellpadding="0" cellspacing="0" class="outer-table row" role="presentation" width="580" style="width:580px;max-width:580px;" >
@@ -717,7 +715,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
   <tr>
     <td  align="center" style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:48px;line-height:62px;font-weight:300;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
         
-          <div mc:edit="mc32" >
+          <div mc:edit="mc31" >
             Order Total 
           </div>
         
@@ -756,7 +754,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
         <tr  >
           <td  align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:16px;line-height:26px;font-weight:400;font-style:normal;color:#FF69AF;text-decoration:none;letter-spacing:0px;padding:0!important;">
             
-              <div mc:edit="mc33" >
+              <div mc:edit="mc32" >
                 Subtotal
               </div>
             
@@ -765,7 +763,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
         <tr  >
           <td  align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:32px;line-height:48px;font-weight:400;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;padding:0!important;">
             
-              <div mc:edit="mc34" >
+              <div mc:edit="mc33" >
                 $2,198
               </div>
             
@@ -781,7 +779,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
         <tr  >
           <td  align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:16px;line-height:26px;font-weight:400;font-style:normal;color:#FF69AF;text-decoration:none;letter-spacing:0px;padding:0!important;">
             
-              <div mc:edit="mc35" >
+              <div mc:edit="mc34" >
                 Postage & packing
               </div>
             
@@ -790,7 +788,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
         <tr  >
           <td  align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:32px;line-height:48px;font-weight:400;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;padding:0!important;">
             
-              <div mc:edit="mc36" >
+              <div mc:edit="mc35" >
                 Free
               </div>
             
@@ -806,7 +804,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
         <tr  >
           <td  align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:16px;line-height:26px;font-weight:400;font-style:normal;color:#FF69AF;text-decoration:none;letter-spacing:0px;padding:0!important;">
             
-              <div mc:edit="mc37" >
+              <div mc:edit="mc36" >
                 Additional Country VAT
               </div>
             
@@ -815,7 +813,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
         <tr  >
           <td  align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:32px;line-height:48px;font-weight:400;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;padding:0!important;">
             
-              <div mc:edit="mc38" >
+              <div mc:edit="mc37" >
                 $527.52
               </div>
             
@@ -850,7 +848,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
                     <tr>
                       <td  align="center" style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:40px;line-height:40px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;">
                           
-                            <div mc:edit="mc39" >
+                            <div mc:edit="mc38" >
                              Total:
                             </div>
                           
@@ -866,7 +864,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
                     <tr>
                       <td  align="center" style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:40px;line-height:40px;font-weight:400;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
                           
-                            <div mc:edit="mc40" >
+                            <div mc:edit="mc39" >
                              $2,226.52
                             </div>
                           
@@ -894,7 +892,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
                     <tr>
                       <td  align="right" style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:18px;line-height:28px;font-weight:400;font-style:normal;color:#FF69AF;text-decoration:none;letter-spacing:0px;">
                           
-                            <div mc:edit="mc41" >
+                            <div mc:edit="mc40" >
                              Your payment method:
                             </div>
                           
@@ -910,7 +908,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
                     <tr>
                       <td  align="left" style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:18px;line-height:28px;font-weight:400;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
                           
-                            <div mc:edit="mc42" >
+                            <div mc:edit="mc41" >
                              Visa
                             </div>
                           
@@ -954,7 +952,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
             <td align="center" height="60" style="height:60px;">
             <![endif]-->
               
-                <a href="#" mc:edit="mc43"   style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:18px;line-height:28px;font-weight:700;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;padding: 16px 38px 16px 38px;display: inline-block;"><span>VIEW MY ORDER</span></a>
+                <a href="#" mc:edit="mc42"   style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:18px;line-height:28px;font-weight:700;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;padding: 16px 38px 16px 38px;display: inline-block;"><span>VIEW MY ORDER</span></a>
               
             <!--[if (gte mso 9)|(IE)]>
             </td>
@@ -999,7 +997,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
           <td    class="rwd-on-mobile center-text" align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:24px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;">
             <!-- Links -->
               
-                <a href="#" mc:edit="mc44"   style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:28px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;display:inline-block;vertical-align:middle;"><span>About Us</span></a> 
+                <a href="#" mc:edit="mc43"   style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:28px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;display:inline-block;vertical-align:middle;"><span>About Us</span></a> 
               
             <!-- Links -->
           </td>
@@ -1015,7 +1013,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
           <td    class="rwd-on-mobile center-text" align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:24px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;">
             <!-- Links -->
               
-                <a href="#" mc:edit="mc45"   style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:28px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;display:inline-block;vertical-align:middle;"><span>Help</span></a> 
+                <a href="#" mc:edit="mc44"   style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:28px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;display:inline-block;vertical-align:middle;"><span>Help</span></a> 
               
             <!-- Links -->
           </td>
@@ -1031,7 +1029,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
           <td    class="rwd-on-mobile center-text" align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:24px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;">
             <!-- Links -->
               
-                <a href="#" mc:edit="mc46"   style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:28px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;display:inline-block;vertical-align:middle;"><span>Privacy Policy</span></a> 
+                <a href="#" mc:edit="mc45"   style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:28px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;display:inline-block;vertical-align:middle;"><span>Privacy Policy</span></a> 
               
             <!-- Links -->
           </td>
@@ -1047,7 +1045,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
           <td    class="rwd-on-mobile center-text" align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:24px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;">
             <!-- Links -->
               
-                <a href="#" mc:edit="mc47"   style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:28px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;display:inline-block;vertical-align:middle;"><span>Contact Us</span></a> 
+                <a href="#" mc:edit="mc46"   style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:28px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;display:inline-block;vertical-align:middle;"><span>Contact Us</span></a> 
               
             <!-- Links -->
           </td>
@@ -1072,7 +1070,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
                   <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
                     <tr>
                       <td align="center">
-                        <img mc:edit="mc48" style="width:28px;border:0px;display: inline!important;" src="images/facebook.png" width="28" border="0"       alt="icon">
+                        <img mc:edit="mc47" style="width:28px;border:0px;display: inline!important;" src="${url}/facebook.png" width="28" border="0"       alt="icon">
                       </td>
                       <td width="7"></td>
                     </tr>
@@ -1084,7 +1082,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
                     <tr>
                       <td width="7"></td>
                       <td align="center">
-                        <img mc:edit="mc49" style="width:28px;border:0px;display: inline!important;" src="images/twitter.png" width="28" border="0"       alt="icon">
+                        <img mc:edit="mc48" style="width:28px;border:0px;display: inline!important;" src="${url}/twitter.png" width="28" border="0"       alt="icon">
                       </td>
                       <td width="7"></td>
                     </tr>
@@ -1096,7 +1094,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
                     <tr>
                       <td width="7"></td>
                       <td align="center">
-                        <img mc:edit="mc50" style="width:28px;border:0px;display: inline!important;" src="images/linkedin.png" width="28" border="0"       alt="icon">
+                        <img mc:edit="mc49" style="width:28px;border:0px;display: inline!important;" src="${url}/linkedin.png" width="28" border="0"       alt="icon">
                       </td>
                       <td width="7"></td>
                     </tr>
@@ -1108,7 +1106,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
                     <tr>
                       <td width="7"></td>
                       <td align="center">
-                        <img mc:edit="mc51" style="width:28px;border:0px;display: inline!important;" src="images/pinterest.png" width="28" border="0"       alt="icon">
+                        <img mc:edit="mc50" style="width:28px;border:0px;display: inline!important;" src="${url}/pinterest.png" width="28" border="0"       alt="icon">
                       </td>
                       <td width="7"></td>
                     </tr>
@@ -1120,7 +1118,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
                     <tr>
                       <td width="7"></td>
                       <td align="center">
-                        <img mc:edit="mc52" style="width:28px;border:0px;display: inline!important;" src="images/instagram.png" width="28" border="0"       alt="icon">
+                        <img mc:edit="mc51" style="width:28px;border:0px;display: inline!important;" src="${url}/instagram.png" width="28" border="0"       alt="icon">
                       </td>
                       <td width="7"></td>
                     </tr>
@@ -1132,7 +1130,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
                     <tr>
                       <td width="7"></td>
                       <td align="center">
-                        <img mc:edit="mc53" style="width:28px;border:0px;display: inline!important;" src="images/dribbble.png" width="28" border="0"       alt="icon">
+                        <img mc:edit="mc52" style="width:28px;border:0px;display: inline!important;" src="${url}/dribbble.png" width="28" border="0"       alt="icon">
                       </td>
                       <td width="7"></td>
                     </tr>
@@ -1144,7 +1142,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
                     <tr>
                       <td width="7"></td>
                       <td align="center">
-                        <img mc:edit="mc54" style="width:28px;border:0px;display: inline!important;" src="images/youtube.png" width="28" border="0"       alt="icon">
+                        <img mc:edit="mc53" style="width:28px;border:0px;display: inline!important;" src="${url}/youtube.png" width="28" border="0"       alt="icon">
                       </td>
                     </tr>
                   </table>
@@ -1171,11 +1169,11 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
             <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
               <tr  >
                 <td align="center">
-                  <img mc:edit="mc55" style="display:block;width:100%;max-width:117px;border:0px;"    width="117" src="images/App-Store.png" border="0"  alt="icon">
+                  <img mc:edit="mc54" style="display:block;width:100%;max-width:117px;border:0px;"    width="117" src="${url}/App-Store.png" border="0"  alt="icon">
                 </td>
                 <td width="10" style="width:10px;"></td>
                 <td align="center">
-                  <img mc:edit="mc56" style="display:block;width:100%;max-width:117px;border:0px;"    width="117" src="images/Google-play.png" border="0"  alt="icon"></td>
+                  <img mc:edit="mc55" style="display:block;width:100%;max-width:117px;border:0px;"    width="117" src="${url}/Google-play.png" border="0"  alt="icon"></td>
               </tr>
             </table>
             <!-- column -->
@@ -1195,7 +1193,7 @@ Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi. Unde o
         <tr>
           <td class="center-text"  align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:24px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;">
             
-              <div mc:edit="mc57" >
+              <div mc:edit="mc56" >
                 2022 black Inc. All Rights Reserved.<br>
                 Address name St. 152, City Name, State, Country Name
               </div>
