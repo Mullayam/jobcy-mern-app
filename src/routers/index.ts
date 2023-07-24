@@ -18,7 +18,7 @@ export class Routes {
         this.router.post("/register", Authentication.default.Register)
         this.router.post("/forget-password", Authentication.default.ForgetPassword)
         this.router.get("/token/:id", Authentication.default.RefreshToken)
-        this.router.get("/current-user", Authentication.default.CurrentUser)
+        this.router.get("/current-user/:id", Authentication.default.CurrentUser)
         this.router.get("/g/auth", Authentication.default.HandleGoogleAuth)
     }
     protected ProtectedRoutes() {

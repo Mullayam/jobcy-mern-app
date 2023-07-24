@@ -1,5 +1,5 @@
-import React from "react";
-
+import React, { useState } from "react";
+import { toast } from "react-toastify";
 //Import Image
 import lightLogo from "../../assets/images/logo-light.png";
 import darkLogo from "../../assets/images/logo-dark.png";
@@ -7,11 +7,19 @@ import darkLogo from "../../assets/images/logo-dark.png";
 import resetPasswordImage from "../../assets/images/auth/reset-password.png";
 import { Card, CardBody, Col, Container, Input, Row } from "reactstrap";
 import { Link } from "react-router-dom";
-import { Form } from "react-bootstrap";
-
+import { ForgetPassword } from "../../Apis/apiCore";
 const ResetPassword = () => {
-  document.title =
-    "Reset Password | Jobcy - Job Listing ";
+  const [email, setEmail] = useState("");
+  const HandleResetPassword = async () => {
+    if (email === "") {
+      return toast.error("Please Enter Registered Email Address");
+    }
+    const { data } = await ForgetPassword(email);
+    console.log(data)
+    if (!data.success) return toast.error(data.data.error);
+    return toast.success(data.message);
+  };
+  document.title = "Reset Password | Jobcy - Job Listing ";
   return (
     <React.Fragment>
       <div>
@@ -54,7 +62,7 @@ const ResetPassword = () => {
                                 Reset your password with Jobcy.
                               </p>
                             </div>
-                            <Form className="auth-form text-white">
+                            <div className="auth-form text-white">
                               <div
                                 className="alert alert-warning text-center mb-4"
                                 role="alert"
@@ -71,18 +79,20 @@ const ResetPassword = () => {
                                   type="email"
                                   className="form-control"
                                   id="email"
+                                  value={email}
+                                  onChange={(e) =>setEmail(e.target.value)}
                                   placeholder="Enter username or email"
                                 />
                               </div>
                               <div className="mt-3">
                                 <button
-                                  type="submit"
+                                 onClick={HandleResetPassword}
                                   className="btn btn-white w-100"
                                 >
                                   Send Request
                                 </button>
                               </div>
-                            </Form>
+                            </div>
                             <div className="mt-5 text-center text-white-50">
                               <p>
                                 Remembered It ?{" "}

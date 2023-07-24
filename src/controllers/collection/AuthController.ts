@@ -16,7 +16,7 @@ class Authentication {
             }
             const isUser = await presql.findOne({
                 table: "member", where: { email: req.body.email }, select: {
-                   location:1, userId: 1, username: 1, image: 1, status: 1, accountType: 1, password: 1
+                    location: 1, userId: 1, username: 1, image: 1, status: 1, accountType: 1, password: 1
                 }
             })
             if (isUser.length === 0) {
@@ -61,10 +61,12 @@ class Authentication {
             Tokens.set(userID, RefreshToken)
             res.cookie("token", Token, { domain: process.env.APP_DOMAIN, expires: new Date(Date.now() + 1000 * 60 * 60 * 24) })
             res.cookie("refresh_token", RefreshToken, { domain: process.env.APP_DOMAIN, expires: new Date(Date.now() + 1000 * 60 * 60 * 24) })
-            return JSONResponse.Response(req, res, "User Register Successully", { Token, RefreshToken }, 200)
+            JSONResponse.Response(req, res, "User Register Successully", { Token, RefreshToken }, 200)
+            // await SendEmail(req.body.email, "Reset Password", "Reset Password", "Reset Password")
+            return
 
         } catch (error: any) {
-            return JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 500)
+            return JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
         }
     }
     async ForgetPassword(req: Request, res: Response): Promise<Response | void> {
@@ -74,15 +76,15 @@ class Authentication {
                 throw new Error("Please Provide Email");
             }
             // check user exist or not
-            const isUser = await this.CheckUserExistorNot(req.body.email as string)
+            const isUser = await presql.findOne({ table: "member", where: { email: req.body.email } })
             if (isUser.length === 0) {
-                throw new Error("User doest not Exist");
+                throw new Error("User doesn't not Exist");
             }
             JSONResponse.Response(req, res, "Email Sent", {}, 200)
             // await SendEmail(req.body.email, "Reset Password", "Reset Password", "Reset Password")
             res.end()
         } catch (error: any) {
-            return JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 500)
+            return JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
 
         }
     }
@@ -116,7 +118,7 @@ class Authentication {
     async CurrentUser(req: Request, res: Response) {
         let isCached = false;
         let UserInfo;
-        const id = req.body.id
+        const id = req.params.id
         const cache = new Services().cache
         try {
             const cacheResults = await cache.get(id)
@@ -124,6 +126,11 @@ class Authentication {
                 isCached = true;
                 UserInfo = JSON.parse(cacheResults);
             } else {
+                UserInfo = await presql.findById({
+                    table: "member", id: id, select: {
+                        location: 1, userId: 1, username: 1, image: 1, status: 1, accountType: 1,
+                    }
+                })
                 cache.set(id, JSON.stringify(UserInfo), {
                     EX: 180,
                     NX: true,
@@ -131,7 +138,7 @@ class Authentication {
             }
             JSONResponse.Response(req, res, "", { UserInfo, isCached }, 200)
         } catch (error: any) {
-            JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 403)
+            JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
         }
 
     }

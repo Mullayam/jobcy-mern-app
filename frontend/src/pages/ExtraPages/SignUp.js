@@ -7,8 +7,7 @@ import lightLogo from "../../assets/images/logo-light.png";
 import darkLogo from "../../assets/images/logo-dark.png";
 import GoogleLoginButton from "../../components/Shared/GoogleLoginButton";
 
-import signUpImage from "../../assets/images/auth/sign-up.png";
-import { Form } from "react-bootstrap";
+import signUpImage from "../../assets/images/auth/sign-up.png"; 
 import { Register } from "../../Apis/apiCore";
 import { setTokenToLocalStorage } from "../../Apis/api.instance";
 

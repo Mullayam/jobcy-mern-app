@@ -7,17 +7,17 @@ export const AuthInitialState = {
 };
 export function AuthReducer(AuthInitialState, action) {
   switch (action.type) {
-    case "SET_ISLOGGEDIN": {
+    case ACTIONS.SET_ISLOGGEDIN: {
       return { ...AuthInitialState, isLoggedIn: action.payload };
     }
-    case "SET_USER": {
+    case ACTIONS.SET_USER: {
       
       return { ...AuthInitialState, user: action.payload };
     }
-    case "SET_LOCATION": {
+    case ACTIONS.SET_LOCATION: {
       return { ...AuthInitialState, location: action.payload };
     }
-    case "SET_LOADER": {
+    case ACTIONS.SET_LOADER: {
       return { ...AuthInitialState, isLoader: action.payload };
     }
     default: {

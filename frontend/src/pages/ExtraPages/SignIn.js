@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, {  useReducer, useState } from "react";
 import { Card, CardBody, Col, Container, Input, Row } from "reactstrap";
 import { toast } from "react-toastify";
 //Import Image
@@ -19,7 +19,7 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const redirect = useNavigate();
   const [Auth, dispatch] = useReducer(AuthReducer, AuthInitialState);
-  
+   
   const handleSubmitLogin = async () => {
     if (email === "") {
       return toast.error("Please Enter Email Address");

@@ -1,11 +1,10 @@
 import axios from "axios";
-import { Cookies } from "react-cookie";
+// import { Cookies } from "react-cookie";
 const token = JSON.parse(localStorage.getItem("token"));
 const user = JSON.parse(localStorage.getItem("user"));
 const refreshAccessToken = JSON.parse(localStorage.getItem("refresh_token"));
 
-export const instance = axios.create({
-  
+export const instance = axios.create({  
   baseURL: "http://localhost:7132/api",
   // timeout: 1500,
   headers: {
