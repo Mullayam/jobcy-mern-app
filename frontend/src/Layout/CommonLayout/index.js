@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 
 //Importing Section
- 
+
 import TopBar from "../CommonLayout/TopBar";
 import NavBar from "../CommonLayout/NavBar";
 import Subscribe from "../CommonLayout/Subscribe";
@@ -13,16 +13,14 @@ const Layout = (props) => {
   return (
     <React.Fragment>
       <Suspense>
-        <div>
-          <TopBar />
-          <NavBar />
-          <div className="main-content">
-            <div className="page-content">{props.children}</div>
-            <Subscribe />
-            <Footer />
-            <StyleSwitcher />
-            <ScrolltoTop />
-          </div>
+        <TopBar />
+        <NavBar />
+        <div className="main-content">
+          <div className="page-content">{props.children}</div>
+          <Subscribe />
+          <Footer />
+          <StyleSwitcher />
+          <ScrolltoTop />
         </div>
       </Suspense>
     </React.Fragment>

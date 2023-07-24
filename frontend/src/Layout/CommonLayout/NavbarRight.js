@@ -2,17 +2,17 @@ import React, { useState } from "react";
 import { Dropdown, DropdownToggle, DropdownMenu } from "reactstrap";
 
 import { Link } from "react-router-dom";
-
 import userImage2 from "../../assets/images/user/img-02.jpg";
 import jobImage4 from "../../assets/images/featured-job/img-04.png";
 import userImage1 from "../../assets/images/user/img-01.jpg";
 import jobImage from "../../assets/images/featured-job/img-01.png";
-import profileImage from "../../assets/images/profile.jpg";
-export default function NavbarRight() {
+ 
+export default function NavbarRight(props) {
+  const {user,HandleLogout} = props
+  
   //Notification Dropdown
   const [notification, setNotification] = useState(false);
-  const dropDownnotification = () => setNotification((prevState) => !prevState);
-
+  const dropDownnotification = () => setNotification((prevState) => !prevState); 
   //user Profile Dropdown
   const [userProfile, setUserProfile] = useState(false);
   const dropDownuserprofile = () => setUserProfile((prevState) => !prevState);
@@ -160,14 +160,14 @@ export default function NavbarRight() {
           aria-expanded="false"
         >
           <img
-            src={profileImage}
+            src={"http://localhost:7132/_static/jobcy/images/account-icon.png"}
             alt="mdo"
             width="35"
             height="35"
             className="rounded-circle me-1"
-          />{" "}
+          /> 
           <span className="d-none d-md-inline-block fw-medium">
-            Hi, Jennifer
+            Hi, {user.username}
           </span>
         </DropdownToggle>
         <DropdownMenu
@@ -191,7 +191,7 @@ export default function NavbarRight() {
             </Link>
           </li>
           <li>
-            <Link className="dropdown-item" to="/signout">
+            <Link className="dropdown-item" to="/signout" onClick={HandleLogout}>
               Logout
             </Link>
           </li>

@@ -9,46 +9,60 @@ import Utils from '../../utils/index.js'
 import { LoginResponse } from '../../types/index.js'
 // import { SendEmail } from '../../services/EmailConfiguration.js'
 class Authentication {
-    async Login(req: Request, res: Response): Promise<LoginResponse | void> {
+    async Login(req: Request, res: Response) {
         try {
             if (!req.body.email || !req.body.password) {
                 throw new Error("Please Provide Email and Password");
             }
-            const isUser = await this.CheckUserExistorNot(req.body.email as string)
+            const isUser = await presql.findOne({
+                table: "member", where: { email: req.body.email }, select: {
+                   location:1, userId: 1, username: 1, image: 1, status: 1, accountType: 1, password: 1
+                }
+            })
             if (isUser.length === 0) {
                 throw new Error("User doest not Exist");
             }
-            await presql.create({ table: "", data: { email: req.body.email, password: req.body.password } })
+            if (!Utils.ComparePassword(isUser[0].password, req.body.password)) {
+                throw new Error("Invalid Credentials");
+            }
+            delete isUser[0].password
             const Token = jwt.sign({ id: "testID", name: "mullayam" }, SECRET_KEY, { expiresIn: "10" })
             const RefreshToken = Helpers.CreateRefreshToken()
             Tokens.set("testID", RefreshToken)
-            res.cookie("token", Token, { expires: new Date(Date.now() + 1000 * 60 * 60 * 24) })
-            res.cookie("refresh_token", RefreshToken, { expires: new Date(Date.now() + 1000 * 60 * 60 * 24) })
-            return JSONResponse.Response(req, res, "Login Function", { Token, RefreshToken }, 200)
+            res.cookie("token", Token, { domain: process.env.APP_DOMAIN, expires: new Date(Date.now() + 1000 * 60 * 60 * 24) })
+            res.cookie("refresh_token", RefreshToken, { domain: process.env.APP_DOMAIN, expires: new Date(Date.now() + 1000 * 60 * 60 * 24) })
+            return JSONResponse.Response(req, res, "Login Successful ,Redirecting...", { User: isUser[0], Token, RefreshToken }, 200)
+
         } catch (error: any) {
-            return JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 500)
+            return JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
         }
     }
     async Register(req: Request, res: Response): Promise<LoginResponse | void> {
+
         try {
             // check for errors
-            if (!req.body.email || !req.body.password) {
+            if (!req.body.email || !req.body.password || !req.body.name) {
                 throw new Error("Please Provide Email and Password");
             }
             // check user exist or not
-            const isUser = await this.CheckUserExistorNot(req.body.email as string)
+            const isUser = await presql.findOne({ table: "member", where: { email: req.body.email } })
             if (isUser.length >= 1) {
                 throw new Error("User Already Exist");
             }
-            const userID = Utils.CreateUserID()  // create custom userid
-            const UserInfo = { id: userID, email: req.body.email, password: req.body.password } // user object
-            await presql.create({ table: "", data: UserInfo }) // query to insert into database
-            const Token = jwt.sign({ id: userID, name: "mullayam" }, SECRET_KEY, { expiresIn: "10" }) // jwt token sign
+            const userID = Utils.CreateUserID()
+            const username = req.body.name.toLowerCase().split(" ")[0] + userID.slice(0, 5)
+            const HashedPassword = Utils.HashPassword(req.body.password)
+
+            // create custom userid
+            const UserInfo = { userId: userID, username, fullname: req.body.name, email: req.body.email, password: HashedPassword } // user object
+            await presql.create({ table: "member", data: UserInfo }) // query to insert into database
+            const Token = jwt.sign({ id: userID, username, }, SECRET_KEY, { expiresIn: "24h" }) // jwt token sign
             const RefreshToken = Helpers.CreateRefreshToken() // refresh token
             Tokens.set(userID, RefreshToken)
-            res.cookie("token", Token, { expires: new Date(Date.now() + 1000 * 60 * 60 * 24) })
-            res.cookie("refresh_token", RefreshToken, { expires: new Date(Date.now() + 1000 * 60 * 60 * 24) })
-            return JSONResponse.Response(req, res, "Login Function", { Token, RefreshToken }, 200)
+            res.cookie("token", Token, { domain: process.env.APP_DOMAIN, expires: new Date(Date.now() + 1000 * 60 * 60 * 24) })
+            res.cookie("refresh_token", RefreshToken, { domain: process.env.APP_DOMAIN, expires: new Date(Date.now() + 1000 * 60 * 60 * 24) })
+            return JSONResponse.Response(req, res, "User Register Successully", { Token, RefreshToken }, 200)
+
         } catch (error: any) {
             return JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 500)
         }
@@ -124,7 +138,9 @@ class Authentication {
     HandleGoogleAuth(req: Request, res: Response) {
 
     }
-    private async CheckUserExistorNot(email: string) {
-        return await presql.findOne({ table: "", where: { email } })
+    protected async CheckUserExistorNot(email: string): Promise<any[]> {
+        console.log("first")
+        return await presql.findOne({ table: "member", where: { email }, select: { userId: 1, name: 1, image: 1, accountType: 1 } })
+
     }
 } export default new Authentication()

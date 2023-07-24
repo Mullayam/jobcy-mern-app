@@ -1,33 +1,41 @@
 import React, { useState, useEffect } from "react";
 import {
-  
   Container,
   Collapse,
   NavbarToggler,
   NavItem,
   NavLink,
+  Button,
 } from "reactstrap";
 
 import { Link } from "react-router-dom";
 import classname from "classnames";
 import withRouter from "../../components/withRouter";
 import NavbarRight from "./NavbarRight";
+import { useAuth } from "../../Hooks/useAuthContext";
 
 import darkLogo from "../../assets/images/logo-dark.png";
 import lightLogo from "../../assets/images/logo-light.png";
+import { SetisLoggedin, SetUser } from "../../Store/Events";
+import { EmptyLocalStorage } from "../../Apis/api.instance";
 
-const NavBar = (props) => {
+const NavBar = (props) => {  
+  const { Auth ,dispatch} = useAuth(); 
+ 
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
   const [home, setHome] = useState(false);
   const [company, setCompany] = useState(false);
   const [jobs, setPages] = useState(false);
-   
 
   //scroll navbar
   const [navClass, setnavClass] = useState(false);
-
+  const HandleLogout = () => {
+    EmptyLocalStorage()
+    dispatch(SetisLoggedin(false));
+    dispatch(SetUser(null));
+  }
   useEffect(() => {
     window.addEventListener("scroll", scrollNavigation, true);
   });
@@ -136,20 +144,18 @@ const NavBar = (props) => {
                   onClick={() => setHome(!home)}
                 >
                   Home
-                </Link>                
+                </Link>
               </NavItem>
 
               <li className="nav-item dropdown dropdown-hover">
                 <Link
-                 to="/joblist"
+                  to="/joblist"
                   id="pagesdoropdown"
                   className="nav-link dropdown-toggle arrow-none"
                   onClick={() => setPages(!jobs)}
                 >
                   Jobs
-                  
                 </Link>
-                 
               </li>
 
               <NavItem>
@@ -204,7 +210,17 @@ const NavBar = (props) => {
               </NavItem>
             </ul>
           </Collapse>
-          <NavbarRight />
+          {Auth.isLoggedIn ? (
+            <NavbarRight user={Auth.user} HandleLogout={HandleLogout}  />
+          ) : (
+            <Button
+            className="rounded-pill"
+              color="primary"
+              onClick={() => props.router.navigate("/signin")}
+            >
+              Login
+            </Button>
+          )}
         </Container>
       </nav>
     </React.Fragment>

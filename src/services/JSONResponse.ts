@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
-import { IResponse } from "../types/index.js";
-
+ 
 class JSONResponse {
 
     static Response(req: Request, res: Response, message: string="success", data: any={},code: number = 200) {

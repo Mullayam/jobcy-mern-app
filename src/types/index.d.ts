@@ -1,5 +1,5 @@
 import { DatabaseEntityValues } from "@enjoys/presql/src/interface/config.js";
-import {NodemailerExpressHandlebarsOptions} from 'nodemailer-express-handlebars'
+ 
 
 import { JwtPayload } from "jsonwebtoken";
 
@@ -42,12 +42,4 @@ export type IResponse<Res> = {
          
     };
 };
-declare global {
-    namespace Jwt {
-        export interface JwtPayload {
-            [key: UserInfoJwtPayload]: string
-        }
-    }
-    
-    
-} 
+ 

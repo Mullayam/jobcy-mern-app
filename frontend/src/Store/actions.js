@@ -1,0 +1,7 @@
+export const ACTIONS = {
+  // Auth Actions
+  SET_ISLOGGEDIN: "SET_ISLOGGEDIN",
+  SET_USER: "SET_USER",
+  SET_LOCATION: "SET_LOCATION",
+  SET_LOADER: "SET_LOADER",
+};

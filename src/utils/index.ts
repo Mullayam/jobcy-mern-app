@@ -15,5 +15,6 @@ class Utils {
         const id = customRandom("0123456789", 8, random)        
         return id()
     }
+    
 }
 export default new Utils()

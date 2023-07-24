@@ -5,17 +5,8 @@ class Test {
 
 
     async CheckRoute(req: Request, res: Response) {
-        try {
-            const Mail = MailService.getInstance()
-            await Mail.SendEmail(req.headers['X-Request-Id'] as string, {
-                to: "mullayam06@gmail.com",
-                subject: 'Reset Password',
-                html,
-            })
-            res.end()
-        } catch (error: any) {
-            console.log(error)
-        }
+     
+    res.end()
     }
 }
 const html = `

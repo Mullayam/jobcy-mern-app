@@ -1,8 +1,10 @@
 import { createContext } from "react";
-const InitialState = {};
+export const InitialState = {
+  appState:"Handling",
+};
 export const AppContext = createContext(InitialState);
-export const AppContextProvider = (children) => {
+export const AppContextProvider = (props) => {
   return (
-    <AppContextProvider value={InitialState}>{children}</AppContextProvider>
+    <AppContext.Provider value={InitialState}>{props.children}</AppContext.Provider>
   );
 };

@@ -1,16 +1,47 @@
-import React from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { Card, CardBody, Col, Container, Input, Row } from "reactstrap";
-
+import { toast } from "react-toastify";
 //Import Image
 import lightLogo from "../../assets/images/logo-light.png";
 import darkLogo from "../../assets/images/logo-dark.png";
 
 import signInImage from "../../assets/images/auth/sign-in.png";
-import { Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Login } from "../../Apis/apiCore";
+import GoogleLoginButton from "../../components/Shared/GoogleLoginButton";
+import { setTokenToLocalStorage } from "../../Apis/api.instance";
+import { SetUser, SetisLoggedin } from "../../Store/Events";
+import { AuthReducer, AuthInitialState } from "../../Store";
 
 const SignIn = () => {
   document.title = "Sign In | Jobcy - Job Listing  ";
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const redirect = useNavigate();
+  const [Auth, dispatch] = useReducer(AuthReducer, AuthInitialState);
+  
+  const handleSubmitLogin = async () => {
+    if (email === "") {
+      return toast.error("Please Enter Email Address");
+    }
+    if (password === "") {
+      return toast.error("Please Enter Password");
+    }
+
+    const { data } = await Login(email, password);
+    if (!data.success) {
+      return toast.error(data.data.error);
+    }
+    toast.success(data.message);
+    dispatch(SetisLoggedin(true));
+    dispatch(SetUser(data.User));
+    setTokenToLocalStorage(
+      data.data.Token,
+      data.data.RefreshToken,
+      data.data.User
+    );
+    return redirect("/");
+  }; 
   return (
     <React.Fragment>
       <div>
@@ -54,20 +85,21 @@ const SignIn = () => {
                                   Sign in to continue to Jobcy.
                                 </p>
                               </div>
-                              <Form action="/" className="auth-form">
+                              <div action="/" className="auth-form">
                                 <div className="mb-3">
                                   <label
-                                    htmlFor="usernameInput"
+                                    htmlFor="emailInput"
                                     className="form-label"
                                   >
-                                    Username
+                                    Email
                                   </label>
                                   <Input
                                     type="text"
                                     className="form-control"
-                                    id="usernameInput"
-                                    placeholder="Enter your username"
-                                    required
+                                    id="emailInput"
+                                    placeholder="Enter your Email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                   />
                                 </div>
                                 <div className="mb-3">
@@ -82,7 +114,10 @@ const SignIn = () => {
                                     className="form-control"
                                     id="passwordInput"
                                     placeholder="Enter your password"
-                                    required
+                                    value={password}
+                                    onChange={(e) =>
+                                      setPassword(e.target.value)
+                                    }
                                   />
                                 </div>
                                 <div className="mb-4">
@@ -108,13 +143,13 @@ const SignIn = () => {
                                 </div>
                                 <div className="text-center">
                                   <button
-                                    type="submit"
                                     className="btn btn-white btn-hover w-100"
+                                    onClick={handleSubmitLogin}
                                   >
                                     Sign In
                                   </button>
                                 </div>
-                              </Form>
+                              </div>
                               <div className="mt-4 text-center">
                                 <p className="mb-0">
                                   Don't have an account ?{" "}
@@ -127,6 +162,8 @@ const SignIn = () => {
                                   </Link>
                                 </p>
                               </div>
+                              <hr />
+                              <GoogleLoginButton />
                             </div>
                           </CardBody>
                         </Col>

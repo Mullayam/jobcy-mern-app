@@ -4,44 +4,43 @@ import {
   Container,
   Row,
   DropdownToggle,
-  Input,
   Modal,
   ModalBody,
-  Form,
-  FormGroup,
-  Label
 } from "reactstrap";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../Hooks/useAuthContext";
 
 //import images
 import flagUs from "../../assets/images/flags/us.jpg";
- 
+import ModalSignUp from "./ModalSignUp";
 
 const TopBar = () => {
+  const {Auth} = useAuth();
+  
   const iconTobar = [
     {
       id: 1,
-      classname: "uil uil-whatsapp"
+      classname: "uil uil-whatsapp",
     },
     {
       id: 2,
-      classname: "uil uil-facebook-messenger-alt"
+      classname: "uil uil-facebook-messenger-alt",
     },
     {
       id: 3,
-      classname: "uil uil-instagram"
+      classname: "uil uil-instagram",
     },
     {
       id: 4,
-      classname: "uil uil-envelope"
+      classname: "uil uil-envelope",
     },
     {
       id: 5,
-      classname: "uil uil-twitter-alt"
-    }
+      classname: "uil uil-twitter-alt",
+    },
   ];
   //Language Dropdown
-  
+
   //Signup Modal
   const [modal, setModal] = useState(false);
 
@@ -57,9 +56,9 @@ const TopBar = () => {
                 <li className="list-inline-item">
                   <p className="fs-13 mb-0">
                     {" "}
-                    <i className="mdi mdi-map-marker"></i> Your Location:{" "}
+                    <i className="mdi mdi-map-marker"></i> Your Location: 
                     <Link to="#" className="text-dark">
-                      New Caledonia
+                     {Auth.location}
                     </Link>
                   </p>
                 </li>
@@ -79,132 +78,37 @@ const TopBar = () => {
 
             <Col md={5}>
               <ul className="list-inline mb-0 text-center text-md-end">
-                <li className="list-inline-item py-2 me-2 align-middle">
-                  <span
-                    onClick={openModal}
-                    role="button"
-                    className="text-dark fw-medium fs-13"
-                  >
-                    <i className="uil uil-lock"></i>
-                    Sign Up
-                  </span>
-                  <Modal
-                    isOpen={modal}
-                    toggle={openModal}
-                    role="dialog"
-                    centered
-                  >
-                    <ModalBody className="p-5">
-                      <div className="position-absolute end-0 top-0 p-3">
-                        <button
-                          type="button"
-                          className="btn-close"
-                          onClick={openModal}
-                        ></button>
-                      </div>
-                      <div className="auth-content">
-                        <div className="w-100">
-                          <div className="text-center mb-4">
-                            <h5>Sign Up</h5>
-                            <p className="text-muted">
-                              Sign Up and get access to all the features of
-                              Jobcy
-                            </p>
-                          </div>
-                          <Form action="#" className="auth-form">
-                            <FormGroup className="mb-3">
-                              <Label
-                                htmlFor="usernameInput"
-                                className="form-label"
-                              >
-                                Username
-                              </Label>
-                              <Input
-                                type="text"
-                                className="form-control"
-                                id="usernameInput"
-                                placeholder="Enter your username"
-                              />
-                            </FormGroup>
-                            <FormGroup className="mb-3">
-                              <Label
-                                htmlFor="emailInput"
-                                className="form-label"
-                              >
-                                Email
-                              </Label>
-                              <Input
-                                type="email"
-                                className="form-control"
-                                id="emailInput"
-                                placeholder="Enter your email"
-                              />
-                            </FormGroup>
-                            <FormGroup className="mb-3">
-                              <label
-                                htmlFor="passwordInput"
-                                className="form-label"
-                              >
-                                Password
-                              </label>
-                              <Input
-                                type="password"
-                                className="form-control"
-                                id="passwordInput"
-                                placeholder="Password"
-                              />
-                            </FormGroup>
-                            <FormGroup className="mb-4">
-                              <div className="form-check">
-                                <Input
-                                  className="form-check-input"
-                                  type="checkbox"
-                                  id="flexCheckDefault"
-                                />
-                                <Label
-                                  className="form-check-label"
-                                  htmlFor="flexCheckDefault"
-                                >
-                                  I agree to the{" "}
-                                  <Link
-                                    to="/"
-                                    className="text-primary form-text text-decoration-underline"
-                                  >
-                                    Terms and conditions
-                                  </Link>
-                                </Label>
-                              </div>
-                            </FormGroup>
-                            <div className="text-center">
-                              <button
-                                type="submit"
-                                className="btn btn-primary w-100"
-                              >
-                                Sign Up
-                              </button>
-                            </div>
-                          </Form>
-                          <div className="mt-3 text-center">
-                            <p className="mb-0">
-                              Already a member ?{" "}
-                              <Link
-                                to="/signin"
-                                className="form-text text-primary text-decoration-underline"
-                              >
-                                {" "}
-                                Sign-in{" "}
-                              </Link>
-                            </p>
-                          </div>
+                {Auth.isLoggedIn ? null : (
+                  <li className="list-inline-item py-2 me-2 align-middle">
+                    <span
+                      onClick={openModal}
+                      role="button"
+                      className="text-dark fw-medium fs-13"
+                    >
+                      <i className="uil uil-lock"></i>
+                      Sign Up
+                    </span>
+                    <Modal
+                      isOpen={modal}
+                      toggle={openModal}
+                      role="dialog"
+                      centered
+                    >
+                      <ModalBody className="p-5">
+                        <div className="position-absolute end-0 top-0 p-3">
+                          <button
+                            type="button"
+                            className="btn-close"
+                            onClick={openModal}
+                          ></button>
                         </div>
-                      </div>
-                    </ModalBody>
-                  </Modal>
-                </li>
+                        <ModalSignUp />
+                      </ModalBody>
+                    </Modal>
+                  </li>
+                )}
                 <li className="list-inline-item align-middle">
-                <DropdownToggle tag="button" type="button" className="btn">
-                      <img src={flagUs} alt="india_flag" height="16" />
-                    </DropdownToggle>
+                <img src={flagUs} alt="india_flag" height="16" />
                 </li>
               </ul>
             </Col>

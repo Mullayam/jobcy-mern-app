@@ -1,5 +1,6 @@
 import url from 'url'
 import path from 'path';
+import cors from 'cors';
 import bodyParser from "body-parser";
 import express, { Application } from 'express'
 import { Routes } from './routers/index.js'
@@ -18,9 +19,13 @@ export class AppServer {
         this.InitializeRoutes()
     }
     private config(): void {
-        this.app.use(bodyParser.json());
+        this.app.use(express.json());
+        this.app.use(cors({
+            origin: '*',
+            methods: ["GET","PUT","PATCH","POST","DELETE"],
+        }))
         this.app.use(bodyParser.urlencoded({ extended: false }));
-        this.app.use("/static",express.static(path.join(process.cwd(), 'public',"email","html")));
+        this.app.use("/_static/jobcy",express.static(path.join(process.cwd(), 'public',"email","html")));
     }
     private InitializeMiddlewares() {
         this.app.get('/first', (req, res) => {
