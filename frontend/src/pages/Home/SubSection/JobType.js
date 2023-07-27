@@ -3,7 +3,7 @@ import Select from "react-select";
 import { LabelAndValueFormat, slugify } from "../../../Helpers";
 import { useAppContext } from "../../../Hooks/useAppContext";
 const JobType = () => {
-  const { categories, filters, setFilters } = useAppContext();
+  const { categories, filters, setFilters ,FetchRequiredInfoForApp} = useAppContext();
 
   const colourStyles = {
     control: (styles) => ({
@@ -15,6 +15,9 @@ const JobType = () => {
       borderRadius: "0",
     }),
   };
+React.useEffect(() => {
+  FetchRequiredInfoForApp()
+}, [])
 
   return (
     <React.Fragment>

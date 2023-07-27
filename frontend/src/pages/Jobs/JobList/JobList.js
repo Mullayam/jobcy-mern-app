@@ -48,7 +48,7 @@ const JobList2 = () => {
                 <JobSearchOptions />
                 <Popular />
                 <JobVacancyPost jobs={jobsArray} />
-                {jobsArray.length < 10 && <Pagination totalJobs={totalJobs}/>}
+                {jobsArray.length > 10 && <Pagination totalJobs={totalJobs}/>}
               </div>
             </Col>
             <Sidebar />

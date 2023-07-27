@@ -29,6 +29,7 @@ export class BaseRoutes {
         this.router.get("/all/job-types", Basic.default.GetJobTypes)
         this.router.get("/get-jobs/:category_id?", Basic.default.GetJobFromCategoryIdAndQueryFilters)
         this.router.get("/get-company-jobs/:company_id", Basic.default.GetJobsFromCompanyId)
+        this.router.post("/bookmark/job", Basic.default.AddOrRemoveJobFromBookmarked)
         
 
         

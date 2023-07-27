@@ -30,16 +30,17 @@ class BasicController {
 
    async GetJobFromCategoryIdAndQueryFilters(req: Request, res: Response) {
       let FilterString: string[] = [];
-      let LIMIT: number = 10;  
-      let offset:number = 0;    
-      let strictMode: Boolean = false
+      let LIMIT: number = 10;
+      let offset: number = 0;
+      let offsetStr = " LIMIT 10 OFFSET 0"
+      let strictMode: any = false
       let sql = "SELECT DISTINCT jobs.id,job_title,logo,min_exp,offered_salary,job_type,job_location,keywords,company_id as cid,companies.name as company_name,category.name  as category_name FROM jobs INNER JOIN category ON jobs.category_id = category.id INNER JOIN companies ON jobs.company_id = companies.id";
       try {
          const id = req.params.category_id
          const filters = req.query.filters
-       
+
          if (typeof id !== "undefined") {
-            sql = `SELECT DISTINCT jobs.id,job_title,logo,min_exp,offered_salary,job_type,job_location,keywords,company_id as cid,companies.name as company_name,category.name  as category_name FROM jobs INNER JOIN category ON jobs.category_id = category.id INNER JOIN companies ON jobs.company_id = companies.id WHERE category_id=${id} LIMIT 10`
+            sql = `SELECT DISTINCT jobs.id,job_title,logo,min_exp,offered_salary,job_type,job_location,keywords,company_id as cid,companies.name as company_name,category.name  as category_name FROM jobs INNER JOIN category ON jobs.category_id = category.id INNER JOIN companies ON jobs.company_id = companies.id WHERE category_id=${id}`
          }
 
          if (filters) {
@@ -53,38 +54,54 @@ class BasicController {
             if (typeof (QueryObject.JobLocation) !== "undefined") {
                FilterString.push(`job_location='${QueryObject.JobLocation.split("(").shift()?.trim()}'`)
             }
-            if (typeof (QueryObject.experience) !== "undefined") {
-               FilterString.push(`min_exp IN (${QueryObject.experience})`)
+            if (typeof (QueryObject.WorkExperience) !== "undefined") {
+               //   const[ value1,value2]=  QueryObject.WorkExperience.split("-")               
+               // FilterString.push(`min_exp IN (${value1},${value2})`)
+            }
+            if (typeof (QueryObject.EmploymentType) !== "undefined") {
+               // FilterString.push(`job_type LIKE '%${QueryObject.searchTerm}%'`)
             }
             if (typeof (QueryObject.searchTerm) !== "undefined") {
-               FilterString.push(`job_title LIKE '%${QueryObject.searchTerm}%'`)
-            }
-            if (typeof (QueryObject.searchTerm) !== "undefined") {
-               FilterString.push(`job_type LIKE '%${QueryObject.searchTerm}%'`)
+               // FilterString.push(`job_type LIKE '%${QueryObject.searchTerm}%'`)
             }
             if (typeof (QueryObject.tags) !== "undefined") {
-               FilterString.push(`JSON_CONTAINS(tags, '${QueryObject.tags}',())`)
+               // FilterString.push(`JSON_CONTAINS(tags, '${QueryObject.tags}',())`)
             }
-            if (typeof (QueryObject.posted_on) !== "undefined") {
-               FilterString.push(`BETWEEN (${new Date().toISOString().split("T")[0]}}) AND (${QueryObject.posted_on})`)
+            if (typeof (QueryObject.keywords) !== "undefined") {
+               // FilterString.push(`JSON_CONTAINS(keywords, '${QueryObject.keywords}',())`)
+            }
+            if (typeof (QueryObject.DatePosted) !== "undefined") {
+               FilterString.push(` posted_on BETWEEN ('${Helpers.ConvertDateWordsToDate(QueryObject.DatePosted as string)}') AND ('${Helpers.SimpleDateStr()}')`)
             }
             if (typeof (QueryObject.page) !== "undefined") {
                offset = (LIMIT * QueryObject.page) - LIMIT;
+               offsetStr = ` LIMIT ${LIMIT} OFFSET ${offset}`
             }
-            const JoinBy = strictMode ? " AND " : " OR "
-            sql = sql + " WHERE " + FilterString.join(JoinBy)
+            const JoinBy = strictMode === "true" ? " AND " : " OR "
+            if (typeof id !== "undefined") {
+               if (FilterString.length > 1) {
+                  sql = sql + FilterString.join(JoinBy) 
+               } else {
+                  sql = sql + JoinBy + FilterString[0]
+               }
+            } else {
+               sql = sql + " WHERE " + FilterString.join(JoinBy) 
+            }
+
+           
          }
-          
+         sql = sql + offsetStr
+         console.log(sql)
          const Jobs = await presql.buildQuery({
             query: sql,
             role: "0x00044"
          })
          const countJobs = await presql.buildQuery({
-            query:`SELECT COUNT(jobs.id) as total_jobs FROM jobs`,
+            query: `SELECT COUNT(jobs.id) as total_jobs FROM jobs`,
             role: "0x00044"
          })
-        
-         JSONResponse.Response(req, res, "Jobs", { Jobs,AvailableJobs:countJobs[0].total_jobs }, 200)
+
+         JSONResponse.Response(req, res, "Jobs", { Jobs, AvailableJobs: countJobs[0].total_jobs }, 200)
       } catch (error: any) {
 
          JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
@@ -104,11 +121,12 @@ class BasicController {
          JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 401)
       }
    }
-   async  AddOrRemoveJobFromBookmarked(req: Request, res: Response) {
-      console.log("first")
+   async AddOrRemoveJobFromBookmarked(req: Request, res: Response) {
+      console.log(req.body.data)
+      res.end()
    }
    async ApplyJob(req: Request, res: Response) {
-      
+
    }
 }
 export default new BasicController()
@@ -116,11 +134,11 @@ export default new BasicController()
 type FilterQuery = {
    category?: string,
    JobLocation?: string,
-   employement?: string,
+   EmploymentType?: string,
    tags?: string[],
    keywords?: string[],
-   posted_on?: string
-   experience?: string,
+   DatePosted?: string
+   WorkExperience?: string,
    range?: string
    searchTerm?: string
    strictMode?: boolean

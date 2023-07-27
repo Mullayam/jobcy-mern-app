@@ -38,9 +38,12 @@ export const GetAllJobTypes = async () => {
   return await instance.get("/v1/all/job-types");
 };
 export const GetJobFromCategoryIdAndQueryFilters = async (id, filters) => {
-  const URL = id === undefined ? "/v1/get-jobs" : `/v1/get-jobs/${id}`;
-  
+  const URL = id === undefined ? "/v1/get-jobs" : `/v1/get-jobs/${id}`;  
   return await instance.get(URL, {     
     params:  {filters} 
   });
 };
+export const AddOrRemoveBookmarkedJob = async (data)=>{
+ 
+  return await instance.post("/v1/bookmark/job",{data})
+}

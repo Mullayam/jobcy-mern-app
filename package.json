@@ -10,7 +10,10 @@
     "start": "npm install && npm run build"
   },
   "keywords": [
-    "jobcy","job listing","naukri","jobs"
+    "jobcy",
+    "job listing",
+    "naukri",
+    "jobs"
   ],
   "author": {
     "name": "Mullayam - ENJOYS",
@@ -32,6 +35,7 @@
     "express": "^4.18.2",
     "googleapis": "^122.0.0",
     "jsonwebtoken": "^9.0.1",
+    "moment": "^2.29.4",
     "nanoid": "^4.0.2",
     "nodemailer": "^6.9.4",
     "redis": "^4.6.7"

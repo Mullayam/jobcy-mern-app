@@ -1,24 +1,70 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Button, Col, Collapse, Input, Label } from "reactstrap";
-
+import { DateOptions,WorkExperience,TypeofEmployment } from "../../../constants";
 const Sidebar = () => {
-  const [toggleFirst, setToggleFirst] = useState(true);
-  const [toggleSecond, setToggleSecond] = useState(true);
-  const [toggleThird, setToggleThird] = useState(true);
-  const [toggleFourth, setToggleFourth] = useState(true);
-  const [toggleFifth, setToggleFifth] = useState(true);
-  const [value, setValue] = React.useState(50);
-  //CheckBox
-  const [isChecked, setIsChecked] = useState(true);
-  const handleOnChange = () => {
-    setIsChecked(!isChecked);
-  };
+  let [searchParams, setSearchParams] = useSearchParams();
 
-  const [isDateChecked, setIsDateChecked] = useState(true);
-  const handleDateOnChange = () => {
-    setIsDateChecked(!isDateChecked);
+  const [toggleFirst, setToggleFirst] = useState(true); // Location
+  const [toggleSecond, setToggleSecond] = useState(true); // Work experience
+  const [toggleThird, setToggleThird] = useState(true); // type of exployment
+  const [toggleFourth, setToggleFourth] = useState(true); //date posted
+  const [toggleFifth, setToggleFifth] = useState(true); //tags and keywords
+  const [value, setValue] = React.useState(10); // range slider
+  //CheckBox
+  const [employementType, setEmployementType] = useState(0);
+  const [workExperience, setWorkExperience] = useState(0);
+  const [isDateChecked, setIsDateChecked] = useState(0);
+  const [isStrictMode, setIsStrictMode] = useState(false);
+  const handleStrictMode = () => {
+  
+    let valuetobeset= !isStrictMode
+     
+         setIsStrictMode(valuetobeset);     
+    if (!searchParams.has("strictMode")) {
+      searchParams.append("strictMode",valuetobeset);
+      setSearchParams(searchParams);
+      return;
+    }
+    searchParams.set("strictMode", valuetobeset);
+    setSearchParams(searchParams);
+    return;
+  }
+  const handleOnWorkExperienceChange = (i) => {   
+   setWorkExperience(i);
+   if (!searchParams.has("WorkExperience")) {
+    searchParams.append("WorkExperience", WorkExperience[i]);
+    setSearchParams(searchParams);
+    return;
+  }
+  searchParams.set("WorkExperience", WorkExperience[i]);
+  setSearchParams(searchParams);
+  return;
   };
+  const handleOnEmploymentChange = (i) => {
+    
+     setEmployementType(i);
+     if (!searchParams.has("EmploymentType")) {
+      searchParams.append("EmploymentType", TypeofEmployment[i]);
+      setSearchParams(searchParams);
+      return;
+    }
+    searchParams.set("EmploymentType", TypeofEmployment[i]);
+    setSearchParams(searchParams);
+    return;
+   };
+  function onDateChange(i) {
+    setIsDateChecked((prev) => (i === prev ? null : i));
+    const FilterValueOnDatePosted = DateOptions[i].value;
+    if (!searchParams.has("DatePosted")) {
+      searchParams.append("DatePosted", FilterValueOnDatePosted);
+      setSearchParams(searchParams);
+      return;
+    }
+    searchParams.set("DatePosted", FilterValueOnDatePosted);
+    setSearchParams(searchParams);
+    return;
+  }
 
   return (
     <React.Fragment>
@@ -36,30 +82,32 @@ const Sidebar = () => {
                   role="button"
                   id="collapseExample"
                 >
-                  Location
+                  Location Range
                 </Button>
               </h2>
               <Collapse isOpen={toggleFirst}>
                 <div className="accordion-body">
                   <div className="side-title">
                     <div className="mb-3">
-                      <form className="position-relative">
-                        <Input
-                          className="form-control"
-                          type="search"
-                          placeholder="Search..."
+                      <div className="position-relative">
+                      <input
+                          className="form-check-input"
+                          type="checkbox" 
+                          checked={isStrictMode}
+                          onChange={handleStrictMode}
+                          id="strictMode"
                         />
-                        <button
-                          className="bg-transparent border-0 position-absolute top-50 end-0 translate-middle-y me-2"
-                          type="submit"
+                        <label
+                          className="form-check-label ms-2 text-muted"
+                          htmlFor="strictMode"
                         >
-                          <span className="mdi mdi-magnify text-muted"></span>
-                        </button>
-                      </form>
+                         Strict Mode
+                        </label>
+                      </div>
                     </div>
                     <div className="area-range slidecontainer">
                       <div className="form-label mb-4">
-                        Area Range: {value}.00 miles
+                        Area Range: {value}.00 KM
                         <span
                           className="example-val mt-2"
                           id="slider1-span"
@@ -98,64 +146,29 @@ const Sidebar = () => {
               <Collapse isOpen={toggleSecond}>
                 <div className="accordion-body">
                   <div className="side-title">
-                    <div className="form-check mt-2">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        value=""
-                        id="flexCheckChecked1"
-                      />
-                      <label
-                        className="form-check-label ms-2 text-muted"
-                        htmlFor="flexCheckChecked1"
-                      >
-                        No experience
-                      </label>
-                    </div>
-                    <div className="form-check mt-2">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        value=""
-                        id="flexCheckChecked2"
-                        checked={isChecked}
-                        onChange={handleOnChange}
-                      />
-                      <label
-                        className="form-check-label ms-2 text-muted"
-                        htmlFor="flexCheckChecked2"
-                      >
-                        0-3 years
-                      </label>
-                    </div>
-                    <div className="form-check mt-2">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        value=""
-                        id="flexCheckChecked3"
-                      />
-                      <label
-                        className="form-check-label ms-2 text-muted"
-                        htmlFor="flexCheckChecked3"
-                      >
-                        3-6 years
-                      </label>
-                    </div>
-                    <div className="form-check mt-2">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        value=""
-                        id="flexCheckChecked4"
-                      />
-                      <label
-                        className="form-check-label ms-2 text-muted"
-                        htmlFor="flexCheckChecked4"
-                      >
-                        More than 6 years
-                      </label>
-                    </div>
+                    {
+                      WorkExperience.map((el,index)=>(
+                        <div className="form-check mt-2" key={index}>
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          defaultValue={el}
+                          id={`flexCheckChecked${index}`}
+                          checked={workExperience ===index}
+                          onChange={()=>handleOnWorkExperienceChange(index)}
+                        />
+                        <label
+                          className="form-check-label ms-2 text-muted"
+                          htmlFor="flexCheckChecked2"
+                        >
+                         {el}
+                        </label>
+                        </div>
+                      ))
+                    } 
+                   
+                    
+                    
                   </div>
                 </div>
               </Collapse>
@@ -178,63 +191,29 @@ const Sidebar = () => {
               <Collapse isOpen={toggleThird}>
                 <div className="accordion-body">
                   <div className="side-title">
-                    <div className="form-check mt-2">
-                      <Input
-                        className="form-check-input"
-                        type="radio"
-                        name="flexRadioDefault"
-                        id="flexRadioDefault6"
-                        defaultChecked
-                      />
-                      <label
-                        className="form-check-label ms-2 text-muted"
-                        htmlFor="flexRadioDefault6"
-                      >
-                        Freelance
-                      </label>
-                    </div>
-                    <div className="form-check mt-2">
-                      <Input
-                        className="form-check-input"
-                        type="radio"
-                        name="flexRadioDefault"
-                        id="flexRadioDefault2"
-                      />
-                      <label
-                        className="form-check-label ms-2 text-muted"
-                        htmlFor="flexRadioDefault2"
-                      >
-                        Full Time
-                      </label>
-                    </div>
-                    <div className="form-check mt-2">
-                      <Input
-                        className="form-check-input"
-                        type="radio"
-                        name="flexRadioDefault"
-                        id="flexRadioDefault3"
-                      />
-                      <label
-                        className="form-check-label ms-2 text-muted"
-                        htmlFor="flexRadioDefault3"
-                      >
-                        Internship
-                      </label>
-                    </div>
-                    <div className="form-check mt-2">
-                      <Input
-                        className="form-check-input"
-                        type="radio"
-                        name="flexRadioDefault"
-                        id="flexRadioDefault4"
-                      />
-                      <label
-                        className="form-check-label ms-2 text-muted"
-                        htmlFor="flexRadioDefault4"
-                      >
-                        Part Time
-                      </label>
-                    </div>
+                   
+                  {
+                    TypeofEmployment.map((el,index) =>{
+                      return(
+                        <div className="form-check mt-2" key={index}>
+                        <Input
+                          className="form-check-input"
+                          type="radio"
+                          name="flexRadioDefault"
+                          id={`flexRadioDefault${index}`}
+                          onChange={()=>handleOnEmploymentChange(index)}
+                           defaultChecked={index === employementType}
+                        />
+                        <label
+                          className="form-check-label ms-2 text-muted"
+                          htmlFor={`flexRadioDefault${index}`}
+                        >
+                          {el}
+                        </label>
+                      </div>
+                      )
+                    })
+                  }
                   </div>
                 </div>
               </Collapse>
@@ -257,97 +236,25 @@ const Sidebar = () => {
               <Collapse isOpen={toggleFourth}>
                 <div className="accordion-body">
                   <div className="side-title form-check-all">
-                    <div className="form-check">
-                      <Input
-                        className="form-check-input"
-                        type="checkbox"
-                        id="checkAll"
-                        value=""
-                      />
-                      <Label
-                        className="form-check-label ms-2 text-muted"
-                        htmlFor="checkAll"
-                      >
-                        All
-                      </Label>
-                    </div>
-                    <div className="form-check mt-2">
-                      <Input
-                        className="form-check-input"
-                        type="checkbox"
-                        name="datePosted"
-                        value="last"
-                        id="flexCheckChecked5"
-                        checked={isDateChecked}
-                        onChange={handleDateOnChange}
-                      />
-                      <Label
-                        className="form-check-label ms-2 text-muted"
-                        htmlFor="flexCheckChecked5"
-                      >
-                        Last Hour
-                      </Label>
-                    </div>
-                    <div className="form-check mt-2">
-                      <Input
-                        className="form-check-input"
-                        type="checkbox"
-                        name="datePosted"
-                        value="last"
-                        id="flexCheckChecked6"
-                      />
-                      <Label
-                        className="form-check-label ms-2 text-muted"
-                        htmlFor="flexCheckChecked6"
-                      >
-                        Last 24 hours
-                      </Label>
-                    </div>
-                    <div className="form-check mt-2">
-                      <Input
-                        className="form-check-input"
-                        type="checkbox"
-                        name="datePosted"
-                        value="last"
-                        id="flexCheckChecked7"
-                      />
-                      <Label
-                        className="form-check-label ms-2 text-muted"
-                        htmlFor="flexCheckChecked7"
-                      >
-                        Last 7 days
-                      </Label>
-                    </div>
-                    <div className="form-check mt-2">
-                      <Input
-                        className="form-check-input"
-                        type="checkbox"
-                        name="datePosted"
-                        value="last"
-                        id="flexCheckChecked8"
-                      />
-                      <Label
-                        className="form-check-label ms-2 text-muted"
-                        htmlFor="flexCheckChecked8"
-                      >
-                        Last 14 days
-                      </Label>
-                    </div>
-                    <div className="form-check mt-2">
-                      <Input
-                        className="form-check-input"
-                        type="checkbox"
-                        name="datePosted"
-                        value="last"
-                        id="flexCheckChecked9"
-                      />
-                      <Label
-                        className="form-check-label ms-2 text-muted"
-                        htmlFor="flexCheckChecked9"
-                      >
-                        Last 30 days
-                      </Label>
-                    </div>
+                    {DateOptions.map((item, index) => (
+                      <div className="form-check" key={index}>
+                        <Input
+                          className="form-check-input"
+                          type="checkbox"
+                          id="checkbox"
+                          name="datePosted"
+                          checked={index === isDateChecked}
+                          onChange={() => onDateChange(index)}
+                          value={item.value}
+                        />
+                        <Label
+                          className="form-check-label ms-2 text-muted"
+                          htmlFor="checkAll"
+                        >
+                          {item.label}
+                        </Label>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </Collapse>

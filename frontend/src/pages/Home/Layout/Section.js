@@ -1,6 +1,6 @@
 import React from "react";
 import { Col, Container, Row, Form } from "reactstrap";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import JobSearch from "../SubSection/JobSearch";
 import CountryOptions from "../SubSection/CountryOptions";
 import JobType from "../SubSection/JobType";

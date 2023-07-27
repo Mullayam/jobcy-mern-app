@@ -1,11 +1,36 @@
 import React from "react";
 import { Col, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Input, Row } from "reactstrap";
 import CountryOptions from "../../Home/SubSection/CountryOptions";
 import JobType from "../../Home/SubSection/JobType";
+import { useAppContext } from "../../../Hooks/useAppContext";
+import { toast } from "react-toastify";
 
 const JobSearchOptions = () => {
+  const [searchParams, setSearchParms] = useSearchParams();
+  const { filters } = useAppContext();
+
+  const handleSearchSubmit = () => {
+    const { Category, JobLocation, SearchTerm } = filters;
+    if (JobLocation) {
+      if (!searchParams.has("JobLocation")) {
+        searchParams.append("JobLocation", JobLocation);
+      }
+    }
+    if (Category) {
+      if (!searchParams.has("category")) {
+        searchParams.append("category", Category);
+      }       
+    }
+    if (SearchTerm) {
+      if (!searchParams.has("SearchTerm")) {
+        searchParams.append("SearchTerm", Category);
+      }
+    
+    }
+    setSearchParms(searchParams);
+  };
   return (
     <React.Fragment>
       <div className="job-list-header">
@@ -36,9 +61,12 @@ const JobSearchOptions = () => {
               </div>
             </Col>
             <Col lg={3} md={6}>
-              <Link to="#" className="btn btn-primary w-100">
+              <span
+                onClick={handleSearchSubmit}
+                className="btn btn-primary w-100"
+              >
                 <i className="uil uil-filter"></i> Fliter
-              </Link>
+              </span>
             </Col>
           </Row>
         </Form>
