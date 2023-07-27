@@ -62,18 +62,18 @@ const userRoutes = [
  
 
   //Candidate and Company Section
-  { path: "/companydetails", component: <CompanyDetails /> },
+  { path: "/companydetails/:company_id", component: <CompanyDetails /> },
   { path: "/companylist", component: <CompanyList /> },
-  { path: "/candidatedetails", component: <CandidateDetails /> },
+  { path: "/candidatedetails/:user_id", component: <CandidateDetails /> },
   { path: "/candidategrid", component: <CandidateGrid /> },
   { path: "/candidatelist", component: <CandidateList /> },
 
   //Jobs Section
   { path: "/jobscategories", component: <JobsCategories /> },
-  { path: "/jobdetails", component: <JobDetails /> },
+  { path: "/jobdetails/:job_id?", component: <JobDetails /> },
  
   { path: "/jobgrid", component: <JobGrid /> },
-  { path: "/joblist", component: <JobList /> },
+  { path: "/joblist/:category_slug?", component: <JobList /> },
  
   //Company Section
   { path: "/faqs", component: <Faqs /> },

@@ -15,9 +15,17 @@ class Helpers {
     HandleRefreshToken(id: string) {
         const RefreshToken = this.CreateRefreshToken()
         Tokens.set(id, RefreshToken)
-        return RefreshToken      
-           
+        return RefreshToken
+    }
+    QueryToObject(query: string) {
+        let NewObject= {}
+        query.split("&").map(item => {
+            const [key, value] = item.split("=")
+             Object.assign(NewObject, Object.fromEntries([[key, value]]))
+            return Object.fromEntries([[key, value]])
+        }) 
        
+        return NewObject
     }
 
 

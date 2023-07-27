@@ -12,8 +12,19 @@ import jobImage7 from "../../../assets/images/featured-job/img-07.png";
 import jobImage8 from "../../../assets/images/featured-job/img-08.png";
 import jobImage9 from "../../../assets/images/featured-job/img-09.png";
 import jobImage10 from "../../../assets/images/featured-job/img-10.png";
+import { GetCompaniesWithJobs } from "../../../Apis/apiCore";
+import { slugify } from "../../../Helpers";
 
 const CompanyDetails = () => {
+  const [companies, setCompanies] = React.useState([])
+async function getCompanyDetails(){
+  const {data} = await GetCompaniesWithJobs()
+if (data.success) setCompanies(data.data.Companies)
+}
+  React.useEffect(() => {
+    getCompanyDetails()
+  }, [ ])
+  
   const companyDetails = [
     {
       id: 1,
@@ -89,7 +100,7 @@ const CompanyDetails = () => {
     },
     {
       id: 9,
-      jobImg: jobImage10,
+      jobImg: jobImage9,
       compnayName: "Kshop Agency",
       location: "America",
       numberOfVacancy: 14,
@@ -146,34 +157,34 @@ const CompanyDetails = () => {
       </Row>
 
       <Row>
-        {companyDetails.map((companyDetailsNew, key) => (
+        {companies.map((company, key) => (
           <Col lg={4} md={6} key={key}>
             <Card className="text-center mb-4">
               <CardBody className="px-4 py-5">
-                {companyDetailsNew.label && (
+                {company.ratings && (
                   <div className="featured-label">
                     <span className="featured">
-                      {companyDetailsNew.labelRating}{" "}
-                      <i className="mdi mdi-star-outline"></i>
+                      {company.ratings}
+                      <i className="mdi mdi-star-outline mx-1"></i>
                     </span>
                   </div>
                 )}
                 <img
-                  src={companyDetailsNew.jobImg}
+                  src={company.img}
                   alt=""
                   className="img-fluid rounded-3"
                 />
                 <div className="mt-4">
-                  <Link to="/companydetails" className="primary-link">
+                  <Link to={`/companydetails/${slugify(company.name)}-${company.id}`} className="primary-link">
                     <h6 className="fs-18 mb-2">
-                      {companyDetailsNew.compnayName}
+                      {company.name}
                     </h6>
                   </Link>
                   <p className="text-muted mb-4">
-                    {companyDetailsNew.location}
+                    {company.location}
                   </p>
-                  <Link to="/companydetails" className="btn btn-primary">
-                    {companyDetailsNew.numberOfVacancy} Opening Jobs
+                  <Link to={`/companydetails/${slugify(company.name)}-${company.id}`} className="btn btn-primary">
+                    {company.total_jobs} Opening Job{company.total_jobs > 1 && "s"}
                   </Link>
                 </div>
               </CardBody>

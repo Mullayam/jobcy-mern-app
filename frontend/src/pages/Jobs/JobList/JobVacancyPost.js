@@ -1,192 +1,109 @@
 import React, { useState } from "react";
 import { Col, Row, Modal, ModalBody, Input, Label } from "reactstrap";
 import { Link } from "react-router-dom";
-
-//Job Images
-import jobImage1 from "../../../assets/images/featured-job/img-01.png";
-import jobImage2 from "../../../assets/images/featured-job/img-02.png";
-import jobImage3 from "../../../assets/images/featured-job/img-03.png";
-import jobImage4 from "../../../assets/images/featured-job/img-04.png";
-import jobImage5 from "../../../assets/images/featured-job/img-05.png";
-import jobImage6 from "../../../assets/images/featured-job/img-06.png";
-import jobImage7 from "../../../assets/images/featured-job/img-07.png";
-import jobImage8 from "../../../assets/images/featured-job/img-08.png";
-
-const JobVacancyPost2 = () => {
+ import { FromNowDate, slugify} from "../../../Helpers"
+const JobVacancyPost2 = ({jobs}) => {
   //Apply Now Model
   const [modal, setModal] = useState(false);
   const openModal = () => setModal(!modal);
 
-  const jobVacancyPost2 = [
-    {
-      id: 1,
-      companyImg: jobImage1,
-      jobDescription: "HTML Developer",
-      experience: "0-2 Yrs Exp.",
-      companyName: "Jobcy Technology Pvt.Ltd",
-      location: "California",
-      salary: "$250 - $800 / month",
-      fullTime: true,
-      timing: "Full Time",
-      addclassNameBookmark: true,
-      badges: [
-        {
-          id: 1,
-          badgeclassName: "bg-warning-subtle text-warning",
-          badgeName: "Urgent"
-        },
-        {
-          id: 2,
-          badgeclassName: "bg-info-subtle text-info",
-          badgeName: "Private"
-        }
-      ]
-    },
-    {
-      id: 2,
-      companyImg: jobImage2,
-      jobDescription: "Marketing Director",
-      experience: "2-4 Yrs Exp.",
-      companyName: "Creative Agency",
-      location: "New York",
-      salary: "$250 - $800 / month",
-      partTime: true,
-      timing: "Full Time",
-      addclassNameBookmark: false,
-      badges: [
-        {
-          id: 1,
-          badgeclassName: "bg-info-subtle text-info",
-          badgeName: "Private"
-        }
-      ]
-    },
-    {
-      id: 3,
-      companyImg: jobImage3,
-      jobDescription: "HTML Developer",
-      experience: "2-4 Yrs Exp.",
-      companyName: "Jobcy Technology Pvt.Ltd",
-      location: "California",
-      salary: "$250 - $800 / month",
-      freeLance: true,
-      timing: "Freelance",
-      addclassNameBookmark: false,
-      badges: [
-        {
-          id: 1,
-          badgeclassName: "bg-blue-subtle text-blue",
-          badgeName: "Internship"
-        }
-      ]
-    },
-    {
-      id: 4,
-      companyImg: jobImage4,
-      jobDescription: "Product Sales Specialist",
-      experience: "5+ Yrs Exp.",
-      companyName: "Jobcy Technology Pvt.Ltd",
-      location: "California",
-      salary: "$250 - $800 / month",
-      fullTime: true,
-      timing: "Freelance",
-      addclassNameBookmark: true,
-      badges: [
-        {
-          id: 1,
-          badgeclassName: "bg-info-subtle text-info",
-          badgeName: "Private"
-        }
-      ]
-    },
-    {
-      id: 5,
-      companyImg: jobImage5,
-      jobDescription: "Product Designer",
-      experience: "0-5 Yrs Exp.",
-      companyName: "Creative Agency",
-      location: "California",
-      salary: "$250 - $800 / month",
-      internship: true,
-      timing: "Freelance",
-      addclassNameBookmark: false,
-      badges: []
-    },
-    {
-      id: 6,
-      companyImg: jobImage6,
-      jobDescription: "Project Manager",
-      experience: "0-2 Yrs Exp.",
-      companyName: "Jobcy Technology Pvt.Ltd",
-      location: "California",
-      salary: "$250 - $800 / month",
-      fullTime: true,
-      timing: "Freelance",
-      addclassNameBookmark: false,
-      badges: [
-        {
-          id: 1,
-          badgeclassName: "bg-warning-subtle text-warning",
-          badgeName: "Urgent"
-        },
-        {
-          id: 2,
-          badgeclassName: "bg-info-subtle text-info",
-          badgeName: "Private"
-        }
-      ]
-    },
-    {
-      id: 7,
-      companyImg: jobImage7,
-      jobDescription: "HTML Developer",
-      experience: "0-2 Yrs Exp.",
-      companyName: "Jobcy Technology Pvt.Ltd",
-      location: "California",
-      salary: "$250 - $800 / month",
-      freeLance: true,
-      timing: "Freelance",
-      addclassNameBookmark: false,
-      badges: [
-        {
-          id: 1,
-          badgeclassName: "bg-warning-subtle text-warning",
-          badgeName: "Urgent"
-        },
-        {
-          id: 2,
-          badgeclassName: "bg-info-subtle text-info",
-          badgeName: "Private"
-        }
-      ]
-    },
-    {
-      id: 8,
-      companyImg: jobImage8,
-      jobDescription: "Business Associate",
-      experience: "0-2 Yrs Exp.",
-      companyName: "Jobcy Technology Pvt.Ltd",
-      location: "California",
-      salary: "$250 - $800 / month",
-      partTime: true,
-      timing: "Part Time",
-      addclassNameBookmark: false,
-      badges: [
-        {
-          id: 1,
-          badgeclassName: "bg-warning-subtle text-warning",
-          badgeName: "Urgent"
-        }
-      ]
-    }
-  ];
+  // const jobVacancyPost2 = [
+  //   {
+      
+  //     badges: [
+  //       {
+  //         id: 1,
+  //         badgeclassName: "bg-warning-subtle text-warning",
+  //         badgeName: "Urgent"
+  //       },
+  //       {
+  //         id: 2,
+  //         badgeclassName: "bg-info-subtle text-info",
+  //         badgeName: "Private"
+  //       }
+  //     ]
+  //   },
+  //   {
+      
+  //     badges: [
+  //       {
+  //         id: 1,
+  //         badgeclassName: "bg-info-subtle text-info",
+  //         badgeName: "Private"
+  //       }
+  //     ]
+  //   },
+  //   {
+      
+  //     badges: [
+  //       {
+  //         id: 1,
+  //         badgeclassName: "bg-blue-subtle text-blue",
+  //         badgeName: "Internship"
+  //       }
+  //     ]
+  //   },
+  //   {
+      
+  //     badges: [
+  //       {
+  //         id: 1,
+  //         badgeclassName: "bg-info-subtle text-info",
+  //         badgeName: "Private"
+  //       }
+  //     ]
+  //   },
+  //   {
+      
+  //   },
+  //   {
+      
+  //     badges: [
+  //       {
+  //         id: 1,
+  //         badgeclassName: "bg-warning-subtle text-warning",
+  //         badgeName: "Urgent"
+  //       },
+  //       {
+  //         id: 2,
+  //         badgeclassName: "bg-info-subtle text-info",
+  //         badgeName: "Private"
+  //       }
+  //     ]
+  //   },
+  //   {
+       
+  //     badges: [
+  //       {
+  //         id: 1,
+  //         badgeclassName: "bg-warning-subtle text-warning",
+  //         badgeName: "Urgent"
+  //       },
+  //       {
+  //         id: 2,
+  //         badgeclassName: "bg-info-subtle text-info",
+  //         badgeName: "Private"
+  //       }
+  //     ]
+  //   },
+  //   {
+      
+  //     badges: [
+  //       {
+  //         id: 1,
+  //         badgeclassName: "bg-warning-subtle text-warning",
+  //         badgeName: "Urgent"
+  //       }
+  //     ]
+  //   }
+  // ];
   return (
     <React.Fragment>
-      {jobVacancyPost2.map((jobVacancyList2Details, key) => (
+      {jobs.length > 0 ? jobs.map((job, key) => (
         <div
           key={key}
           className={
-            jobVacancyList2Details.addclassNameBookmark === true
+            job.id  
               ? "job-box bookmark-post card mt-4"
               : "job-box card mt-4"
           }
@@ -194,10 +111,10 @@ const JobVacancyPost2 = () => {
           <div className="p-4">
             <Row>
               <Col lg={1}>
-                <Link to="/companydetails">
+                <Link to={`/companydetails/${slugify(job.company_name)}-${job.cid}`}>
                   <img
-                    src={jobVacancyList2Details.companyImg}
-                    alt=""
+                    src={`../../../assets/images/featured-job/${job.logo}`}
+                    alt={job.logo}
                     className="img-fluid rounded-3"
                   />
                 </Link>
@@ -205,49 +122,49 @@ const JobVacancyPost2 = () => {
               <Col lg={10}>
                 <div className="mt-3 mt-lg-0">
                   <h5 className="fs-17 mb-1">
-                    <Link to="/jobdetails" className="text-dark">
-                      {jobVacancyList2Details.jobDescription}
-                    </Link>{" "}
-                    <small className="text-muted fw-normal">
-                      ({jobVacancyList2Details.experience})
+                    <Link to={`/jobdetails/${slugify(job.job_title)}-${job.id}`} className="text-dark">
+                      {job.job_title}
+                    </Link>
+                    <small className="text-muted fw-normal mx-1">
+                      ({job.min_exp})
                     </small>
                   </h5>
                   <ul className="list-inline mb-0">
                     <li className="list-inline-item">
                       <p className="text-muted fs-14 mb-0">
-                        {jobVacancyList2Details.companyName}
+                        {job.company_name}
                       </p>
                     </li>
                     <li className="list-inline-item">
                       <p className="text-muted fs-14 mb-0">
                         <i className="mdi mdi-map-marker"></i>
-                        {jobVacancyList2Details.location}
+                        {job.job_location}
                       </p>
                     </li>
                     <li className="list-inline-item">
                       <p className="text-muted fs-14 mb-0">
                         <i className="uil uil-wallet"></i>{" "}
-                        {jobVacancyList2Details.salary}
+                        {job.offered_salary}
                       </p>
                     </li>
                   </ul>
                   <div className="mt-2">
                     <span
-                      className={
-                        jobVacancyList2Details.fullTime === true
-                          ? "badge bg-success-subtle text-success fs-13 mt-1 mx-1"
-                          : jobVacancyList2Details.partTime === true
-                          ? "badge bg-danger-subtle text-danger fs-13 mt-1 mx-1"
-                          : jobVacancyList2Details.freeLance === true
-                          ? "badge bg-primary-subtle text-primary fs-13 mt-1 mx-1"
-                          : jobVacancyList2Details.internship === true
-                          ? "badge bg-blue-subtle text-blue fs-13 mt-1"
-                          : ""
+                      className={`badge bg-blue-subtle text-blue fs-13 mt-1`
+                      // + jobVacancyList2Details.fullTime === true
+                      //     ? "badge bg-success-subtle text-success fs-13 mt-1 mx-1"
+                      //     : jobVacancyList2Details.partTime === true
+                      //     ? "badge bg-danger-subtle text-danger fs-13 mt-1 mx-1"
+                      //     : jobVacancyList2Details.freeLance === true
+                      //     ? "badge bg-primary-subtle text-primary fs-13 mt-1 mx-1"
+                      //     : jobVacancyList2Details.internship === true
+                      //     ? "badge bg-blue-subtle text-blue fs-13 mt-1"
+                      //     : ""
                       }
                     >
-                      {jobVacancyList2Details.timing}
+                      {job.job_type}
                     </span>
-                    {(jobVacancyList2Details.badges || []).map(
+                    {/* {(jobVacancyList2Details.badges || []).map(
                       (badgeInner, key) => (
                         <span
                           className={`badge ${badgeInner.badgeclassName} fs-13 mt-1`}
@@ -256,7 +173,7 @@ const JobVacancyPost2 = () => {
                           {badgeInner.badgeName}
                         </span>
                       )
-                    )}
+                    )} */}
                   </div>
                 </div>
               </Col>
@@ -275,17 +192,12 @@ const JobVacancyPost2 = () => {
                     <li className="list-inline-item">
                       <i className="uil uil-tag"></i> Keywords :
                     </li>
-                    <li className="list-inline-item">
-                      <Link to="#" className="primary-link text-muted">
-                        Ui designer
-                      </Link>
-                      ,
-                    </li>
-                    <li className="list-inline-item">
-                      <Link to="#" className="primary-link text-muted">
-                        developer
-                      </Link>
-                    </li>
+                    <li className="list-inline-item" key={key}>
+                       <Link to="#" className="primary-link text-muted">
+                       {job.keywords}
+                       </Link>                       
+                     </li>                   
+                    
                   </ul>
                 </div>
               </Col>
@@ -297,14 +209,15 @@ const JobVacancyPost2 = () => {
                     onClick={openModal}
                     className="primary-link"
                   >
-                    Apply Now <i className="mdi mdi-chevron-double-right"></i>
+                    
+                  {FromNowDate(job.posted_on)}
                   </Link>
                 </div>
               </Col>
             </div>
           </div>
         </div>
-      ))}
+      )) : "No Jobs Found"}
       <div
         className="modal fade"
         id="applyNow"

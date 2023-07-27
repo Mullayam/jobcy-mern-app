@@ -4,7 +4,7 @@ import CompanyDetails from "./CompanyDetails";
 import Section from "./Section";
 
 const CompanyList = () => {
-  document.title = "Company List | Jobcy - Job Listing Template | Themesdesign";
+  document.title = "Company List | Jobcy - Job Listing";
   return (
     <React.Fragment>
       <Section />

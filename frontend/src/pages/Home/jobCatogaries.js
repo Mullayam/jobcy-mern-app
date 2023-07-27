@@ -2,58 +2,12 @@ import React from "react";
 import { Col, Row, Container } from "reactstrap";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
+ 
+import { useAppContext } from "../../Hooks/useAppContext";
 
 const Jobcatogaries = () => {
-  const categories = [
-    {
-      id: 1,
-      icon: "uim-layers-alt",
-      name: "IT & Software",
-      job: 2024
-    },
-    {
-      id: 2,
-      icon: "uim-airplay",
-      name: "Technology",
-      job: 1250
-    },
-    {
-      id: 3,
-      icon: "uim-bag",
-      name: "Government",
-      job: 802
-    },
-    {
-      id: 4,
-      icon: "uim-user-md",
-      name: "Accounting / Finance",
-      job: 577
-    },
-    {
-      id: 5,
-      icon: "uim-hospital",
-      name: "Construction / Facilities",
-      job: 285
-    },
-    {
-      id: 6,
-      icon: "uim-telegram-alt",
-      name: "Tele-communications",
-      job: 495
-    },
-    {
-      id: 7,
-      icon: "uim-scenery",
-      name: "Design & Multimedia",
-      job: 1045
-    },
-    {
-      id: 8,
-      icon: "uim-android-alt",
-      name: "Human Resource",
-      job: 1516
-    }
-  ];
+  const { categories } = useAppContext();
+ const CategoriesWithIconOnly =categories.filter((c) => c.icon !== "")
   return (
     <React.Fragment>
       <section className="section">
@@ -71,17 +25,20 @@ const Jobcatogaries = () => {
           </Row>
 
           <Row>
-            {(categories || []).map((item, key) => (
+            {(CategoriesWithIconOnly || []).map((item, key) => (
               <Col lg={3} md={6} mt={4} pt={2} key={key}>
                 <div className="popu-category-box rounded text-center">
                   <div className="popu-category-icon icons-md">
                     <Icon icon={item.icon} className="text-primary" />
                   </div>
                   <div className="popu-category-content mt-4">
-                    <Link to="#" className="text-dark stretched-link">
+                    <Link
+                      to={`/joblist/${item.slug}-${item.id}`}
+                      className="text-dark stretched-link"
+                    >
                       <h5 className="fs-18">{item.name}</h5>
                     </Link>
-                    <p className="text-muted mb-0">{item.job} Jobs</p>
+                    <p className="text-muted mb-0">{item.total_jobs} Jobs</p>
                   </div>
                 </div>
               </Col>

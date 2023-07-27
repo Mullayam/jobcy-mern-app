@@ -94,7 +94,8 @@ export class Middlewares {
   public static isApiProtected(req: Request, res: Response, next: NextFunction) {
     try {      
       console.log("Checking API KEY")
-      const headers = req.headers;       
+      const headers = req.headers;   
+       
       const apiKey = headers["api_key"] || undefined;      
       if (typeof apiKey === "undefined") {
       return  res.status(404).json({

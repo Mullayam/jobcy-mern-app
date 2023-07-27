@@ -27,8 +27,8 @@ const Section = () => {
                         className="breadcrumb-item active"
                         aria-current="page"
                       >
-                        {" "}
-                        Manage Job Post{" "}
+                         
+                        Manage Job Post 
                       </li>
                     </ol>
                   </Nav>

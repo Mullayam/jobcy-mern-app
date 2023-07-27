@@ -5,11 +5,11 @@ import HowItWorks from "./HowItWorks";
 import Cta from "./Cta";
 import Testimonal from "./Testimonal"; 
 import Client from "./Client";
-
 const Home = () => {
+
   return (
     <React.Fragment>
-      <Jobcatogaries />
+      <Jobcatogaries   />
       <JobList />
       <HowItWorks />
       <Cta />

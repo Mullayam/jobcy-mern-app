@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import { userRoutes, authRoutes } from "./allRoutes";
 import { Route, Routes } from "react-router-dom";
-
+import Error404 from "../pages/ExtraPages/Error404"
 /* Layout */
 const CommonLayout = React.lazy(() => import('../Layout/CommonLayout/index'))
 const AuthLayout = React.lazy(() => import('../Layout/AuthLayout'))
@@ -50,6 +50,7 @@ const Index = () => {
             />
           ))}
         </Route>
+        <Route path="*" element={<Error404 />} />
       </Routes>
       </Suspense>
     </React.Fragment>

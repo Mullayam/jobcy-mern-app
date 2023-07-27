@@ -1,8 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Col, Container, Input, Label, Row } from "reactstrap";
+import { Button, Col, Container, Input, Label, Row } from "reactstrap";
+import {
+  GetAllCategories,
+  GetAllJobTypes,
+  GetCompaniesWithJobs,
+} from "../../../Apis/apiCore";
+import TextEditor from "../../../components/TextEditor";
+
+import { Countries } from "../../../constants/Countries";
+import SelectBox from "../../../components/Shared/Select";
+import TagsInput from "../../../components/TagsInput";
 
 const JobPostEdit = () => {
+  const [categoriesList, setCategoriesList] = useState([]);
+  const [jobTypes, setJobTypes] = useState([]);
+  const [companies, setCompanies] = useState([]);
+
+  const [info, setinfo] = useState({});
+  const handleInputChange = (e) => {
+    setinfo({ ...info, [e.target.id]: e.target.value });
+  };
+  const handleSubmitNewPost=() => {
+    console.log(info)
+  }
+  const FetchRequiredData = async () => {
+    const { data } = await GetAllCategories();
+    if (data.success) {
+      setCategoriesList(data.data.Categories);
+    }
+    const { data: JobType } = await GetAllJobTypes();
+    if (JobType.success) {
+      setJobTypes(JobType.data.JobTypeArray);
+    }
+    const { data: All } = await GetCompaniesWithJobs();
+    if (All.success) {
+      setCompanies(All.data.Companies);
+    }
+  };
+
+  useEffect(() => {
+    FetchRequiredData();
+    console.log(info)
+  }, []);
   return (
     <React.Fragment>
       <section className="section">
@@ -14,10 +54,10 @@ const JobPostEdit = () => {
               </div>
             </Col>
           </Row>
-          <form action="#" className="job-post-form shadow mt-4">
+          <div className="job-post-form shadow mt-4">
             <div className="job-post-content box-shadow-md rounded-3 p-4">
               <Row className="row">
-                <Col lg={12}>
+                <Col lg={6}>
                   <div className="mb-4">
                     <Label htmlFor="jobtitle" className="form-label">
                       Job Title
@@ -26,21 +66,18 @@ const JobPostEdit = () => {
                       type="text"
                       className="form-control"
                       id="jobtitle"
+                      value={info.jobtitle}
+                      onChange={handleInputChange}
                       placeholder="Title"
                     />
                   </div>
                 </Col>
-                <Col lg={12}>
+                <Col lg={6}>
                   <div className="mb-4">
-                    <Label htmlFor="jobdescription" className="form-label">
-                      Job Description
+                    <Label htmlFor="image" className="form-label">
+                      Cover Image
                     </Label>
-                    <textarea
-                      className="form-control"
-                      id="jobdescription"
-                      rows="3"
-                      placeholder="Enter Job Description"
-                    ></textarea>
+                    <Input type="file" className="form-control" id="image" />
                   </div>
                 </Col>
                 <Col lg={6}>
@@ -52,6 +89,8 @@ const JobPostEdit = () => {
                       type="email"
                       className="form-control"
                       id="email"
+                      value={info.email}
+                      onChange={handleInputChange}
                       placeholder="Email Address"
                     />
                   </div>
@@ -65,54 +104,45 @@ const JobPostEdit = () => {
                       type="number"
                       className="form-control"
                       id="phoneNumber"
+                      value={info.phoneNumber}
+                      onChange={handleInputChange}
                       placeholder="Phone Number"
                     />
                   </div>
                 </Col>
                 <Col lg={6}>
-                  <div className="mb-4">
-                    <label
-                      htmlFor="choices-single-categories"
-                      className="form-label"
-                    >
-                      Categories
-                    </label>
-                    <select
-                      className="form-select"
-                      data-trigger=""
-                      name="choices-single-categories"
-                      id="choices-single-categories"
-                      aria-label="Default select example"
-                    >
-                      <option value="ne">Digital & Creative</option>
-                      <option value="df">Retail</option>
-                      <option value="od">Management</option>
-                      <option value="rd">Human Resources</option>
-                    </select>
-                  </div>
+                  <SelectBox
+                    label="Categories"
+                    id="categories"
+                    info={info}
+                    setinfo={setinfo}
+                    options={categoriesList}
+                  />
                 </Col>
                 <Col lg={6}>
                   <div className="mb-4">
-                    <label htmlFor="jobtype" className="form-label">
-                      Job Type
-                    </label>
-                    <Input
-                      type="text"
-                      className="form-control"
-                      id="jobtype"
-                      placeholder="Job type"
+                    <SelectBox
+                      name="jobType[]"
+                      options={jobTypes}
+                      id="jobType"
+                      info={info}
+                      setinfo={setinfo}
+                      label="Job Type"
+                      multiple={true}
                     />
                   </div>
                 </Col>
                 <Col lg={6}>
                   <div className="mb-4">
                     <label htmlFor="designation" className="form-label">
-                      Designation
+                      Hiring Designation/Position
                     </label>
                     <Input
                       type="text"
                       className="form-control"
                       id="designation"
+                      value={info.designation}
+                      onChange={handleInputChange}
                       placeholder="Designation"
                     />
                   </div>
@@ -126,66 +156,117 @@ const JobPostEdit = () => {
                       type="number"
                       className="form-control"
                       id="salary"
+                      value={info.salary}
+                      onChange={handleInputChange}
                       placeholder="Salary"
                     />
                   </div>
                 </Col>
-                <Col lg={6}>
+                <Col lg={12}>
+                  <div className="mb-4">
+                    <Label htmlFor="jobdescription" className="form-label">
+                      Job Description
+                    </Label>
+                    <TextEditor
+                      id={"jobdescription"}
+                      info={info}
+                      setinfo={setinfo}
+                    />
+                  </div>
+                </Col>
+                <Col lg={12}>
+                  <div className="mb-4">
+                    <Label htmlFor="jobresponsiblities" className="form-label">
+                      Job Responsiblities
+                    </Label>
+                    <TextEditor
+                      id={"jobresponsiblities"}
+                      info={info}
+                      setinfo={setinfo}
+                    />
+                  </div>
+                </Col>
+                <Col lg={12}>
                   <div className="mb-4">
                     <label htmlFor="qualification" className="form-label">
-                      Qualification
+                      Qualifications
+                    </label>
+                    <TextEditor
+                      id={"qualification"}
+                      info={info}
+                      setinfo={setinfo}
+                    />
+                  </div>
+                </Col>
+
+                <Col lg={6}>
+                  <div className="mb-4">
+                    <label htmlFor="jobSchema" className="form-label">
+                      Job Schema
                     </label>
                     <Input
                       type="text"
                       className="form-control"
-                      id="qualification"
-                      placeholder="Qualification"
+                      id="jobSchema"
+                      value={info.jobSchema}
+                      onChange={handleInputChange}
+                      placeholder="Work From Home,Remote,Hybrid,Work From Office"
                     />
                   </div>
                 </Col>
                 <Col lg={6}>
                   <div className="mb-4">
                     <label htmlFor="skills" className="form-label">
-                      Job Skills{" "}
+                      Minimum Experience
                     </label>
                     <Input
                       type="text"
                       className="form-control"
-                      id="skills"
-                      placeholder="Job skills"
+                      id="minimum_experience"
+                      value={info.minimum_experience}
+                      onChange={handleInputChange}
+                      placeholder="Minimum Experience"
                     />
                   </div>
                 </Col>
-                <Col lg={12}>
+
+                <Col lg={6}>
                   <div className="mb-4">
-                    <label htmlFor="lastdate" className="form-label">
-                      Application Deadline Date
-                    </label>
-                    <Input type="date" className="form-control" id="lastdate" />
+                    <SelectBox
+                      options={Countries}
+                      id="country_name"
+                      label="Country"
+                      info={info}
+                      setinfo={setinfo}
+                    />
                   </div>
                 </Col>
                 <Col lg={6}>
                   <div className="mb-4">
-                    <label
-                      htmlFor="choices-single-location"
-                      className="form-label"
-                    >
-                      Country
-                    </label>
-                    <select
-                      className="form-select"
-                      data-trigger
-                      name="choices-single-location"
-                      id="choices-single-location"
-                      aria-label="Default select example"
-                    >
-                      <option value="ME">Montenegro</option>
-                      <option value="MS">Montserrat</option>
-                      <option value="MA">Morocco</option>
-                      <option value="MZ">Mozambique</option>
-                    </select>
+                    <SelectBox
+                      options={companies}
+                      id="company_id"
+                      label="Company"
+                      info={info}
+                      setinfo={setinfo}
+                    />
                   </div>
                 </Col>
+                <Col lg={6}>
+                  <div className="mb-4">
+                    <label htmlFor="lastdate" className="form-label">
+                      Application Deadline Date
+                    </label>
+                    <Input
+                      type="date"
+                      defaultValue={info.lastdate}
+                      onChange={handleInputChange}
+                      className="form-control"
+                      id="lastdate"
+                    />
+                  </div>
+                </Col>
+
                 <Col lg={3}>
                   <div className="mb-4">
                     <label htmlFor="city" className="form-label">
@@ -195,6 +276,8 @@ const JobPostEdit = () => {
                       type="text"
                       className="form-control"
                       id="city"
+                      defaultValue={info.city}
+                      onChange={handleInputChange}
                       placeholder="City"
                     />
                   </div>
@@ -208,8 +291,29 @@ const JobPostEdit = () => {
                       type="text"
                       className="form-control"
                       id="zipcode"
+                      defaultValue={info.zipcode}
+                      onChange={handleInputChange}
                       placeholder="Zipcode"
                     />
+                  </div>
+                </Col>
+                <Col lg={6}>
+                  <div className="mb-4">
+                    <label htmlFor="skills" className="form-label">
+                      Required Job Skills                   
+                    </label>
+                    <TagsInput id="skills" info={info} setinfo={setinfo} />
+                    <small> e.g Java,SpringBoot,Node,Excel,React,C++,PHP,SQL,Python</small>
+
+                  </div>
+                </Col>
+                <Col lg={6}>
+                  <div className="mb-4">
+                    <label htmlFor="keywords" className="form-label">
+                      Keywords
+                    </label>
+                    <TagsInput id="keywords" info={info} setinfo={setinfo} />
+                    <small> e.g Designer,MERN,Dev Ops, Marketing, business,UI/UX, Dev</small>
                   </div>
                 </Col>
                 <Col lg={12}>
@@ -217,14 +321,14 @@ const JobPostEdit = () => {
                     <Link to="#" className="btn btn-success">
                       Back
                     </Link>
-                    <Link to="#" className="btn btn-primary">
+                    <Button onClick={handleSubmitNewPost} className="btn btn-primary">
                       Post Now <i className="mdi mdi-send"></i>
-                    </Link>
+                    </Button>
                   </div>
                 </Col>
               </Row>
             </div>
-          </form>
+          </div>
         </Container>
       </section>
     </React.Fragment>

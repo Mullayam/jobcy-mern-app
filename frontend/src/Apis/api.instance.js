@@ -8,8 +8,7 @@ export const instance = axios.create({
   baseURL: "http://localhost:7132/api",
   // timeout: 1500,
   headers: {
-    "Content-Type": "application/json",
-    "api_key": "123456789",
+    "Content-Type": "application/json",    
   },
 });
 instance.defaults.headers.common["Authorization"] = token
@@ -18,7 +17,8 @@ instance.defaults.headers.common["Authorization"] = token
     async (config) => {
       config.headers = {
         Authorization: `Bearer ${token}`,
-        Accept: "application/json",        
+        Accept: "application/json",  
+        API_KEY: "123456789",      
         "Content-Type": "application/x-www-form-urlencoded",
       };
       return config;
@@ -32,8 +32,9 @@ instance.interceptors.response.use((response) => {
     return response;
   },
   async function (error) {
-    const originalRequest = error.config;
-   
+    
+    const originalRequest = await  error.config;
+      
     if (error.response.status === 403 && !originalRequest._retry) {
       originalRequest._retry = true;
       const {data} = await refreshToken();

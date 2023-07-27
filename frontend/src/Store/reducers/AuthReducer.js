@@ -4,6 +4,7 @@ export const AuthInitialState = {
   isLoader: false,
   isLoggedIn: false,
   location: null,
+ 
 };
 export function AuthReducer(AuthInitialState, action) {
   switch (action.type) {

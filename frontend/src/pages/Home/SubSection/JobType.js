@@ -1,12 +1,10 @@
 import React from "react";
-import Select from "react-select";
+import Select from "react-select"; 
+import { LabelAndValueFormat, slugify } from "../../../Helpers";
+import { useAppContext } from "../../../Hooks/useAppContext";
 const JobType = () => {
-  const options = [
-    { label: "Accounting", value: "1" },
-    { label: "IT & Software", value: "2" },
-    { label: "Marketing", value: "3" },
-    { label: "Banking", value: "4" }
-  ];
+  const { categories, filters, setFilters } = useAppContext();
+
   const colourStyles = {
     control: (styles) => ({
       ...styles,
@@ -14,20 +12,24 @@ const JobType = () => {
       boxShadow: "none",
       padding: "12px 0 12px 40px",
       margin: "-16px -6px 0 -52px",
-      borderRadius: "0"
-    })
+      borderRadius: "0",
+    }),
   };
+
   return (
     <React.Fragment>
       <Select
-        options={options}
+        options={LabelAndValueFormat(categories)}
         styles={colourStyles}
         className="selectForm__inner"
         data-trigger
-        defaultValue={{ label: "Accounting", value: 0 }}
+        defaultValue={{ label: "Accounting & Finance", value: 1 }}
         name="choices-single-categories"
-        id="choices-single-categories"
+        id="category"
         aria-label="Default select example"
+        onChange={({ label, value }) =>
+          setFilters({ ...filters, Category: `${slugify(label)}-${value}` })
+        }
       />
     </React.Fragment>
   );

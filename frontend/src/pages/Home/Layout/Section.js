@@ -1,11 +1,30 @@
 import React from "react";
 import { Col, Container, Row, Form } from "reactstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import JobSearch from "../SubSection/JobSearch";
 import CountryOptions from "../SubSection/CountryOptions";
 import JobType from "../SubSection/JobType";
-
-const section = () => {
+import { useAppContext } from "../../../Hooks/useAppContext";
+import { toast } from "react-toastify";
+const SectionPage = () => {
+  const navigate = useNavigate();
+  const { filters } = useAppContext();
+  let SearchParams = "";
+  const handleSearchSubmit = () => {
+    const { Category, JobLocation, SearchTerm } = filters;
+    if (!JobLocation || JobLocation === "") {
+      return toast.error("Please Select a Job Location");
+    }
+    if (!Category || Category === "") {
+      return toast.error("Please Select a Category");
+    }
+    if (!SearchTerm || SearchTerm === "") {
+      SearchParams = `?category=${Category}&JobLocation=${JobLocation}`;
+    } else {
+      SearchParams = `?category=${Category}&JobLocation=${JobLocation}&search=${SearchTerm}`;
+    }
+    navigate({ pathname: "/joblist", search: SearchParams });
+  };
   return (
     <React.Fragment>
       <section className="bg-home" id="home">
@@ -27,7 +46,7 @@ const section = () => {
             </Col>
           </Row>
 
-          <Form action="#">
+          <div>
             <div className="registration-form">
               <Row className="g-0">
                 <Col lg={3}>
@@ -52,7 +71,7 @@ const section = () => {
                   <div className="mt-3 mt-lg-0 h-100">
                     <button
                       className="btn btn-primary submit-btn w-100 h-100"
-                      type="submit"
+                      onClick={handleSearchSubmit}
                     >
                       <i className="uil uil-search me-1"></i> Find Job
                     </button>
@@ -60,7 +79,7 @@ const section = () => {
                 </Col>
               </Row>
             </div>
-          </Form>
+          </div>
 
           <Row>
             <Col lg={12}>
@@ -116,4 +135,4 @@ const section = () => {
   );
 };
 
-export default section;
+export default SectionPage;

@@ -1,8 +1,17 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { Col, Row } from "reactstrap";
+import { useAppContext } from "../../../Hooks/useAppContext";
 
-const Pagination = () => {
+const Pagination = ({ totalJobs }) => {
+  let [searchParams, setSearchParams] = useSearchParams();
+  const UrlQueryObject = Object.fromEntries([...searchParams]);
+  const { filters, setFilters } = useAppContext();
+  const [disabled, setDisabled] = useState(false);
+  // if (!searchParams.has("page")) {
+  //  return setDisabled(true);
+  // }
+
   return (
     <React.Fragment>
       <Row>
@@ -15,9 +24,11 @@ const Pagination = () => {
                 </Link>
               </li>
               <li className="page-item active">
-                <Link className="page-link" to="#">
+                <span className="page-link"
+                //  onClick={()=>setSearchParams({page: 1})}
+                 >
                   1
-                </Link>
+                </span>
               </li>
               <li className="page-item">
                 <Link className="page-link" to="#">
@@ -32,6 +43,11 @@ const Pagination = () => {
               <li className="page-item">
                 <Link className="page-link" to="#">
                   4
+                </Link>
+              </li>
+              <li className="page-item">
+                <Link className="page-link" to="#">
+                  5
                 </Link>
               </li>
               <li className="page-item">

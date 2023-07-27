@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
+.ql-container {
+    min-height: 10rem;
+    height: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .ql-editor {
+    height: 100%;
+    flex: 1;
+    overflow-y: auto;
+    width: 100%;
+    font-family: 'Nunito Sans', sans-serif;
+  }
+  
+  
+  /* Set dropdown font-families */
+  .ql-font span[data-label="Nunito"]::before {
+    font-family: 'Nunito Sans', sans-serif;
+  }
+ 
+  
+  /* Set content font-families */
+ 
+  .ql-snow.ql-toolbar {
+    display: block;
+    background: #eaecec;
+    border-top-left-radius: 0.5em;
+    font-family: 'Nunito Sans', sans-serif;
+
+    border-top-right-radius: 0.5em;
+  }

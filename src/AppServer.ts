@@ -9,16 +9,18 @@ import Helpers from './helpers/index.js';
 import { Clusters } from './services/CorePerformance.js';
 
 export class AppServer {
-    private app: Application;
+    protected app: Application;
 
     constructor(private PORT: number = 7132) {
+        
         this.app = express()
         this.PORT = PORT
         this.config()
         this.InitializeMiddlewares()
         this.InitializeRoutes()
-    }
-    private config(): void {
+         
+    }   
+     private config(): void {
         this.app.use(express.json());
         this.app.use(cors({
             origin: '*',

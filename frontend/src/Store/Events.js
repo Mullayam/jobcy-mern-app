@@ -11,3 +11,9 @@ export const SetUser = (data) => {
 export const SetLocation = (data) => {  
   return { type: ACTIONS.SET_LOCATION, payload: data };
 };
+export const GetCategories = (data) => {
+  return { type: ACTIONS.GET_CATEGORIES, payload: data };
+}
+export const GetJobs = (data) => {
+  return { type: ACTIONS.GET_ALL_JOBS, payload: data };
+}

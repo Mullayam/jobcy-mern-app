@@ -20,15 +20,12 @@ import blogImage1 from "../../../assets/images/blog/img-01.jpg";
 import blogImage3 from "../../../assets/images/blog/img-03.jpg";
 import blogImage12 from "../../../assets/images/blog/img-12.jpg";
 
-//Job Images
-import jobImage1 from "../../../assets/images/featured-job/img-01.png";
-import jobImage2 from "../../../assets/images/featured-job/img-02.png";
-import jobImage3 from "../../../assets/images/featured-job/img-03.png";
-import jobImage4 from "../../../assets/images/featured-job/img-04.png";
+ 
+import { FromNowDate } from "../../../Helpers";
 
 const images = [blogImage1, blogImage3, blogImage12];
 
-const RightSideContent = () => {
+const RightSideContent = ({company,companyJobs}) => {
   //Apply Now Model
   const [modal, setModal] = useState(false);
   const openModal = () => setModal(!modal);
@@ -37,89 +34,7 @@ const RightSideContent = () => {
   const [photoIndex, setphotoIndex] = useState(0);
   const [isGallery, setisGallery] = useState(false);
 
-  const jobVacancyPost = [
-    {
-      id: 1,
-      companyImg: jobImage1,
-      jobDescription: "HTML Developer",
-      experience: "0-2 Yrs Exp.",
-      companyName: "Jobcy Technology Pvt.Ltd",
-      location: "California",
-      salary: "$250 - $800 / month",
-      fullTime: true,
-      timing: "Full Time",
-      addclassNameBookmark: true,
-      badges: [
-        {
-          id: 1,
-          badgeclassName: "bg-warning-subtle text-warning",
-          badgeName: "Urgent"
-        },
-        {
-          id: 2,
-          badgeclassName: "bg-info-subtle text-info",
-          badgeName: "Private"
-        }
-      ]
-    },
-    {
-      id: 2,
-      companyImg: jobImage2,
-      jobDescription: "Marketing Director",
-      experience: "2-4 Yrs Exp.",
-      companyName: "Creative Agency",
-      location: "New York",
-      salary: "$250 - $800 / month",
-      partTime: true,
-      timing: "Full Time",
-      addclassNameBookmark: false,
-      badges: [
-        {
-          id: 1,
-          badgeclassName: "bg-info-subtle text-info",
-          badgeName: "Private"
-        }
-      ]
-    },
-    {
-      id: 3,
-      companyImg: jobImage3,
-      jobDescription: "HTML Developer",
-      experience: "2-4 Yrs Exp.",
-      companyName: "Jobcy Technology Pvt.Ltd",
-      location: "California",
-      salary: "$250 - $800 / month",
-      freeLance: true,
-      timing: "Freelance",
-      addclassNameBookmark: true,
-      badges: [
-        {
-          id: 1,
-          badgeclassName: "bg-blue-subtle text-blue",
-          badgeName: "Internship"
-        }
-      ]
-    },
-    {
-      id: 4,
-      companyImg: jobImage4,
-      jobDescription: "Java Developer",
-      experience: "0-2 Yrs Exp.",
-      companyName: "Jobcy Technology Pvt.Ltd",
-      location: "California",
-      salary: "$450 - $800 / month",
-      freeLance: true,
-      timing: "Freelance",
-      addclassNameBookmark: false,
-      badges: [
-        {
-          id: 1,
-          badgeclassName: "bg-blue-subtle text-blue",
-          badgeName: "Internship"
-        }
-      ]
-    }
-  ];
+  
   return (
     <React.Fragment>
       {isGallery ? (
@@ -146,26 +61,7 @@ const RightSideContent = () => {
             <div className="mb-5">
               <h6 className="fs-17 fw-semibold mb-4">About Company</h6>
               <p className="text-muted">
-                {" "}
-                Objectively pursue diverse catalysts for change for
-                interoperable meta-services. Distinctively re-engineer
-                revolutionary meta-services and premium architectures.
-                Intrinsically incubate intuitive opportunities and real-time
-                potentialities. Appropriately communicate one-to-one technology.
-              </p>
-
-              <p className="text-muted">
-                Intrinsically incubate intuitive opportunities and real-time
-                potentialities Appropriately communicate one-to-one technology.
-              </p>
-
-              <p className="text-muted">
-                {" "}
-                Exercitation photo booth stumptown tote bag Banksy, elit small
-                batch freegan sed. Craft beer elit seitan exercitation, photo
-                booth et 8-bit kale chips proident chillwave deep v laborum.
-                Aliquip veniam delectus, Marfa eiusmod Pinterest in do umami
-                readymade swag.
+               {company.about}
               </p>
             </div>
             <div className="candidate-portfolio mb-5">
@@ -216,11 +112,11 @@ const RightSideContent = () => {
             <div>
               <h6 className="fs-17 fw-semibold mb-4">Current Opening</h6>
 
-              {jobVacancyPost.map((jobVacancyPostDetails, key) => (
+              {companyJobs.map((job, key) => (
                 <div
                   key={key}
                   className={
-                    jobVacancyPostDetails.addclassNameBookmark === true
+                    job.id 
                       ? "job-box bookmark-post card mt-4"
                       : "job-box card mt-4"
                   }
@@ -230,7 +126,7 @@ const RightSideContent = () => {
                       <Col lg={1}>
                         <Link to="/companydetails">
                           <img
-                            src={jobVacancyPostDetails.companyImg}
+                            src={job.logo}
                             alt=""
                             className="img-fluid rounded-3"
                           />
@@ -240,48 +136,48 @@ const RightSideContent = () => {
                         <div className="mt-3 mt-lg-0">
                           <h5 className="fs-17 mb-1">
                             <Link to="/jobdetails" className="text-dark">
-                              {jobVacancyPostDetails.jobDescription}
-                            </Link>{" "}
-                            <small className="text-muted fw-normal">
-                              ({jobVacancyPostDetails.experience})
+                              {job.job_title}
+                            </Link> 
+                            <small className="text-muted fw-normal mx-2">
+                              ({job.min_exp})
                             </small>
                           </h5>
                           <ul className="list-inline mb-0">
                             <li className="list-inline-item">
                               <p className="text-muted fs-14 mb-0">
-                                {jobVacancyPostDetails.companyName}
+                                {job.company_name}
                               </p>
                             </li>
                             <li className="list-inline-item">
                               <p className="text-muted fs-14 mb-0">
                                 <i className="mdi mdi-map-marker"></i>
-                                {jobVacancyPostDetails.location}
+                                {job.job_location}
                               </p>
                             </li>
                             <li className="list-inline-item">
                               <p className="text-muted fs-14 mb-0">
                                 <i className="uil uil-wallet"></i>{" "}
-                                {jobVacancyPostDetails.salary}
+                                {job.offered_salary}
                               </p>
                             </li>
                           </ul>
                           <div className="mt-2">
                             <span
-                              className={
-                                jobVacancyPostDetails.fullTime === true
-                                  ? "badge bg-success-subtle text-success fs-13 mt-1 mx-1"
-                                  : jobVacancyPostDetails.partTime === true
-                                  ? "badge bg-danger-subtle text-danger fs-13 mt-1 mx-1"
-                                  : jobVacancyPostDetails.freeLance === true
-                                  ? "badge bg-primary-subtle text-primary fs-13 mt-1 mx-1"
-                                  : jobVacancyPostDetails.internship === true
-                                  ? "badge bg-blue-subtle text-blue fs-13 mt-1"
-                                  : ""
-                              }
+                              // className={
+                              //   jobVacancyPostDetails.fullTime === true
+                              //     ? "badge bg-success-subtle text-success fs-13 mt-1 mx-1"
+                              //     : jobVacancyPostDetails.partTime === true
+                              //     ? "badge bg-danger-subtle text-danger fs-13 mt-1 mx-1"
+                              //     : jobVacancyPostDetails.freeLance === true
+                              //     ? "badge bg-primary-subtle text-primary fs-13 mt-1 mx-1"
+                              //     : jobVacancyPostDetails.internship === true
+                              //     ? "badge bg-blue-subtle text-blue fs-13 mt-1"
+                              //     : ""
+                              // }
                             >
-                              {jobVacancyPostDetails.timing}
+                              {job.job_type}
                             </span>
-                            {(jobVacancyPostDetails.badges || []).map(
+                            {/* {(jobVacancyPostDetails.badges || []).map(
                               (badgeInner, key) => (
                                 <span
                                   className={`badge ${badgeInner.badgeclassName} fs-13 mt-1`}
@@ -290,7 +186,7 @@ const RightSideContent = () => {
                                   {badgeInner.badgeName}
                                 </span>
                               )
-                            )}
+                            )} */}
                           </div>
                         </div>
                       </Col>
@@ -311,14 +207,9 @@ const RightSideContent = () => {
                             </li>
                             <li className="list-inline-item">
                               <Link to="#" className="primary-link text-muted">
-                                Ui designer
+                               {job.keywords}
                               </Link>
                               ,
-                            </li>
-                            <li className="list-inline-item">
-                              <Link to="#" className="primary-link text-muted">
-                                developer
-                              </Link>
                             </li>
                           </ul>
                         </div>
@@ -331,8 +222,8 @@ const RightSideContent = () => {
                             onClick={openModal}
                             className="primary-link"
                           >
-                            Apply Now{" "}
-                            <i className="mdi mdi-chevron-double-right"></i>
+                            {FromNowDate(job.posted_on)}                            
+                            
                           </Link>
                         </div>
                       </Col>

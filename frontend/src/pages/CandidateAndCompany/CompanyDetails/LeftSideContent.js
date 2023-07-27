@@ -4,8 +4,26 @@ import { Card, CardBody, Col } from "reactstrap";
 
 //Import images
 import featureImage from "../../../assets/images/featured-job/img-01.png";
+import { FormatDate } from "../../../Helpers";
 
-const LeftSideContent = () => {
+const LeftSideContent = ({ company }) => {
+  let WorkingDays = {};
+
+  if (typeof company.working_days !== "undefined") {
+    WorkingDays =
+      company.working_days !== null ? JSON.parse(company.working_days) : {};
+  } else {
+    WorkingDays = {};
+  }
+  const ListOfDays = () => {
+    return Object.keys(WorkingDays).map((day, index) => {
+      return (
+        <li key={index}>
+          {day}<span className={WorkingDays[day].toLowerCase() === "close" ? "text-danger" : "text-success"}>{WorkingDays[day]}</span>
+        </li>
+      );
+    });
+  };
   return (
     <React.Fragment>
       <Col lg={4}>
@@ -17,8 +35,10 @@ const LeftSideContent = () => {
                 alt=""
                 className="avatar-lg rounded-circle"
               />
-              <h6 className="fs-18 mb-1 mt-4">Jobcy Technology Pvt.Ltd</h6>
-              <p className="text-muted mb-4">Since July 2017</p>
+              <h6 className="fs-18 mb-1 mt-4">{company.name}</h6>
+              <p className="text-muted mb-4">
+                Since {FormatDate(company.established_on)}
+              </p>
               <ul className="candidate-detail-social-menu list-inline mb-0">
                 <li className="list-inline-item">
                   <Link to="#" className="social-link">
@@ -44,9 +64,9 @@ const LeftSideContent = () => {
             <ul className="list-unstyled mb-0">
               <li>
                 <div className="d-flex">
-                  <label className="text-dark">Owner Name</label>
+                  <label className="text-dark">Owner</label>
                   <div>
-                    <p className="text-muted mb-0">Charles Dickens</p>
+                    <p className="text-muted mb-0">{company.owner}</p>
                   </div>
                 </div>
               </li>
@@ -54,7 +74,7 @@ const LeftSideContent = () => {
                 <div className="d-flex">
                   <label className="text-dark">Employees</label>
                   <div>
-                    <p className="text-muted mb-0">1500 - 1850</p>
+                    <p className="text-muted mb-0">{company.employees}</p>
                   </div>
                 </div>
               </li>
@@ -62,7 +82,7 @@ const LeftSideContent = () => {
                 <div className="d-flex">
                   <label className="text-dark">Location</label>
                   <div>
-                    <p className="text-muted mb-0">New York</p>
+                    <p className="text-muted mb-0">{company.location}</p>
                   </div>
                 </div>
               </li>
@@ -71,7 +91,7 @@ const LeftSideContent = () => {
                   <label className="text-dark">Website</label>
                   <div>
                     <p className="text-muted text-break mb-0">
-                      www.Jobcytecnologypvt.ltd.com
+                      {company.website}
                     </p>
                   </div>
                 </div>
@@ -80,7 +100,9 @@ const LeftSideContent = () => {
                 <div className="d-flex">
                   <label className="text-dark">Established</label>
                   <div>
-                    <p className="text-muted mb-0">July 10 2017</p>
+                    <p className="text-muted mb-0">
+                      {FormatDate(company.established_on)}
+                    </p>
                   </div>
                 </div>
               </li>
@@ -91,48 +113,21 @@ const LeftSideContent = () => {
               </Link>
             </div>
           </CardBody>
-          <CardBody className="p-4 border-top">
-            <div className="ur-detail-wrap">
-              <div className="ur-detail-wrap-header">
-                <h6 className="fs-17 fw-semibold mb-3">Working Days</h6>
+          {Object.keys(WorkingDays).length > 0 && (
+              <CardBody className="p-4 border-top">
+              <div className="ur-detail-wrap">
+                <div className="ur-detail-wrap-header">
+                  <h6 className="fs-17 fw-semibold mb-3">Working Days</h6>
+                </div>
+                <div className="ur-detail-wrap-body">
+                  <ul className="working-days">
+                    <ListOfDays />
+                  </ul>
+                </div>
               </div>
-              <div className="ur-detail-wrap-body">
-                <ul className="working-days">
-                  <li>
-                    Monday<span>9AM - 5PM</span>
-                  </li>
-                  <li>
-                    Tuesday<span>9AM - 5PM</span>
-                  </li>
-                  <li>
-                    Wednesday<span>9AM - 5PM</span>
-                  </li>
-                  <li>
-                    Thursday<span>9AM - 5PM</span>
-                  </li>
-                  <li>
-                    Friday<span>9AM - 5PM</span>
-                  </li>
-                  <li>
-                    Saturday<span>9AM - 5PM</span>
-                  </li>
-                  <li>
-                    Sunday<span className="text-danger">Close</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </CardBody>
-          <CardBody className="p-4 border-top">
-            <h6 className="fs-17 fw-semibold mb-4">Company Location</h6>
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.15830869428!2d-74.119763973046!3d40.69766374874431!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sin!4v1628067715234!5m2!1sen!2sin"
-              title="title"
-              style={{ width: `100%`, height: `250` }}
-              allowFullScreen=""
-              loading="lazy"
-            ></iframe>
-          </CardBody>
+            </CardBody>
+          )}
+        
         </Card>
       </Col>
     </React.Fragment>
