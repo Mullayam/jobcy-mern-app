@@ -8,7 +8,7 @@ import {
 } from "../../../Apis/apiCore";
 import TextEditor from "../../../components/TextEditor";
 
-import { Countries } from "../../../constants/Countries";
+import { Countries } from "../../../Constants/Countries";
 import SelectBox from "../../../components/Shared/Select";
 import TagsInput from "../../../components/TagsInput";
 

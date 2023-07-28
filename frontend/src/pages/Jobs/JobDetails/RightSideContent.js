@@ -1,16 +1,19 @@
 import React, { useState } from "react";
-import { Modal, ModalBody, Input, Label, Card, CardBody } from "reactstrap";
+import {   Card, CardBody } from "reactstrap";
 import { Link } from "react-router-dom";
 
 //Import Images
 import jobImages2 from "../../../assets/images/featured-job/img-02.png";
 import { FormatDate, FromNowDate, slugify } from "../../../Helpers";
-
+ 
+import ApplyForJobModal from "../../../components/ApplyForJobModal";
 const RightSideContent = ({currentJob}) => {
-  //Apply Now Model
+ 
   const [modal, setModal] = useState(false);
-  const openModal = () => setModal(!modal);
+  const [successMsg, setSuccessMsg] = React.useState(false);
 
+  const openModal = () => setModal(!modal);
+   
   return (
     <React.Fragment>
       <div className="side-bar ms-lg-4">
@@ -85,10 +88,11 @@ const RightSideContent = ({currentJob}) => {
             <div className="mt-3">
               <Link
                 to="#applyNow"
-                onClick={openModal}
+                onClick={!successMsg && openModal}
                 className="btn btn-primary btn-hover w-100 mt-2"
               >
-                Apply Now <i className="uil uil-arrow-right"></i>
+                {successMsg ? "Applied" : <>  Apply Now <i className="uil uil-arrow-right"></i></>}
+              
               </Link>
               <Link
                 to="/bookmarkjobs"
@@ -175,80 +179,7 @@ const RightSideContent = ({currentJob}) => {
             loading="lazy"
           ></iframe>
         </div>
-        <div
-          className="modal fade"
-          id="applyNow"
-          tabIndex="-1"
-          aria-labelledby="applyNow"
-          aria-hidden="true"
-        >
-          <div className="modal-dialog modal-dialog-centered">
-            <Modal isOpen={modal} toggle={openModal} centered>
-              <ModalBody className="modal-body p-5">
-                <div className="text-center mb-4">
-                  <h5 className="modal-title" id="staticBackdropLabel">
-                    Apply For This Job
-                  </h5>
-                </div>
-                <div className="position-absolute end-0 top-0 p-3">
-                  <button
-                    type="button"
-                    onClick={openModal}
-                    className="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div className="mb-3">
-                  <Label for="nameControlInput" className="form-label">
-                    Name
-                  </Label>
-                  <Input
-                    type="text"
-                    className="form-control"
-                    id="nameControlInput"
-                    placeholder="Enter your name"
-                  />
-                </div>
-                <div className="mb-3">
-                  <Label for="emailControlInput2" className="form-label">
-                    Email Address
-                  </Label>
-                  <Input
-                    type="email"
-                    className="form-control"
-                    id="emailControlInput2"
-                    placeholder="Enter your email"
-                  />
-                </div>
-                <div className="mb-3">
-                  <Label for="messageControlTextarea" className="form-label">
-                    Message
-                  </Label>
-                  <textarea
-                    className="form-control"
-                    id="messageControlTextarea"
-                    rows="4"
-                    placeholder="Enter your message"
-                  ></textarea>
-                </div>
-                <div className="mb-4">
-                  <Label className="form-label" for="inputGroupFile01">
-                    Resume Upload
-                  </Label>
-                  <Input
-                    type="file"
-                    className="form-control"
-                    id="inputGroupFile01"
-                  />
-                </div>
-                <button type="submit" className="btn btn-primary w-100">
-                  Send Application
-                </button>
-              </ModalBody>
-            </Modal>
-          </div>
-        </div>
+           <ApplyForJobModal data={{job_id:currentJob.jobID,pid:currentJob.pid,cid:currentJob.cid,modal,openModal,successMsg, setSuccessMsg}} />
       </div>
     </React.Fragment>
   );

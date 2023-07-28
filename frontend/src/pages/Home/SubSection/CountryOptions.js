@@ -1,7 +1,7 @@
 import React from "react";
 import Select from "react-select";
-import { OnlyStates } from "../../../constants/IndianGeoData";
-import { colourStyles } from "../../../constants/ColorStyle";
+import { OnlyStates } from "../../../Constants/IndianGeoData";
+import { colourStyles } from "../../../Constants/ColorStyle";
 import { CovertArraytoSelectFormat } from "../../../Helpers";
 import { useAppContext } from "../../../Hooks/useAppContext";
 

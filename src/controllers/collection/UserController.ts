@@ -9,19 +9,47 @@ class UserController {
     async AddNewCompany(req: Request, res: Response) { }
     async DeleteCompant(req: Request, res: Response) { }
     async AddOrRemoveJobFromBookmarked(req: Request, res: Response) {
-        
+
         try {
-             await presql.updateMany({
+            await presql.updateMany({
                 table: "my_listings", data: {
                     bookmarked: req.body.action
                 }, where: { job_id: req.body.jobIid }
             })
-            JSONResponse.Response(req, res, "Removed From Bookmarks", {message:"OK"}, 200)
+            JSONResponse.Response(req, res, "Removed From Bookmarks", { message: "OK" }, 200)
         } catch (error: any) {
             JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
         }
     }
     async ApplyJob(req: Request, res: Response) {
+        const info = req.body
+
+        try {
+            await presql.create({
+                table: "my_listings", data: {
+                    user_id: req.body.user_id,
+                    job_id: req.body.jobIid,
+                    isApplied: 1
+                }
+            }) 
+            await presql.create({
+                table: "applied_jobs",
+                data: {
+                    user_id: req.body.user_id,
+                    job_id: req.body.jobId,
+                    posted_by: req.body.pid,
+                    company_id: req.body.cid,
+                    tags: info['tags[]'] || JSON.stringify([]),
+                    message: req.body.msg ?? req.body.msg,
+                    status: JSON.stringify(["Applied"])
+                }
+            })
+
+            JSONResponse.Response(req, res, "You Applied for this Job Successfully", { message: "👍" }, 200)
+        } catch (error: any) {
+            JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
+        }
+
 
     }
     async GetJobsPostedByMember(req: Request, res: Response) {
@@ -42,6 +70,21 @@ class UserController {
             JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
         }
     }
-
+    async UpdateMemberProfile(req: Request, res: Response) {
+        console.log(req.body)
+        res.end()
+    }
+    async UpdateMemberEducation(req: Request, res: Response) {
+        console.log(req.body)
+        res.end()
+    }
+    async UpdateMemberExperiences(req: Request, res: Response) {
+        console.log(req.body)
+        res.end()
+    }
+    async UpdateMemberProjects(req: Request, res: Response) {
+        console.log(req.body)
+        res.end()
+    }
 }
 export default new UserController()

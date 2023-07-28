@@ -72,8 +72,33 @@ export  const UpdateJobPostedByMember = async (jobId)=>{
     params:{jobId}
   })
 }
+/* Get Bookmarked jobs for member  */
+
 export const GetMemberBookmarkedJobs = async (cfn_id)=>{
   return await instance.get("/v1/get-bookmarked/jobs",{
     params:{cfn_id}
   })
 }
+/* Update UserProfile */
+export const UpdateMemberProfile = async (data)=>{
+  return await instance.post("/v1/update/member-profile",data)
+}
+export const UpdateMemberEducation = async (userId,data)=>{
+  return await instance.put("/v1/update/member/education",{userId,data})
+}
+export const UpdateMemberExperiences= async (userId,data)=>{
+  return await instance.put("/v1/update/member/experiences",{userId,data})
+}
+export const UpdateMemberProjects = async (data)=>{
+  return await instance.put("/v1/update/member/projects",data)
+}
+
+
+
+
+
+/* Apply For Job */
+ export const ApplyForJob = async (data)=>{
+  return await instance.post("/v1/apply/job",data)
+   
+ }

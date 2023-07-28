@@ -4,7 +4,7 @@ export const AuthInitialState = {
   isLoader: false,
   isLoggedIn: false,
   location: null,
- 
+  haveCV:false
 };
 export function AuthReducer(AuthInitialState, action) {
   switch (action.type) {
@@ -20,6 +20,9 @@ export function AuthReducer(AuthInitialState, action) {
     }
     case ACTIONS.SET_LOADER: {
       return { ...AuthInitialState, isLoader: action.payload };
+    }
+    case ACTIONS.SET_CV_STATUS: {
+      return { ...AuthInitialState, haveCV: action.payload };
     }
     default: {
       return AuthInitialState;

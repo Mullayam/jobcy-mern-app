@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { Button, Col, Collapse, Input, Label } from "reactstrap";
-import { DateOptions,WorkExperience,TypeofEmployment } from "../../../constants";
+import { DateOptions,WorkExperience,TypeofEmployment } from "../../../Constants";
 const Sidebar = () => {
   let [searchParams, setSearchParams] = useSearchParams();
 
