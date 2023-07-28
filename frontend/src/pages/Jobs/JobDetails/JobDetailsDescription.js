@@ -6,7 +6,7 @@ import JobDetailImage from "../../../assets/images/job-detail.jpg";
 import JobImage10 from "../../../assets/images/featured-job/img-10.png";
 import { Link } from "react-router-dom";
 
-const JobDetailsDescription = () => {
+const JobDetailsDescription = ({currentJob}) => { 
   return (
     <React.Fragment>
       <Card className="job-detail overflow-hidden">
@@ -24,10 +24,10 @@ const JobDetailsDescription = () => {
           <div>
             <Row>
               <Col md={8}>
-                <h5 className="mb-1">Product Designer / UI Designer</h5>
+                <h5 className="mb-1">{currentJob.job_title}</h5>
                 <ul className="list-inline text-muted mb-0">
                   <li className="list-inline-item">
-                    <i className="mdi mdi-account"></i> 8 Vacancy
+                    <i className="mdi mdi-account"></i>{currentJob.openings} Vacancy
                   </li>
                   <li className="list-inline-item text-warning review-rating">
                     <span className="badge bg-warning">4.8</span>{" "}
@@ -65,25 +65,25 @@ const JobDetailsDescription = () => {
               <Col lg={3}>
                 <div className="border rounded-start p-3">
                   <p className="text-muted mb-0 fs-13">Experience</p>
-                  <p className="fw-medium fs-15 mb-0">Minimum 1 Year</p>
+                  <p className="fw-medium fs-15 mb-0">{currentJob.min_exp}</p>
                 </div>
               </Col>
               <Col lg={3}>
                 <div className="border p-3">
                   <p className="text-muted fs-13 mb-0">Employee type</p>
-                  <p className="fw-medium mb-0">Full Time</p>
+                  <p className="fw-medium mb-0">{currentJob.job_type}</p>
                 </div>
               </Col>
               <Col lg={3}>
                 <div className="border p-3">
                   <p className="text-muted fs-13 mb-0">Position</p>
-                  <p className="fw-medium mb-0">Senior</p>
+                  <p className="fw-medium mb-0">{currentJob.position}</p>
                 </div>
               </Col>
               <Col lg={3}>
                 <div className="border rounded-end p-3">
                   <p className="text-muted fs-13 mb-0">Offer Salary</p>
-                  <p className="fw-medium mb-0">$2150/ Month</p>
+                  <p className="fw-medium mb-0">{currentJob.offered_salary}</p>
                 </div>
               </Col>
             </Row>
@@ -93,14 +93,7 @@ const JobDetailsDescription = () => {
             <h5 className="mb-3">Job Description</h5>
             <div className="job-detail-desc">
               <p className="text-muted mb-0">
-                As a Product Designer, you will work within a Product Delivery
-                Team fused with UX, engineering, product and data talent. You
-                will help the team design beautiful interfaces that solve
-                business challenges for our clients. We work with a number of
-                Tier 1 banks on building web-based applications for AML, KYC and
-                Sanctions List management workflows. This role is ideal if you
-                are looking to segue your career into the FinTech or Big Data
-                arenas.
+              {currentJob.description}
               </p>
             </div>
           </div>
@@ -109,31 +102,13 @@ const JobDetailsDescription = () => {
             <h5 className="mb-3">Responsibilities</h5>
             <div className="job-detail-desc mt-2">
               <p className="text-muted">
-                As a Product Designer, you will work within a Product Delivery
-                Team fused with UX, engineering, product and data talent.
+               
               </p>
               <ul className="job-detail-list list-unstyled mb-0 text-muted">
                 <li>
                   <i className="uil uil-circle"></i> Have sound knowledge of
                   commercial activities.
-                </li>
-                <li>
-                  <i className="uil uil-circle"></i> Build next-generation web
-                  applications with a focus on the client side
-                </li>
-                <li>
-                  <i className="uil uil-circle"></i> Work on multiple projects
-                  at once, and consistently meet draft deadlines
-                </li>
-                <li>
-                  <i className="uil uil-circle"></i> have already graduated or
-                  are currently in any year of study
-                </li>
-                <li>
-                  <i className="uil uil-circle"></i> Revise the work of previous
-                  designers to create a unified aesthetic for our brand
-                  materials
-                </li>
+                </li>               
               </ul>
             </div>
           </div>
@@ -146,18 +121,7 @@ const JobDetailsDescription = () => {
                   <i className="uil uil-circle"></i> B.C.A / M.C.A under
                   National University course complete.
                 </li>
-                <li>
-                  <i className="uil uil-circle"></i> 3 or more years of
-                  professional design experience
-                </li>
-                <li>
-                  <i className="uil uil-circle"></i> have already graduated or
-                  are currently in any year of study
-                </li>
-                <li>
-                  <i className="uil uil-circle"></i> Advanced degree or
-                  equivalent experience in graphic and web design
-                </li>
+                
               </ul>
             </div>
           </div>
@@ -189,10 +153,7 @@ const JobDetailsDescription = () => {
               </ul>
               <div className="mt-4 d-flex flex-wrap align-items-start gap-1">
                 <span className="badge bg-primary">PHP</span>
-                <span className="badge bg-primary">JS</span>
-                <span className="badge bg-primary">Marketing</span>
-                <span className="badge bg-primary">REACT</span>
-                <span className="badge bg-primary">PHOTOSHOP</span>
+                {currentJob.skills}
               </div>
             </div>
           </div>
@@ -207,7 +168,7 @@ const JobDetailsDescription = () => {
               </li>
               <li className="list-inline-item mt-1">
                 <Link to="#" className="btn btn-danger btn-hover">
-                  <i className="uil uil-google"></i> Google+
+                  <i className="uil uil-whatsapp"></i> WhatsApp
                 </Link>
               </li>
               <li className="list-inline-item mt-1">

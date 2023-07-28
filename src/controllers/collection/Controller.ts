@@ -121,13 +121,7 @@ class BasicController {
          JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 401)
       }
    }
-   async AddOrRemoveJobFromBookmarked(req: Request, res: Response) {
-      console.log(req.body.data)
-      res.end()
-   }
-   async ApplyJob(req: Request, res: Response) {
-
-   }
+   
 }
 export default new BasicController()
 

@@ -48,7 +48,7 @@ const Layout = React.lazy(() => import('../pages/Home/Layout/Layout'));
  
 const userRoutes = [
   //profile Section(User Profile)
-  { path: "/bookmarkjobpost", component: <BookMarkJobPost /> },
+  { path: "/bookmarkjobpost/:job_id", component: <BookMarkJobPost /> },
   { path: "/myprofile", component: <MyProfile /> },
   { path: "/bookmarkjobs", component: <BookMarkJobs /> },
   { path: "/managejobs", component: <ManageJobs /> },

@@ -37,44 +37,7 @@ const JobVacancyPost = () => {
         }
       ]
     },
-    {
-      id: 2,
-      companyImg: jobImage2,
-      jobDescription: "Marketing Director",
-      experience: "2-4 Yrs Exp.",
-      companyName: "Creative Agency",
-      location: "New York",
-      salary: "$250 - $800 / month",
-      partTime: true,
-      timing: "Full Time",
-      addclassNameBookmark: false,
-      badges: [
-        {
-          id: 1,
-          badgeclassName: "bg-info-subtle text-info",
-          badgeName: "Private"
-        }
-      ]
-    },
-    {
-      id: 3,
-      companyImg: jobImage3,
-      jobDescription: "HTML Developer",
-      experience: "2-4 Yrs Exp.",
-      companyName: "Jobcy Technology Pvt.Ltd",
-      location: "California",
-      salary: "$250 - $800 / month",
-      freeLance: true,
-      timing: "Freelance",
-      addclassNameBookmark: false,
-      badges: [
-        {
-          id: 1,
-          badgeclassName: "bg-blue-subtle text-blue",
-          badgeName: "Internship"
-        }
-      ]
-    }
+    
   ];
   return (
     <React.Fragment>

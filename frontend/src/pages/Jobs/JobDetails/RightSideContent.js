@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 
 //Import Images
 import jobImages2 from "../../../assets/images/featured-job/img-02.png";
+import { FormatDate, FromNowDate, slugify } from "../../../Helpers";
 
-const RightSideContent = () => {
+const RightSideContent = ({currentJob}) => {
   //Apply Now Model
   const [modal, setModal] = useState(false);
   const openModal = () => setModal(!modal);
@@ -22,7 +23,7 @@ const RightSideContent = () => {
                   <i className="uil uil-user icon bg-primary-subtle text-primary"></i>
                   <div className="ms-3">
                     <h6 className="fs-14 mb-2">Job Title</h6>
-                    <p className="text-muted mb-0">Product Designer</p>
+                    <p className="text-muted mb-0">{currentJob.job_title}</p>
                   </div>
                 </div>
               </li>
@@ -31,7 +32,7 @@ const RightSideContent = () => {
                   <i className="uil uil-star-half-alt icon bg-primary-subtle text-primary"></i>
                   <div className="ms-3">
                     <h6 className="fs-14 mb-2">Experience</h6>
-                    <p className="text-muted mb-0"> 0-3 Years</p>
+                    <p className="text-muted mb-0"> {currentJob.min_exp}</p>
                   </div>
                 </div>
               </li>
@@ -40,7 +41,7 @@ const RightSideContent = () => {
                   <i className="uil uil-location-point icon bg-primary-subtle text-primary"></i>
                   <div className="ms-3">
                     <h6 className="fs-14 mb-2">Location</h6>
-                    <p className="text-muted mb-0"> New york</p>
+                    <p className="text-muted mb-0"> {currentJob.job_location}</p>
                   </div>
                 </div>
               </li>
@@ -49,7 +50,7 @@ const RightSideContent = () => {
                   <i className="uil uil-usd-circle icon bg-primary-subtle text-primary"></i>
                   <div className="ms-3">
                     <h6 className="fs-14 mb-2">Offered Salary</h6>
-                    <p className="text-muted mb-0">$35k - $45k</p>
+                    <p className="text-muted mb-0">{currentJob.offered_salary}</p>
                   </div>
                 </div>
               </li>
@@ -67,7 +68,7 @@ const RightSideContent = () => {
                   <i className="uil uil-building icon bg-primary-subtle text-primary"></i>
                   <div className="ms-3">
                     <h6 className="fs-14 mb-2">Industry</h6>
-                    <p className="text-muted mb-0">Private</p>
+                    <p className="text-muted mb-0">{currentJob.industry_type}</p>
                   </div>
                 </div>
               </li>
@@ -76,7 +77,7 @@ const RightSideContent = () => {
                   <i className="uil uil-history icon bg-primary-subtle text-primary"></i>
                   <div className="ms-3">
                     <h6 className="fs-14 mb-2">Date Posted</h6>
-                    <p className="text-muted mb-0">Posted 2 hrs ago</p>
+                    <p className="text-muted mb-0">{FromNowDate(currentJob.posted_on)}</p>
                   </div>
                 </div>
               </li>
@@ -106,7 +107,7 @@ const RightSideContent = () => {
 
               <div className="mt-4">
                 <h6 className="fs-17 mb-1">Jobcy Technology Pvt.Ltd</h6>
-                <p className="text-muted">Since July 2017</p>
+                <p className="text-muted">Since {FormatDate(currentJob.established_on) || "Not Available"} </p>
               </div>
             </div>
             <ul className="list-unstyled mt-4">
@@ -136,7 +137,7 @@ const RightSideContent = () => {
                   <div className="ms-3">
                     <h6 className="fs-14 mb-2">Website</h6>
                     <p className="text-muted fs-14 text-break mb-0">
-                      www.Jobcytechnology.pvt.ltd.com
+                      {currentJob.website || "Not Avaiable"}
                     </p>
                   </div>
                 </div>
@@ -147,7 +148,7 @@ const RightSideContent = () => {
                   <div className="ms-3">
                     <h6 className="fs-14 mb-2">Location</h6>
                     <p className="text-muted fs-14 mb-0">
-                      Oakridge Lane Richardson.
+               {currentJob.location}
                     </p>
                   </div>
                 </div>
@@ -155,7 +156,7 @@ const RightSideContent = () => {
             </ul>
             <div className="mt-4">
               <Link
-                to="/companydetails"
+                to={`/companydetails/${slugify(`${currentJob.name}`)}-${currentJob.cid}`}
                 className="btn btn-primary btn-hover w-100 rounded"
               >
                 <i className="mdi mdi-eye"></i> View Profile

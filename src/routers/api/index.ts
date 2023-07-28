@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { Middlewares } from '../../middlewares/index.js';
-import { Basic, Company, Jobs, Test } from '../../controllers/index.js';
+import { Basic, Company, Jobs, Test, User } from '../../controllers/index.js';
 
 
 export class BaseRoutes {
@@ -21,18 +21,27 @@ export class BaseRoutes {
             .delete(Company.default.DeleteCompant)
         this.router.post("/add-company", Company.default.AddNewCompany)
         // Job Routes
-        this.router.route("/job/:id")
-            .get(Jobs.default.GetAllCompanies)
-            .put(Jobs.default.UpdateCompany)
-            .delete(Jobs.default.DeleteCompant)
-        this.router.post("/add-job", Jobs.default.AddNewCompany)
+        this.router.get("/single-job/:jobId?", Jobs.default.GetSingleJobWithID)
+        this.router.post("/new-job", Jobs.default.AddNewJob)
+        this.router.route("/handle-job/action")
+        .put(Jobs.default.UpdateExistingJobWithJobId)
+        .delete(Jobs.default.DeleteExistingJobWithJobId)
+        
+
+        //  Controller.js
         this.router.get("/all/job-types", Basic.default.GetJobTypes)
         this.router.get("/get-jobs/:category_id?", Basic.default.GetJobFromCategoryIdAndQueryFilters)
         this.router.get("/get-company-jobs/:company_id", Basic.default.GetJobsFromCompanyId)
-        this.router.post("/bookmark/job", Basic.default.AddOrRemoveJobFromBookmarked)
-        
 
-        
+        // UserController.js
+        this.router.post("/bookmark/job", User.default.AddOrRemoveJobFromBookmarked)
+        this.router.post("/apply/job", User.default.ApplyJob)
+        this.router.get("/my/posted/jobs", User.default.GetJobsPostedByMember)
+        this.router.get("/get-bookmarked/jobs", User.default.GetMemberBookmarkedJobs)
+
+
+
+
         // this.router.use(Middlewares.isAuthenticated)
         this.router.get("/test", Test.default.CheckRoute)
     }

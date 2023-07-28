@@ -7,7 +7,7 @@ const Pagination = ({ totalJobs }) => {
 
   const currentPage = searchParams.get("page") || 1;
 
-  const MaxPages = Math.ceil(totalJobs / 5);
+  const MaxPages = Math.ceil(totalJobs / 5 ||1);
   const MaxPageArray = new Array(MaxPages);
   const HandlePaginationSubmit = (value) => {
     if (!searchParams.has("page")) {

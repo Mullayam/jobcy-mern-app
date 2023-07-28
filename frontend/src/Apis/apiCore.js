@@ -1,5 +1,11 @@
 import { instance } from "./api.instance";
 
+/**
+ * 
+ * @param {cfn_id} user_id 
+ * 
+ 
+ */
 export const Login = async (email, password) => {
   return await instance.post("/login", {
     email,
@@ -43,7 +49,31 @@ export const GetJobFromCategoryIdAndQueryFilters = async (id, filters) => {
     params:  {filters} 
   });
 };
-export const AddOrRemoveBookmarkedJob = async (data)=>{
- 
-  return await instance.post("/v1/bookmark/job",{data})
+export const AddOrRemoveBookmarkedJob = async (data)=>{ 
+  return await instance.post("/v1/bookmark/job",data)}
+export const GetAllUserNotifications = async (data)=>{ 
+  return await instance.get("/v1/notifications",)
+}
+export  const GetJobDetailsFromJobId = async (jobId)=>{
+  return await instance.get(`/v1/single-job/${jobId}`)
+}
+export  const GetJobsPostedByMember = async (cfn_id)=>{   
+  return await instance.get("/v1/my/posted/jobs",{
+    params:{cfn_id}
+  })
+}
+export  const DeleteJobPostedByMember = async (jobId)=>{   
+  return await instance.delete("/v1/handle-job/action",{
+    params:{jobId}
+  })
+}
+export  const UpdateJobPostedByMember = async (jobId)=>{   
+  return await instance.put("/v1/handle-job/action",{
+    params:{jobId}
+  })
+}
+export const GetMemberBookmarkedJobs = async (cfn_id)=>{
+  return await instance.get("/v1/get-bookmarked/jobs",{
+    params:{cfn_id}
+  })
 }
