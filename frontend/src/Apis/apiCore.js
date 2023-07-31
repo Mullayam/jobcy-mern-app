@@ -84,18 +84,22 @@ export const UpdateMemberProfile = async (data)=>{
   return await instance.post("/v1/update/member-profile",data)
 }
 export const UpdateMemberEducation = async (userId,data)=>{
-  return await instance.put("/v1/update/member/education",{userId,data})
+  return await instance.post("/v1/update/member/education",{userId,data})
 }
 export const UpdateMemberExperiences= async (userId,data)=>{
-  return await instance.put("/v1/update/member/experiences",{userId,data})
+  return await instance.post("/v1/update/member/experiences",{userId,data})
 }
 export const UpdateMemberProjects = async (data)=>{
-  return await instance.put("/v1/update/member/projects",data)
+  return await instance.post("/v1/update/member/projects",data)
 }
 
+export const UpdateMemberProfilePicture = async (data)=>{
+  return await instance.post("/v1/update/profile-picture",data)
+}
 
-
-
+export const UpdateMemberResume = async (data)=>{
+  return await instance.post("/v1/update/resume",data)
+}
 
 /* Apply For Job */
  export const ApplyForJob = async (data)=>{

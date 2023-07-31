@@ -1,7 +1,12 @@
 import { Request, Response } from "express";
 import { presql } from "../../connection/conn.js";
 import JSONResponse from "../../services/JSONResponse.js";
+import { UploadedFile } from "express-fileupload";
+import path from "path";
+import helpers from "../../helpers/index.js";
 
+const ProfilePicUploadPath = path.join(process.cwd(), "public", "uploads", "profileImg");
+const ResumeUploadPath = path.join(process.cwd(), "public", "uploads", "resumes");
 class UserController {
 
     async GetAllCompanies(req: Request, res: Response) { }
@@ -39,33 +44,41 @@ class UserController {
     }
     async ApplyJob(req: Request, res: Response) {
         const info = req.body
-
+        const Info = {
+            message: (req.body.msg ?? req.body.msg) || "",
+            skills: info['tags[]'] || [],
+            status: ["Applied"]
+        }
+        const status = JSON.stringify(Info)
         try {
-            const isJobExist = await presql.findOne({ table: "my_listings", where: { AND: { user_id: req.body.user_id, job_id: req.body.jobId } }, select: { applied: 1 } })
+            const isJobExist = await presql.buildQuery({
+                query: `SELECT is_applied FROM my_listings WHERE user_id=${req.body.user_id} AND job_id=${req.body.job_id}`,
+                role: "0x00044"
+            })
+            console.log(isJobExist)
             if (isJobExist.length === 0) {
+
+
                 await presql.buildQuery({
-                    query: `INSERT INTO my_listings (user_id, job_id,is_applied) VALUES (${req.body.user_id}, ${req.body.jobIid}, 1)`,
+                    query: `INSERT INTO my_listings (user_id,job_id,is_applied) VALUES ('${req.body.user_id}', '${req.body.job_id}', 1)`,
                     role: "0x00044"
                 })
                 await presql.buildQuery({
-                    query: `INSERT INTO applied_jobs (user_id, job_id,posted_by,company_id,status,message,skills) VALUES ("${req.body.user_id}", "${req.body.jobId}", "${req.body.pid}"," ${req.body.cid}", "${JSON.stringify(["Applied"])}", "${req.body.msg ?? req.body.msg}", "${JSON.stringify(info['tags[]'] || [])}")`,
+                    query: `INSERT INTO applied_jobs (user_id, job_id,posted_by,company_id,status) VALUES ('${req.body.user_id}', '${req.body.job_id}','${req.body.pid}', '${req.body.cid}','${status}')`,
+                    role: "0x00044"
+                })
+            } else {
+
+
+                await presql.buildQuery({
+                    query: `UPDATE my_listings SET is_applied='1' WHERE user_id ='${req.body.user_id}' AND job_id='${req.body.job_id}'`,
+                    role: "0x00044"
+                })
+                await presql.buildQuery({
+                    query: `INSERT INTO applied_jobs (user_id, job_id,posted_by,company_id,status) VALUES ('${req.body.user_id}', '${req.body.job_id}','${req.body.pid}', '${req.body.cid}','${status}')`,
                     role: "0x00044"
                 })
 
-            } else {
-                await presql.updateOne({
-                    table: "my_listings",
-                    data: {
-                        is_applied: 1
-                    },
-                    where: {
-                        AND: { user_id: req.body.user_id, job_id: req.body.jobId }
-                    }
-                })
-                await presql.buildQuery({
-                    query: `INSERT INTO applied_jobs (user_id, job_id,posted_by,company_id,status,message,skills) VALUES ("${req.body.user_id}", "${req.body.jobId}", "${req.body.pid}"," ${req.body.cid}", "${JSON.stringify(["Applied"])}", "${req.body.msg ?? req.body.msg}", "${JSON.stringify(info['tags[]'] || [])}")`,
-                    role: "0x00044"
-                })
             }
 
             JSONResponse.Response(req, res, "You Applied for this Job Successfully", { message: "👍" }, 200)
@@ -95,7 +108,23 @@ class UserController {
         }
     }
     async UpdateMemberProfile(req: Request, res: Response) {
-        console.log(req.body)
+        console.log(req.body.filesData)
+
+        const Links = {
+            facebook: req.body.facebook,
+            linkedin: req.body.linkedin,
+            github: req.body.github,
+            whatsapp: req.body.whatsapp
+        }
+        try {
+            await presql.buildQuery({
+                query: `UPDATE more_info SET WHERE user_id = ${req.body.userId}`,
+                role: "0x00044"
+            })
+        } catch (error: any) {
+            JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
+
+        }
         res.end()
     }
     async UpdateMemberEducation(req: Request, res: Response) {
@@ -109,6 +138,59 @@ class UserController {
     async UpdateMemberProjects(req: Request, res: Response) {
         console.log(req.body)
         res.end()
+    }
+    async UpdateMemberProfilePicture(req: Request, res: Response) {
+        const ProfileImg = req.files?.image as UploadedFile
+        const renameFile = helpers.purifyString(ProfileImg.name)
+        try {
+            ProfileImg.mv(`${path.join(ProfilePicUploadPath, renameFile)}`, async () => {
+                await presql.updateOne({
+                    table: "member", data: {
+                        image: renameFile
+                    },
+                    where: { user_id: req.body.user_id }
+                })
+               
+                JSONResponse.Response(req, res, "Profile Image Uploaded Successfully", {}, 200)
+
+            })
+        } catch (error: any) {
+            JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
+
+        }
+    }
+
+    async UpdateMemberResume(req: Request, res: Response) {
+        const resume = req.files?.resume as UploadedFile
+        const renameFile = helpers.purifyString(resume.name) 
+       
+        try {
+            resume.mv(`${path.join(ResumeUploadPath, renameFile)}`, async (err:any) => {
+                if (err) {
+                    throw new Error(err.message)
+                }
+                const CV_Obj={
+                    cvfile:{
+                        name:renameFile,
+                        size:resume.size,
+                        format:renameFile.split(".")[0],
+                        md5:resume.md5
+                    },
+                    coverletter:""
+            }
+            const CV_Obj_Str = JSON.stringify(CV_Obj)
+                await presql.updateOne({
+                    table: "more_info", data: {
+                        cv: CV_Obj_Str
+                    },
+                    where: { user_id: req.body.user_id }
+                })
+                JSONResponse.Response(req, res, "Resume Uploaded Successfully", {}, 200)
+            })
+        } catch (error: any) {
+            JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
+
+        }
     }
 }
 export default new UserController()

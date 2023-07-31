@@ -1,50 +1,76 @@
 import React from "react";
-import { Col, Row, Input,  Label } from "reactstrap";
+import { Col, Row, Input, Label } from "reactstrap";
 import { toast } from "react-toastify";
- 
+
 import { useAuth } from "../../Hooks/useAuthContext";
 //Images Import
 import userImage2 from "../../assets/images/user/img-02.jpg";
-import TagsInput from "../../components/TagsInput"
-import {  UpdateMemberProfile } from "../../Apis/apiCore";
+import TagsInput from "../../components/TagsInput";
+import {
+  UpdateMemberProfile,
+  UpdateMemberProfilePicture,
+  UpdateMemberResume,
+} from "../../Apis/apiCore";
 function SettingsForm() {
-  const { Auth:{user} } = useAuth(); 
-  const [inputs, setInputs] = React.useState({});
-  const [tags, setTags] = React.useState(["helo"])
-  const [links, setLinks] = React.useState({});
-  const [textarea, setTextarea] = React.useState('');
-  const [file, setFile] = React.useState(null);
-  const [cvFile, setCvFile] = React.useState(null);
-  const [previewImage, setPreviewImage] = React.useState(userImage2||null);
-  
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0])
-    setPreviewImage(URL.createObjectURL(e.target.files[0]));
-  }
-  const handleCVeChange = (e) => {
-    setCvFile(e.target.files[0])  
-  }
-  const HandleInputsChange = (e) => {  
-      
-    setInputs({ ...inputs, [e.target.id]: e.target.value });
-  };
-  const HandleLinksChange=(e)=>{
-    setLinks({ ...links, [e.target.id]: e.target.value });
-  }
-  const HandleUpdateButton = async() => {
-    const filesData = new FormData();
-    filesData.append("image",file);
-    filesData.append("attachmentscv",cvFile);
-    
-     const { data } = await UpdateMemberProfile({userId:user.user_id,inputs,filesData,links});  
- 
-    if (data.success) {
-       return toast.success(data.message)
+  const {
+    Auth: { user },
+  } = useAuth();
 
+  const [tags, setTags] = React.useState([]);
+
+  const [previewImage, setPreviewImage] = React.useState(userImage2 || null);
+
+  const handleFileChange = async (e) => {
+    const imgData = new FormData();
+    imgData.append("image", e.target.files[0]);
+    imgData.append("user_id", user.user_id);
+    const { data } = await UpdateMemberProfilePicture(imgData);
+    if (data.success) {
+      toast.success(data.message);
+      return setPreviewImage(URL.createObjectURL(e.target.files[0]));
     }
-   return toast.error(data.message)
+    return toast.error(data.message);
   };
- 
+  const handleCVeChange = async (e) => {
+    const cvData = new FormData();
+    cvData.append("resume", e.target.files[0]);
+    cvData.append("user_id", user.user_id);
+
+    const { data } = await UpdateMemberResume(cvData);
+    if (data.success) {
+      return toast.success(data.message);
+    }
+    return toast.error(data.message);
+  };
+
+  const HandleUpdateButton = async () => {
+    const location = document.getElementById("location").value;
+    const fullname = document.getElementById("fullname").value;
+    const aboutme = document.getElementById("aboutme").value;
+    const facebook = document.getElementById("facebook").value;
+    const github = document.getElementById("github").value;
+    const linkedin = document.getElementById("linkedin").value;
+    const whatsapp = document.getElementById("whatsapp").value;
+
+    const { data } = await UpdateMemberProfile({
+      userId: user.user_id,
+
+      location,
+      fullname,
+      aboutme,
+      tags,
+      facebook,
+      linkedin,
+      github,
+      whatsapp,
+    });
+
+    if (data.success) {
+      return toast.success(data.message);
+    }
+    return toast.error(data.message);
+  };
+
   return (
     <div>
       <div>
@@ -66,10 +92,7 @@ function SettingsForm() {
                 onChange={handleFileChange}
                 className="profile-img-file-input"
               />
-              <Label
-                htmlFor="image"
-                className="profile-photo-edit avatar-xs"
-              >
+              <Label htmlFor="image" className="profile-photo-edit avatar-xs">
                 <i className="uil uil-edit"></i>
               </Label>
             </div>
@@ -81,9 +104,9 @@ function SettingsForm() {
               <label htmlFor="fullname" className="form-label">
                 Full Name
               </label>
-              <Input type="text" className="form-control" id="fullname" value={inputs.firstName} onChange={HandleInputsChange} />
+              <Input type="text" className="form-control" id="fullname" />
             </div>
-          </Col>          
+          </Col>
 
           <Col lg={6}>
             <div className="mb-3">
@@ -99,8 +122,9 @@ function SettingsForm() {
                 disabled
                 aria-readonly
               >
-                <option  defaultValue value="candidate">Candidate</option>
-                
+                <option defaultValue value="candidate">
+                  Candidate
+                </option>
               </select>
             </div>
           </Col>
@@ -109,7 +133,7 @@ function SettingsForm() {
               <Label htmlFor="email" className="form-label">
                 Email
               </Label>
-              <Input type="text" className="form-control" id="email" value={inputs.email} onChange={HandleInputsChange} readOnly   />
+              <Input type="text" className="form-control" id="email" readOnly />
             </div>
           </Col>
         </Row>
@@ -126,8 +150,7 @@ function SettingsForm() {
               >
                 Introduce Yourself
               </Label>
-              <textarea className="form-control" rows="5" value={textarea} onChange={e => setTextarea(e.target.value)}/>               
-               
+              <textarea className="form-control" rows="5" id="aboutme" />
             </div>
           </Col>
 
@@ -137,17 +160,16 @@ function SettingsForm() {
                 Languages
               </Label>
               <TagsInput id="languages" tags={tags} setTags={setTags} />
-           
             </div>
           </Col>
 
           <Col lg={12}>
             <div className="mb-3">
               <label htmlFor="location" className="form-label">
-              Currrent Location
+                Currrent Location
               </label>
-              <Input className="form-control" type="text" id="location" value={inputs.location} onChange={HandleInputsChange} />
-
+              <Input className="form-control" type="text" id="location" />
+              <div className="autocom-box"> </div>
             </div>
           </Col>
           <Col lg={6}>
@@ -155,7 +177,13 @@ function SettingsForm() {
               <Label htmlFor="attachmentscv" className="form-label">
                 Attachment CV
               </Label>
-              <Input className="form-control" accept="application/pdf" type="file" id="attachmentscv" onChange={handleCVeChange} />
+              <Input
+                className="form-control"
+                accept="application/pdf"
+                type="file"
+                id="attachmentscv"
+                onChange={handleCVeChange}
+              />
             </div>
           </Col>
         </Row>
@@ -173,7 +201,6 @@ function SettingsForm() {
                 type="text"
                 className="form-control"
                 id="facebook"
-                value={links.facebook} onChange={HandleLinksChange}
                 to="https://www.facebook.com"
               />
             </div>
@@ -182,14 +209,12 @@ function SettingsForm() {
           <Col lg={6}>
             <div className="mb-3">
               <Label htmlFor="github" className="form-label">
-                Twitter
+                Github
               </Label>
               <Input
                 type="text"
                 className="form-control"
                 id="github"
-                value={links.github} onChange={HandleLinksChange}
-
                 to="https://www.twitter.com"
               />
             </div>
@@ -200,14 +225,7 @@ function SettingsForm() {
               <Label htmlFor="linkedin" className="form-label">
                 Linkedin
               </Label>
-              <Input
-                type="text"
-                className="form-control"
-                id="linkedin"
-                value={links.linkedin} onChange={HandleLinksChange}
-
-                to="https://www.linkedin.com"
-              />
+              <Input type="text" className="form-control" id="linkedin" />
             </div>
           </Col>
 
@@ -216,14 +234,7 @@ function SettingsForm() {
               <Label htmlFor="whatsapp" className="form-label">
                 Whatsapp
               </Label>
-              <Input
-                type="text"
-                className="form-control"
-                id="whatsapp"
-                value={links.whatsapp} onChange={HandleLinksChange}
-
-                to="https://www.whatsapp.com"
-              />
+              <Input type="text" className="form-control" id="whatsapp" />
             </div>
           </Col>
         </Row>

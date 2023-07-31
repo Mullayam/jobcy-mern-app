@@ -7,8 +7,8 @@ import { SECRET_KEY } from '../../middlewares/index.js'
 import { Services } from "../../services/index.js";
 import Utils from '../../utils/index.js'
 import { LoginResponse } from '../../types/index.js'
-import {ForgetPassword} from "../../utils/templates/email/forgot-password.js"
-import {WelcomeMessage} from "../../utils/templates/email/welcome-message.js"
+import { ForgetPassword } from "../../utils/templates/email/forgot-password.js"
+import { WelcomeMessage } from "../../utils/templates/email/welcome-message.js"
 import MailService from '../../services/EmailConfiguration.js'
 const Email = MailService.getInstance()
 
@@ -60,6 +60,7 @@ class Authentication {
             // create custom userid
             const UserInfo = { userId: userID, username, fullname: req.body.name, email: req.body.email, password: HashedPassword } // user object
             await presql.create({ table: "member", data: UserInfo }) // query to insert into database
+            await presql.create({ table: "more_info", data: { user_id: userID } }) // query to insert into database
             const Token = jwt.sign({ id: userID, username, }, SECRET_KEY, { expiresIn: "24h" }) // jwt token sign
             const RefreshToken = Helpers.CreateRefreshToken() // refresh token
             Tokens.set(userID, RefreshToken)
@@ -85,8 +86,8 @@ class Authentication {
                 throw new Error("User doesn't not Exist");
             }
             JSONResponse.Response(req, res, "Email Sent", {}, 200)
-            const ForgetPasswordTemplate= ForgetPassword("http://localhost:7132/_static/jobcy/images",req.body.email)
-            Email.SendEmail(req.headers["X-Request-ID"]as string,{html:ForgetPasswordTemplate,to:req.body.email,subject:"Reset Password",})
+            const ForgetPasswordTemplate = ForgetPassword("http://localhost:7132/_static/jobcy/images", req.body.email)
+            Email.SendEmail(req.headers["X-Request-ID"] as string, { html: ForgetPasswordTemplate, to: req.body.email, subject: "Reset Password", })
             res.end()
         } catch (error: any) {
             return JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)

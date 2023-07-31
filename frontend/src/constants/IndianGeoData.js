@@ -1,6 +1,5 @@
 
-export const OnlyStates = () => {
- 
+export const OnlyStates = () => { 
   return StatesAndCities.map((ObjectValue) =>{  
     return  Object.keys(ObjectValue).join(",");
     })
@@ -8,6 +7,9 @@ export const OnlyStates = () => {
 export const GetCitiesByState = (DefinedState) => {
   return StatesAndCities.filter((state) => StatesAndCities[state] === DefinedState);
 };
+export const GetLocation = (enteredValue) => {
+  
+}
 export const StatesAndCities = [
   {
     "Andhra Pradesh (AP)": [

@@ -4,7 +4,6 @@ const TagsInput = ({ id, tags, setTags }) => {
   const addTags = (event) => {
     if (event.key === "Enter" && event.target.value !== "") {
       setTags([...tags, event.target.value]);
-
       event.target.value = "";
     }
   };
