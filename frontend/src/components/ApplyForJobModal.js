@@ -1,11 +1,12 @@
 import React from "react";
-import { Modal, ModalBody, Input, Label } from "reactstrap";
+import { Modal, ModalBody,  Label } from "reactstrap";
 import { ApplyForJob } from "../Apis/apiCore";
 import { useAuth } from "../Hooks/useAuthContext";
 import SuccessMsg from "./SuccessMsg";
 import TagsInput from "./TagsInput";
 import { toast } from "react-toastify";
 function ApplyForJobModal({ data }) {
+  let timer;
   const { modal, openModal, job_id, pid, cid,successMsg,setSuccessMsg} = data;
   const {
     Auth: { user },
@@ -26,9 +27,13 @@ function ApplyForJobModal({ data }) {
       toast.success(data.messsage);
        setSuccessMsg(true);
     }
-   const timer = setTimeout(() => openModal(), 2500);
+    timer = setTimeout(() => openModal(), 2500);
   
   };
+  React.useEffect(() => {
+    clearTimeout(timer);
+    
+  }, [timer])
   
   return (
     <div

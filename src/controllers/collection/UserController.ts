@@ -9,14 +9,30 @@ class UserController {
     async AddNewCompany(req: Request, res: Response) { }
     async DeleteCompant(req: Request, res: Response) { }
     async AddOrRemoveJobFromBookmarked(req: Request, res: Response) {
-
+        let msg = ""
+        let value = 0;
         try {
-            await presql.updateMany({
-                table: "my_listings", data: {
-                    bookmarked: req.body.action
-                }, where: { job_id: req.body.jobIid }
-            })
-            JSONResponse.Response(req, res, "Removed From Bookmarks", { message: "OK" }, 200)
+            const isJobExist = await presql.findOne({ table: "my_listings", where: { job_id: req.body.jobId }, select: { bookmarked: 1 } })
+
+            if (isJobExist.length === 0) {
+                await presql.buildQuery({ role: "0x00044", query: `INSERT INTO my_listings (user_id, job_id,bookmarked) VALUES (${req.body.userId}, ${req.body.jobId}, ${req.body.action})` })
+                JSONResponse.Response(req, res, "Added to Bookmarks", { message: "OK" }, 200)
+            } else {
+                if (req.body.action === "true") {
+                    msg = "Added to Bookmarks"
+                    value = 1
+                } else {
+                    msg = "Removed From Bookmarks"
+                    value = 0
+                }
+                await presql.updateOne({
+                    table: "my_listings", data: {
+                        bookmarked: value
+                    }, where: { AND: { job_id: req.body.jobId, user_id: req.body.userId } }
+                })
+                JSONResponse.Response(req, res, msg, { message: "OK" }, 200)
+            }
+
         } catch (error: any) {
             JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
         }
@@ -25,27 +41,35 @@ class UserController {
         const info = req.body
 
         try {
-            await presql.create({
-                table: "my_listings", data: {
-                    user_id: req.body.user_id,
-                    job_id: req.body.jobIid,
-                    isApplied: 1
-                }
-            }) 
-            await presql.create({
-                table: "applied_jobs",
-                data: {
-                    user_id: req.body.user_id,
-                    job_id: req.body.jobId,
-                    posted_by: req.body.pid,
-                    company_id: req.body.cid,
-                    tags: info['tags[]'] || JSON.stringify([]),
-                    message: req.body.msg ?? req.body.msg,
-                    status: JSON.stringify(["Applied"])
-                }
-            })
+            const isJobExist = await presql.findOne({ table: "my_listings", where: { AND: { user_id: req.body.user_id, job_id: req.body.jobId } }, select: { applied: 1 } })
+            if (isJobExist.length === 0) {
+                await presql.buildQuery({
+                    query: `INSERT INTO my_listings (user_id, job_id,is_applied) VALUES (${req.body.user_id}, ${req.body.jobIid}, 1)`,
+                    role: "0x00044"
+                })
+                await presql.buildQuery({
+                    query: `INSERT INTO applied_jobs (user_id, job_id,posted_by,company_id,status,message,skills) VALUES ("${req.body.user_id}", "${req.body.jobId}", "${req.body.pid}"," ${req.body.cid}", "${JSON.stringify(["Applied"])}", "${req.body.msg ?? req.body.msg}", "${JSON.stringify(info['tags[]'] || [])}")`,
+                    role: "0x00044"
+                })
+
+            } else {
+                await presql.updateOne({
+                    table: "my_listings",
+                    data: {
+                        is_applied: 1
+                    },
+                    where: {
+                        AND: { user_id: req.body.user_id, job_id: req.body.jobId }
+                    }
+                })
+                await presql.buildQuery({
+                    query: `INSERT INTO applied_jobs (user_id, job_id,posted_by,company_id,status,message,skills) VALUES ("${req.body.user_id}", "${req.body.jobId}", "${req.body.pid}"," ${req.body.cid}", "${JSON.stringify(["Applied"])}", "${req.body.msg ?? req.body.msg}", "${JSON.stringify(info['tags[]'] || [])}")`,
+                    role: "0x00044"
+                })
+            }
 
             JSONResponse.Response(req, res, "You Applied for this Job Successfully", { message: "👍" }, 200)
+
         } catch (error: any) {
             JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
         }

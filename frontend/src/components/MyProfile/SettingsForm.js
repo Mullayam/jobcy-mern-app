@@ -10,6 +10,7 @@ import {  UpdateMemberProfile } from "../../Apis/apiCore";
 function SettingsForm() {
   const { Auth:{user} } = useAuth(); 
   const [inputs, setInputs] = React.useState({});
+  const [tags, setTags] = React.useState(["helo"])
   const [links, setLinks] = React.useState({});
   const [textarea, setTextarea] = React.useState('');
   const [file, setFile] = React.useState(null);
@@ -23,7 +24,8 @@ function SettingsForm() {
   const handleCVeChange = (e) => {
     setCvFile(e.target.files[0])  
   }
-  const HandleInputsChange = (e) => {
+  const HandleInputsChange = (e) => {  
+      
     setInputs({ ...inputs, [e.target.id]: e.target.value });
   };
   const HandleLinksChange=(e)=>{
@@ -134,7 +136,7 @@ function SettingsForm() {
               <Label htmlFor="languages" className="form-label">
                 Languages
               </Label>
-              <TagsInput id="languages" info={inputs}setinfo={setInputs} />
+              <TagsInput id="languages" tags={tags} setTags={setTags} />
            
             </div>
           </Col>

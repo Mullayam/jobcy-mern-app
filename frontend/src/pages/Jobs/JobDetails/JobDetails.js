@@ -15,7 +15,8 @@ const JobDetails = () => {
      const ExtractJobIdFromUrl = LastElement(job_id)
   const GetJobDetails = async()  =>{
     const {data} = await GetJobDetailsFromJobId(ExtractJobIdFromUrl)
-    if (data.success) {       
+    if (data.success) {    
+         
       setjobDetail(data.data.Job)
     }
   }

@@ -1,19 +1,42 @@
 import React, { useState } from "react";
-import {   Card, CardBody } from "reactstrap";
+import { Card, CardBody } from "reactstrap";
 import { Link } from "react-router-dom";
 
 //Import Images
 import jobImages2 from "../../../assets/images/featured-job/img-02.png";
 import { FormatDate, FromNowDate, slugify } from "../../../Helpers";
- 
 import ApplyForJobModal from "../../../components/ApplyForJobModal";
-const RightSideContent = ({currentJob}) => {
- 
+import { AddOrRemoveBookmarkedJob } from "../../../Apis/apiCore";
+import { toast } from "react-toastify";
+import { useAuth } from "../../../Hooks/useAuthContext";
+const RightSideContent = ({ currentJob }) => {
+  const {
+    Auth: { user },
+  } = useAuth();
   const [modal, setModal] = useState(false);
   const [successMsg, setSuccessMsg] = React.useState(false);
-
+  const [bookmarked, setBookmarked] = useState(false);
   const openModal = () => setModal(!modal);
-   
+  const handleAddBookmarks = async () => {
+    const newValue = !bookmarked;
+    setBookmarked(newValue);
+    const { data } = await AddOrRemoveBookmarkedJob({
+      userId: user.user_id,
+      jobId: currentJob.jobID,
+      action: newValue,
+    });
+    if (data.success) {
+      toast.success(data.message);
+      return setBookmarked(newValue);
+    }
+    toast.error(data.message);
+  };
+  React.useEffect(() => {
+    if (currentJob.is_applied === 1) {
+      setSuccessMsg(true);
+    }
+  }, [handleAddBookmarks]);
+
   return (
     <React.Fragment>
       <div className="side-bar ms-lg-4">
@@ -44,7 +67,10 @@ const RightSideContent = ({currentJob}) => {
                   <i className="uil uil-location-point icon bg-primary-subtle text-primary"></i>
                   <div className="ms-3">
                     <h6 className="fs-14 mb-2">Location</h6>
-                    <p className="text-muted mb-0"> {currentJob.job_location}</p>
+                    <p className="text-muted mb-0">
+                      {" "}
+                      {currentJob.job_location}
+                    </p>
                   </div>
                 </div>
               </li>
@@ -53,7 +79,9 @@ const RightSideContent = ({currentJob}) => {
                   <i className="uil uil-usd-circle icon bg-primary-subtle text-primary"></i>
                   <div className="ms-3">
                     <h6 className="fs-14 mb-2">Offered Salary</h6>
-                    <p className="text-muted mb-0">{currentJob.offered_salary}</p>
+                    <p className="text-muted mb-0">
+                      {currentJob.offered_salary}
+                    </p>
                   </div>
                 </div>
               </li>
@@ -71,7 +99,9 @@ const RightSideContent = ({currentJob}) => {
                   <i className="uil uil-building icon bg-primary-subtle text-primary"></i>
                   <div className="ms-3">
                     <h6 className="fs-14 mb-2">Industry</h6>
-                    <p className="text-muted mb-0">{currentJob.industry_type}</p>
+                    <p className="text-muted mb-0">
+                      {currentJob.industry_type}
+                    </p>
                   </div>
                 </div>
               </li>
@@ -80,26 +110,34 @@ const RightSideContent = ({currentJob}) => {
                   <i className="uil uil-history icon bg-primary-subtle text-primary"></i>
                   <div className="ms-3">
                     <h6 className="fs-14 mb-2">Date Posted</h6>
-                    <p className="text-muted mb-0">{FromNowDate(currentJob.posted_on)}</p>
+                    <p className="text-muted mb-0">
+                      {FromNowDate(currentJob.posted_on)}
+                    </p>
                   </div>
                 </div>
               </li>
             </ul>
             <div className="mt-3">
-              <Link
-                to="#applyNow"
-                onClick={!successMsg && openModal}
+              <span
+                onClick={openModal}
                 className="btn btn-primary btn-hover w-100 mt-2"
               >
-                {successMsg ? "Applied" : <>  Apply Now <i className="uil uil-arrow-right"></i></>}
-              
-              </Link>
-              <Link
-                to="/bookmarkjobs"
+                {successMsg ? (
+                  "Applied"
+                ) : (
+                  <>
+                    {" "}
+                    Apply Now <i className="uil uil-arrow-right"></i>
+                  </>
+                )}
+              </span>
+              <span
+                onClick={handleAddBookmarks}
                 className="btn btn-soft-warning btn-hover w-100 mt-2"
               >
-                <i className="uil uil-bookmark"></i> Add Bookmark
-              </Link>
+                <i className="uil uil-bookmark"></i>
+                {bookmarked ? "UnBookmarked" : "Add Bookmark"}
+              </span>
             </div>
           </CardBody>
         </Card>
@@ -111,7 +149,10 @@ const RightSideContent = ({currentJob}) => {
 
               <div className="mt-4">
                 <h6 className="fs-17 mb-1">Jobcy Technology Pvt.Ltd</h6>
-                <p className="text-muted">Since {FormatDate(currentJob.established_on) || "Not Available"} </p>
+                <p className="text-muted">
+                  Since{" "}
+                  {FormatDate(currentJob.established_on) || "Not Available"}{" "}
+                </p>
               </div>
             </div>
             <ul className="list-unstyled mt-4">
@@ -152,7 +193,7 @@ const RightSideContent = ({currentJob}) => {
                   <div className="ms-3">
                     <h6 className="fs-14 mb-2">Location</h6>
                     <p className="text-muted fs-14 mb-0">
-               {currentJob.location}
+                      {currentJob.location}
                     </p>
                   </div>
                 </div>
@@ -160,7 +201,9 @@ const RightSideContent = ({currentJob}) => {
             </ul>
             <div className="mt-4">
               <Link
-                to={`/companydetails/${slugify(`${currentJob.name}`)}-${currentJob.cid}`}
+                to={`/companydetails/${slugify(`${currentJob.name}`)}-${
+                  currentJob.cid
+                }`}
                 className="btn btn-primary btn-hover w-100 rounded"
               >
                 <i className="mdi mdi-eye"></i> View Profile
@@ -179,7 +222,17 @@ const RightSideContent = ({currentJob}) => {
             loading="lazy"
           ></iframe>
         </div>
-           <ApplyForJobModal data={{job_id:currentJob.jobID,pid:currentJob.pid,cid:currentJob.cid,modal,openModal,successMsg, setSuccessMsg}} />
+        <ApplyForJobModal
+          data={{
+            job_id: currentJob.jobID,
+            pid: currentJob.pid,
+            cid: currentJob.cid,
+            modal,
+            openModal,
+            successMsg,
+            setSuccessMsg,
+          }}
+        />
       </div>
     </React.Fragment>
   );

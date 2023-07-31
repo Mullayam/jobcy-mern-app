@@ -4,9 +4,7 @@ import { Link } from "react-router-dom";
 
 //Job Images
 import jobImage1 from "../../../assets/images/featured-job/img-01.png";
-import jobImage2 from "../../../assets/images/featured-job/img-02.png";
-import jobImage3 from "../../../assets/images/featured-job/img-03.png";
-
+ 
 const JobVacancyPost = () => {
   //Apply Now Model
   const [modal, setModal] = useState(false);
@@ -238,7 +236,7 @@ const JobVacancyPost = () => {
                   id="inputGroupFile01"
                 />
               </div>
-              <button type="submit" className="btn btn-primary w-100">
+              <button onClick={()=>alert()} className="btn btn-primary w-100">
                 Send Application
               </button>
             </ModalBody>
