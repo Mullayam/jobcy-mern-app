@@ -16,6 +16,9 @@ function Education() {
   function tog_modal() {
     setModal(!modal);
   }
+React.useEffect(() => {
+  console.log("educaitons")
+}, [])
 
   return (
     <React.Fragment>

@@ -23,6 +23,7 @@ const RightSideContent = () => {
   const tabChange = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
   };
+
   const ProfileSection = [
     { tabId: 1, component: <OverviewTab /> },
     { tabId: 2, component: <SettingsForm /> },
@@ -39,7 +40,8 @@ const RightSideContent = () => {
     { tabId: 5, label: "Projects" },
   
   ];
-  return (
+ 
+    return (
     <React.Fragment>
       <Col lg={8}>
         <Card className="profile-content-page mt-4 mt-lg-0">

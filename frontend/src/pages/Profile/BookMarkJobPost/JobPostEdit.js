@@ -1,29 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Col, Container, Input, Label, Row } from "reactstrap";
+import Select from "react-select";
 import {
   GetAllCategories,
   GetAllJobTypes,
   GetCompaniesWithJobs,
 } from "../../../Apis/apiCore";
 import TextEditor from "../../../components/TextEditor";
-
+import { LabelAndValueFormat,CovertArraytoSelectFormat } from "../../../Helpers";
 import { Countries } from "../../../Constants/Countries";
 import SelectBox from "../../../components/Shared/Select";
 import TagsInput from "../../../components/TagsInput";
-
+import {JobSchema  } from "../../../Constants";
 const JobPostEdit = () => {
   const [categoriesList, setCategoriesList] = useState([]);
   const [jobTypes, setJobTypes] = useState([]);
   const [companies, setCompanies] = useState([]);
-
+  const [skills, setSkills] = useState([]);
+  const [keywords, setkeywords] = useState([]);
   const [info, setinfo] = useState({});
   const handleInputChange = (e) => {
     setinfo({ ...info, [e.target.id]: e.target.value });
   };
-  const handleSubmitNewPost=() => {
-    console.log(info)
-  }
+  const handleSubmitNewPost = () => {
+    console.log(info);
+  };
   const FetchRequiredData = async () => {
     const { data } = await GetAllCategories();
     if (data.success) {
@@ -41,7 +43,7 @@ const JobPostEdit = () => {
 
   useEffect(() => {
     FetchRequiredData();
-    console.log(info)
+    console.log(info);
   }, []);
   return (
     <React.Fragment>
@@ -119,19 +121,7 @@ const JobPostEdit = () => {
                     options={categoriesList}
                   />
                 </Col>
-                <Col lg={6}>
-                  <div className="mb-4">
-                    <SelectBox
-                      name="jobType[]"
-                      options={jobTypes}
-                      id="jobType"
-                      info={info}
-                      setinfo={setinfo}
-                      label="Job Type"
-                      multiple={true}
-                    />
-                  </div>
-                </Col>
+
                 <Col lg={6}>
                   <div className="mb-4">
                     <label htmlFor="designation" className="form-label">
@@ -159,6 +149,21 @@ const JobPostEdit = () => {
                       value={info.salary}
                       onChange={handleInputChange}
                       placeholder="Salary"
+                    />
+                  </div>
+                </Col>
+                <Col lg={6}>
+                  <div className="mb-4">
+                    <label htmlFor="skills" className="form-label">
+                      Minimum Experience
+                    </label>
+                    <Input
+                      type="text"
+                      className="form-control"
+                      id="minimum_experience"
+                      value={info.minimum_experience}
+                      onChange={handleInputChange}
+                      placeholder="Minimum Experience"
                     />
                   </div>
                 </Col>
@@ -201,48 +206,6 @@ const JobPostEdit = () => {
 
                 <Col lg={6}>
                   <div className="mb-4">
-                    <label htmlFor="jobSchema" className="form-label">
-                      Job Schema
-                    </label>
-                    <Input
-                      type="text"
-                      className="form-control"
-                      id="jobSchema"
-                      value={info.jobSchema}
-                      onChange={handleInputChange}
-                      placeholder="Work From Home,Remote,Hybrid,Work From Office"
-                    />
-                  </div>
-                </Col>
-                <Col lg={6}>
-                  <div className="mb-4">
-                    <label htmlFor="skills" className="form-label">
-                      Minimum Experience
-                    </label>
-                    <Input
-                      type="text"
-                      className="form-control"
-                      id="minimum_experience"
-                      value={info.minimum_experience}
-                      onChange={handleInputChange}
-                      placeholder="Minimum Experience"
-                    />
-                  </div>
-                </Col>
-
-                <Col lg={6}>
-                  <div className="mb-4">
-                    <SelectBox
-                      options={Countries}
-                      id="country_name"
-                      label="Country"
-                      info={info}
-                      setinfo={setinfo}
-                    />
-                  </div>
-                </Col>
-                <Col lg={6}>
-                  <div className="mb-4">
                     <SelectBox
                       options={companies}
                       id="company_id"
@@ -266,7 +229,17 @@ const JobPostEdit = () => {
                     />
                   </div>
                 </Col>
-
+                <Col lg={6}>
+                  <div className="mb-4">
+                    <SelectBox
+                      options={Countries}
+                      id="country_name"
+                      label="Country"
+                      info={info}
+                      setinfo={setinfo}
+                    />
+                  </div>
+                </Col>
                 <Col lg={3}>
                   <div className="mb-4">
                     <label htmlFor="city" className="form-label">
@@ -298,13 +271,41 @@ const JobPostEdit = () => {
                   </div>
                 </Col>
                 <Col lg={6}>
+                  <label htmlFor="jobSchema" className="form-label">
+                    Job Schema
+                  </label>
+                  <div className="mb-4">
+                    <Select
+                      options={CovertArraytoSelectFormat(JobSchema)}
+                      id="jobSchema"
+                      isMulti
+                      placeholder="Work From Home,Remote,Hybrid,Work From Office"
+                    />
+                  </div>
+                </Col>
+                <Col lg={6}>
+                  <label htmlFor="jobSchema" className="form-label">
+                    Job Type
+                  </label>
+                  <div className="mb-4">
+                    <Select
+                      options={LabelAndValueFormat(jobTypes)}
+                      id="jobType"
+                      label="Job Type"
+                      isMulti
+                    />
+                  </div>
+                </Col>
+                <Col lg={6}>
                   <div className="mb-4">
                     <label htmlFor="skills" className="form-label">
-                      Required Job Skills                   
+                      Required Job Skills
                     </label>
-                    <TagsInput id="skills" info={info} setinfo={setinfo} />
-                    <small> e.g Java,SpringBoot,Node,Excel,React,C++,PHP,SQL,Python</small>
-
+                    <TagsInput id="Skills" tags={skills} setTags={setSkills} />
+                    <small>
+                      {" "}
+                      e.g Java,SpringBoot,Node,Excel,React,C++,PHP,SQL,Python
+                    </small>
                   </div>
                 </Col>
                 <Col lg={6}>
@@ -312,8 +313,15 @@ const JobPostEdit = () => {
                     <label htmlFor="keywords" className="form-label">
                       Keywords
                     </label>
-                    <TagsInput id="keywords" info={info} setinfo={setinfo} />
-                    <small> e.g Designer,MERN,Dev Ops, Marketing, business,UI/UX, Dev</small>
+                    <TagsInput
+                      id="Keywords"
+                      tags={keywords}
+                      setTags={setkeywords}
+                    />
+                    <small>
+                      {" "}
+                      e.g Designer,MERN,Dev Ops, Marketing, business,UI/UX, Dev
+                    </small>
                   </div>
                 </Col>
                 <Col lg={12}>
@@ -321,7 +329,10 @@ const JobPostEdit = () => {
                     <Link to="#" className="btn btn-success">
                       Back
                     </Link>
-                    <Button onClick={handleSubmitNewPost} className="btn btn-primary">
+                    <Button
+                      onClick={handleSubmitNewPost}
+                      className="btn btn-primary"
+                    >
                       Post Now <i className="mdi mdi-send"></i>
                     </Button>
                   </div>
