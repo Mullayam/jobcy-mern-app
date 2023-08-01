@@ -1,0 +1,9 @@
+ 
+.modal {
+    --bs-modal-width: 700px;
+}
+@include media-breakpoint-up(sm) {
+  .modal-dialog {
+    max-width: 70%;
+  }
+}

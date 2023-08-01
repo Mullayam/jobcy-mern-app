@@ -7,7 +7,11 @@ import {
   Modal,
   ModalBody,
   ModalFooter,
+  Input,
+  Label,
+  FormGroup,
 } from "reactstrap";
+
 function Projects() {
   const [modal, setModal] = useState(false);
   const openModal = () => setModal(!modal);
@@ -32,7 +36,7 @@ function Projects() {
             <CardBody className="p-4">
               <Row>
                 <Col lg={1}></Col>
-                 
+
                 <Col lg={9}>
                   <div className="mt-3 mt-lg-0">
                     <h5 className="fs-17 mb-1">
@@ -99,7 +103,7 @@ function Projects() {
                   <div className="modal-content">
                     <div className="modal-header">
                       <h5 className="modal-title mt-0" id="myModalLabel">
-                        Modal Heading
+                        Add Projects
                       </h5>
                       <button
                         type="button"
@@ -108,12 +112,177 @@ function Projects() {
                       ></button>
                     </div>
                     <ModalBody>
-                      <p>
-                        Cras mattis consectetur purus sit amet fermentum. Cras
-                        justo odio, dapibus ac facilisis in, egestas eget quam.
-                        Morbi leo risus, porta ac consectetur ac, vestibulum at
-                        eros.
-                      </p>
+                      <div>
+                        <div>
+                          <Row>
+                            <Col lg={12}>
+                              <div className="mb-3">
+                                <Label
+                                  htmlFor="title"
+                                  className="form-label fw-semibold"
+                                >
+                                  Project title
+                                </Label>
+                                <Input
+                                  type="text"
+                                  className="form-control"
+                                  id="title"
+                                />
+                              </div>
+                            </Col>
+                            <Col lg={12}>
+                              <div className="mb-3">
+                                <div id="myCompanyDropdown">
+                                  <Label
+                                    htmlFor="currentCompany"
+                                    className="form-label fw-semibold"
+                                  >
+                                    Tag this project with your
+                                    employment/education
+                                  </Label>
+                                  <Input
+                                    type="text"
+                                    className="form-control"
+                                    id="currentCompany"
+                                  />
+                                </div>
+                              </div>
+                            </Col>
+                            <Col lg={12}>
+                              <div className="mb-3">
+                                <Label
+                                  htmlFor="email"
+                                  className="form-label fw-semibold"
+                                >
+                                  Client
+                                </Label>
+                                <Input
+                                  type="text"
+                                  className="form-control"
+                                  id="email"
+                                  readOnly
+                                />
+                              </div>
+                            </Col>
+                            <h5 className="fs-14 fw-semibold mb-3">
+                              Project status
+                            </h5>
+
+                           <div className="inline mb-3">
+                           <FormGroup check inline>
+                              <Input type="radio" />
+                              <Label check>In Progress</Label>
+                            </FormGroup>
+                            <FormGroup check inline>
+                              <Input type="radio" />
+                              <Label check>Finished</Label>
+                            </FormGroup>
+                           </div>
+                            <Col lg={12}>
+                              <div className="mb-3">
+                                <Label
+                                  htmlFor="teamSize"
+                                  className="form-label"
+                                >
+                                  Worked from
+                                </Label>
+                                <Input
+                                  type="month"
+                                  className="form-control"
+                                  id="teamSize"
+                                  to="https://www.facebook.com"
+                                />
+                              </div>
+                            </Col>
+
+                            <Col lg={12}>
+                              <div className="mb-3">
+                                <Label
+                                  htmlFor="exampleFormControlTextarea1"
+                                  className="form-label"
+                                >
+                                  Details of project
+                                </Label>
+                                <textarea
+                                  className="form-control"
+                                  rows="5"
+                                  id="aboutme"
+                                />
+                              </div>
+                            </Col>
+                          </Row>
+                        </div>
+
+                        <div className="mt-4">
+                          <h5 className="fs-17 fw-semibold mb-3">
+                            More Details
+                          </h5>
+
+                          <Row>
+                            <Col lg={6}>
+                              <div className="mb-3">
+                                <Label
+                                  htmlFor="teamSize"
+                                  className="form-label"
+                                >
+                                  Team Size
+                                </Label>
+                                <Input
+                                  type="number"
+                                  className="form-control"
+                                  id="teamSize"
+                                  to="https://www.facebook.com"
+                                />
+                              </div>
+                            </Col>
+
+                            <Col lg={6}>
+                              <div className="mb-3">
+                                <Label htmlFor="role" className="form-label">
+                                  Role
+                                </Label>
+                                <Input
+                                  type="year"
+                                  className="form-control"
+                                  id="role"
+                                  to="https://www.twitter.com"
+                                />
+                              </div>
+                            </Col>
+                            <Col lg={12}>
+                              <div className="mb-3">
+                                <Label
+                                  htmlFor="roleDescription"
+                                  className="form-label"
+                                >
+                                  Details of project
+                                </Label>
+                                <textarea
+                                  className="form-control"
+                                  rows="5"
+                                  id="roleDescription"
+                                />
+                              </div>
+                            </Col>
+
+                            <Col lg={12}>
+                              <div className="mb-3">
+                                <Label
+                                  htmlFor="skillsUsed"
+                                  className="form-label"
+                                >
+                                  Skills Used
+                                </Label>
+                                <Input
+                                  type="text"
+                                  className="form-control"
+                                  id="skillsUsed"
+                                />
+                              </div>
+                            </Col>
+                          </Row>
+                        </div>
+                      </div>
                     </ModalBody>
                     <ModalFooter>
                       <button

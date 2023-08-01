@@ -107,18 +107,17 @@ class UserController {
             JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
         }
     }
-    async UpdateMemberProfile(req: Request, res: Response) {
-        console.log(req.body.filesData)
+    async UpdateMemberProfile(req: Request, res: Response) {         
 
-        const Links = {
+        const Links = JSON.stringify({
             facebook: req.body.facebook,
             linkedin: req.body.linkedin,
             github: req.body.github,
             whatsapp: req.body.whatsapp
-        }
+        })
         try {
             await presql.buildQuery({
-                query: `UPDATE more_info SET WHERE user_id = ${req.body.userId}`,
+                query: `UPDATE more_info SET links='${Links}' WHERE user_id = ${req.body.userId}`,
                 role: "0x00044"
             })
         } catch (error: any) {
@@ -128,15 +127,35 @@ class UserController {
         res.end()
     }
     async UpdateMemberEducation(req: Request, res: Response) {
-        console.log(req.body)
+        const { user_id } = req.body
+        delete req.body.user_id
+        const Obj_Str = JSON.stringify(req.body)
+        await presql.buildQuery({ query: `UPDATE more_info SET education = JSON_INSERT(education,'$.${req.body.education}','${Obj_Str}') WHERE user_id = ${user_id}`, role: "0x00044" })
+
         res.end()
     }
     async UpdateMemberExperiences(req: Request, res: Response) {
-        console.log(req.body)
-        res.end()
+        try {
+            const { user_id } = req.body
+            delete req.body.user_id
+            const Obj_Str = JSON.stringify(req.body)
+           
+          await presql.buildQuery({ query: `UPDATE more_info SET experiences = JSON_INSERT(experiences,'$.${req.body.currentPosition}','${Obj_Str}') WHERE user_id = ${user_id}`, role: "0x00044" })   
+         
+
+        JSONResponse.Response(req, res, "New Experience Added", {}, 200)
+           
+        } catch (error:any) {
+            JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
+            
+        }
     }
+    
     async UpdateMemberProjects(req: Request, res: Response) {
-        console.log(req.body)
+        const { user_id } = req.body
+        delete req.body.user_id
+        const Obj_Str = JSON.stringify(req.body)
+        await presql.buildQuery({ query: `UPDATE more_info SET projects = JSON_INSERT(projects,'$.${req.body.projectTitle}','${Obj_Str}') WHERE user_id = ${user_id}`, role: "0x00044" })        
         res.end()
     }
     async UpdateMemberProfilePicture(req: Request, res: Response) {
@@ -150,35 +169,32 @@ class UserController {
                     },
                     where: { user_id: req.body.user_id }
                 })
-               
                 JSONResponse.Response(req, res, "Profile Image Uploaded Successfully", {}, 200)
-
             })
         } catch (error: any) {
             JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
-
         }
     }
 
     async UpdateMemberResume(req: Request, res: Response) {
         const resume = req.files?.resume as UploadedFile
-        const renameFile = helpers.purifyString(resume.name) 
-       
+        const renameFile = helpers.purifyString(resume.name)
+
         try {
-            resume.mv(`${path.join(ResumeUploadPath, renameFile)}`, async (err:any) => {
+            resume.mv(`${path.join(ResumeUploadPath, renameFile)}`, async (err: any) => {
                 if (err) {
                     throw new Error(err.message)
                 }
-                const CV_Obj={
-                    cvfile:{
-                        name:renameFile,
-                        size:resume.size,
-                        format:renameFile.split(".")[0],
-                        md5:resume.md5
+                const CV_Obj = {
+                    cvfile: {
+                        name: renameFile,
+                        size: resume.size,
+                        format: renameFile.split(".")[0],
+                        md5: resume.md5
                     },
-                    coverletter:""
-            }
-            const CV_Obj_Str = JSON.stringify(CV_Obj)
+                    coverletter: ""
+                }
+                const CV_Obj_Str = JSON.stringify(CV_Obj)
                 await presql.updateOne({
                     table: "more_info", data: {
                         cv: CV_Obj_Str

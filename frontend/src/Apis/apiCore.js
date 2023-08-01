@@ -83,12 +83,13 @@ export const GetMemberBookmarkedJobs = async (cfn_id)=>{
 export const UpdateMemberProfile = async (data)=>{
   return await instance.post("/v1/update/member-profile",data)
 }
-export const UpdateMemberEducation = async (userId,data)=>{
-  return await instance.post("/v1/update/member/education",{userId,data})
+export const UpdateMemberEducation = async (data)=>{
+  return await instance.post("/v1/update/member/education",data)
 }
-export const UpdateMemberExperiences= async (userId,data)=>{
-  return await instance.post("/v1/update/member/experiences",{userId,data})
+export const UpdateMemberExperiences= async (data)=>{
+  return await instance.post("/v1/update/member/experiences",data)
 }
+ 
 export const UpdateMemberProjects = async (data)=>{
   return await instance.post("/v1/update/member/projects",data)
 }
@@ -106,3 +107,8 @@ export const UpdateMemberResume = async (data)=>{
   return await instance.post("/v1/apply/job",data)
    
  }
+
+//  get all registerd comapnies
+export const GetRegisteredCompanies = async (SearchKeyword) => {
+  return await instance.post("https://www.thecompanycheck.com/api/CompanySearch/Search",SearchKeyword)
+}

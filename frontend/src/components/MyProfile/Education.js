@@ -7,19 +7,40 @@ import {
   Modal,
   ModalBody,
   ModalFooter,
+  Input,
+  Label,
 } from "reactstrap";
-
-function Education() {
+import Select from "react-select";
+import { toast } from "react-toastify";
+import { UpdateMemberEducation } from "../../Apis/apiCore";
+function Education({ user_id }) {
   const [modal, setModal] = useState(false);
+  const [gradeSystem, setGradeSystem] = useState("");
   const openModal = () => setModal(!modal);
 
   function tog_modal() {
     setModal(!modal);
   }
-React.useEffect(() => {
-  console.log("educaitons")
-}, [])
 
+  const handleAddNewEducation = async () => {
+    const DataObj = {
+      user_id,
+      education: document.getElementById("education").value,
+      instituteName: document.getElementById("instituteName").value,
+      courseName: document.getElementById("courseName").value,
+      courseType: document.getElementById("courseType").value,
+      specialization: document.getElementById("specialization").value,
+      duration: document.getElementById("duration").value,
+      gradeSystem,
+    };
+
+    const { data } = await UpdateMemberEducation(DataObj);
+    if (data.success) {
+      openModal()
+      return toast.success(data.message);
+    }
+    return toast.error(data.message);
+  };
   return (
     <React.Fragment>
       <Card id="modals">
@@ -92,59 +113,165 @@ React.useEffect(() => {
                   </ul>
                 </Col>
               </Row>
-
-              <div
-                id="myModal"
-                className="modal fade"
-                tabIndex="-1"
-                aria-labelledby="myModalLabel"
-                aria-hidden="true"
-              >
-                <Modal isOpen={modal} toggle={openModal} role="dialog" centered>
-                  <div className="modal-content">
-                    <div className="modal-header">
-                      <h5 className="modal-title mt-0" id="myModalLabel">
-                        Modal Heading
-                      </h5>
-                      <button
-                        type="button"
-                        className="btn-close"
-                        onClick={openModal}
-                      ></button>
-                    </div>
-                    <ModalBody>
-                      <p>
-                        Cras mattis consectetur purus sit amet fermentum. Cras
-                        justo odio, dapibus ac facilisis in, egestas eget quam.
-                        Morbi leo risus, porta ac consectetur ac, vestibulum at
-                        eros.
-                      </p>
-                    </ModalBody>
-                    <ModalFooter>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          tog_modal();
-                        }}
-                        className="btn btn-secondary waves-effect"
-                        data-bs-dismiss="modal"
-                      >
-                        Close
-                      </button>
-                      <button
-                        type="button"
-                        className="btn btn-primary waves-effect waves-light"
-                      >
-                        Save changes
-                      </button>
-                    </ModalFooter>
-                  </div>
-                </Modal>
-              </div>
             </CardBody>
           </Card>
         </div>
       </Card>
+      <div
+        id="myModal"
+        className="modal fade"
+        tabIndex="-1"
+        aria-labelledby="myModalLabel"
+        aria-hidden="true"
+      >
+        <Modal isOpen={modal} toggle={openModal} role="dialog" centered>
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title mt-0" id="myModalLabel">
+                Add New Education
+              </h5>
+              <button
+                type="button"
+                className="btn-close"
+                onClick={openModal}
+              ></button>
+            </div>
+            <ModalBody>
+              <div>
+                <div>
+                  <Row>
+                    <Col lg={12}>
+                      <div className="mb-3">
+                        <label htmlFor="fullname" className="form-label">
+                          Education
+                        </label>
+                        <Input
+                          type="text"
+                          className="form-control"
+                          id="education"
+                          placeholder="10th,12th,Graduation,PG, PHD"
+                        />
+                      </div>
+                    </Col>
+
+                    <Col lg={12}>
+                      <div className="mb-3">
+                        <label htmlFor="instituteName" className="form-label">
+                          University/Insititute Name
+                        </label>
+                        <Input
+                          type="text"
+                          className="form-control"
+                          id="instituteName"
+                          placeholder="University Name"
+                        />
+                      </div>
+                    </Col>
+                    <Col lg={12}>
+                      <div className="mb-3">
+                        <Label htmlFor="courseName" className="form-label">
+                          Course
+                        </Label>
+                        <Input
+                          type="text"
+                          className="form-control"
+                          id="courseName"
+                          placeholder="B.Tech/B.E/B.Sc/B.A/M.Sc etc"
+                        />
+                      </div>
+                    </Col>
+                    <Col lg={12}>
+                      <div className="mb-3">
+                        <Label htmlFor="courseType" className="form-label">
+                          Course Type
+                        </Label>
+                        <Input
+                          type="text"
+                          className="form-control"
+                          id="courseType"
+                          placeholder="Regular/Full Time"
+                        />
+                      </div>
+                    </Col>
+                  </Row>
+                </div>
+
+                <div className="mt-4">
+                  <Row>
+                    <Col lg={12}>
+                      <div className="mb-3">
+                        <label htmlFor="specialization" className="form-label">
+                          Specialization
+                        </label>
+                        <Input
+                          className="form-control"
+                          type="text"
+                          id="specialization"
+                          placeholder="Subjects,Language,etc"
+                        />
+                      </div>
+                    </Col>
+                  </Row>
+                </div>
+
+                <div className="mt-4">
+                  <Row>
+                    <Col lg={12}>
+                      <div className="mb-3">
+                        <Label htmlFor="duration" className="form-label">
+                          Course Duration
+                        </Label>
+                        <Input
+                          type="month"
+                          className="form-control"
+                          id="duration"
+                          to="https://www.facebook.com"
+                        />
+                      </div>
+                    </Col>
+
+                    <Col lg={12}>
+                      <div className="mb-3">
+                        <Label htmlFor="gradeSystem" className="form-label">
+                          Grading System
+                        </Label>
+                        <Select
+                          id="gradeSystem"
+                          defaultValue={{ label: "Grade", value: "Grade" }}
+                          options={[
+                            { label: "CGPA", value: "CGPA" },
+                            { label: "Only Pass", value: "Only Pass" },
+                            { label: "Percentage", value: "Percentage" },
+                          ]}
+                          onChange={(n) => setGradeSystem(n.value)}
+                        />
+                      </div>
+                    </Col>
+                  </Row>
+                </div>
+              </div>
+            </ModalBody>
+            <ModalFooter>
+              <button
+                type="button"
+                onClick={() => {
+                  tog_modal();
+                }}
+                className="btn btn-secondary waves-effect"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                onClick={handleAddNewEducation}
+                className="btn btn-primary waves-effect waves-light"
+              >
+                Save changes
+              </button>
+            </ModalFooter>
+          </div>
+        </Modal>
+      </div>
     </React.Fragment>
   );
 }

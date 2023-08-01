@@ -16,28 +16,33 @@ import SettingsForm from "../../../components/MyProfile/SettingsForm";
 import Education from "../../../components/MyProfile/Education";
 import Experiences from "../../../components/MyProfile/Experiences";
 import Projects from "../../../components/MyProfile/Projects";
+import Employement from "../../../components/MyProfile/Employement";
+import { useAuth } from "../../../Hooks/useAuthContext";
 //Images Import
 
 const RightSideContent = () => {
+  const {Auth:{user}}=useAuth()
   const [activeTab, setActiveTab] = useState(1);
   const tabChange = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
   };
-
+ 
   const ProfileSection = [
     { tabId: 1, component: <OverviewTab /> },
-    { tabId: 2, component: <SettingsForm /> },
-    { tabId: 3, component: <Education /> },
-    { tabId: 4, component: <Experiences /> },
-    { tabId: 5, component: <Projects /> },
+    { tabId: 2, component: <SettingsForm  user_id={user.user_id}/> },
+    { tabId: 3, component: <Education user_id={user.user_id}/> },
+    { tabId: 4, component: <Employement user_id={user.user_id}/> },
+    { tabId: 5, component: <Experiences user_id={user.user_id}/> },
+    { tabId: 6, component: <Projects  user_id={user.user_id}/> },
     
   ];
   const Navitems = [
     { tabId: 1, label: "Overview" },
     { tabId: 2, label: "Settings" },
     { tabId: 3, label: "Education" },
-    { tabId: 4, label: "Experiences" },
-    { tabId: 5, label: "Projects" },
+    { tabId: 4, label: "Employement" },
+    { tabId: 5, label: "Experiences" },
+    { tabId: 6, label: "Projects" },
   
   ];
  
