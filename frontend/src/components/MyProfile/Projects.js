@@ -11,14 +11,57 @@ import {
   Label,
   FormGroup,
 } from "reactstrap";
+import { UpdateMemberProjects } from "../../Apis/apiCore";
+import { toast } from "react-toastify";
 
-function Projects() {
+function Projects({user_id}) {
   const [modal, setModal] = useState(false);
   const openModal = () => setModal(!modal);
 
   function tog_modal() {
     setModal(!modal);
   }
+
+  const handleSubmitEmploymentUpdate = async () => {
+    
+    let projectStatus = document.getElementsByName("projectStatus");
+
+    for (let i = 0; i < projectStatus.length; i++) {
+      if (projectStatus[i].checked) projectStatus = projectStatus[i].value;
+    }
+
+    const ObjDat = {
+      user_id,
+      projectStatus,
+      projectTitle: document.getElementById("projectTitle").value,
+      projectType: document.getElementById("projectType").value,
+      projectFor: document.getElementById("projectFor").value,
+      startWorkingFrom: document.getElementById("startWorkingFrom").value,
+      detailsOfProject: document.getElementById("detailsOfProject").value,
+      teamSize: document.getElementById("teamSize").value,
+      role: document.getElementById("role").value,
+      roleDescription: document.getElementById("roleDescription").value,
+      skillsUsed: document.getElementById("skillsUsed").value,
+      projectLink: document.getElementById("roleDescription").value,
+    };
+
+    if (
+      ObjDat.projectTitle === "" ||
+      ObjDat.projectStatus === "" ||
+      ObjDat.skillsUsed === "" ||
+      ObjDat.startWorkingFrom === ""
+    ) {
+      return toast.error("All Fields are Required");
+    }
+    const { data } = await UpdateMemberProjects(ObjDat);
+
+    if (data.success) {
+      openModal();
+      return toast.success(data.message);
+    }
+    return toast.error(data.message);
+  };
+
   return (
     <React.Fragment>
       <Card id="modals">
@@ -40,7 +83,7 @@ function Projects() {
                 <Col lg={9}>
                   <div className="mt-3 mt-lg-0">
                     <h5 className="fs-17 mb-1">
-                      <span className="text-dark">Projects Title</span>
+                      <span className="text-dark">Projects Title </span>
                     </h5>
                     <ul className="list-inline mb-0">
                       <li className="list-inline-item">
@@ -118,40 +161,44 @@ function Projects() {
                             <Col lg={12}>
                               <div className="mb-3">
                                 <Label
-                                  htmlFor="title"
+                                  htmlFor="projectTitle"
                                   className="form-label fw-semibold"
                                 >
-                                  Project title
+                                  Project title <small className="text-danger">*</small>
                                 </Label>
                                 <Input
                                   type="text"
                                   className="form-control"
-                                  id="title"
+                                  id="projectTitle"
+                                  placeholder="Project Title"
                                 />
                               </div>
                             </Col>
                             <Col lg={12}>
                               <div className="mb-3">
-                                <div id="myCompanyDropdown">
-                                  <Label
-                                    htmlFor="currentCompany"
-                                    className="form-label fw-semibold"
-                                  >
-                                    Tag this project with your
-                                    employment/education
-                                  </Label>
-                                  <Input
-                                    type="text"
-                                    className="form-control"
-                                    id="currentCompany"
-                                  />
-                                </div>
+                                <Label
+                                  htmlFor="projectType"
+                                  className="form-label fw-semibold"
+                                >
+                                  Tag this project with your
+                                  employment/education
+                                </Label>
+                                <Input
+                                  type="text"
+                                  className="form-control"
+                                  id="projectType"
+                                  defaultValue={"Personal"}
+                                />
+                                <small className="text-muted">
+                                  Please Enter if Project for Organization else
+                                  Personal is default
+                                </small>
                               </div>
                             </Col>
                             <Col lg={12}>
                               <div className="mb-3">
                                 <Label
-                                  htmlFor="email"
+                                  htmlFor="projectFor"
                                   className="form-label fw-semibold"
                                 >
                                   Client
@@ -159,38 +206,50 @@ function Projects() {
                                 <Input
                                   type="text"
                                   className="form-control"
-                                  id="email"
-                                  readOnly
+                                  id="projectFor"
+                                  defaultValue={"Personal"}
                                 />
+                                <small className="text-muted">
+                                  Enter Project purpose
+                                  Clien/Personal/Freelance/other please mention
+                                  it
+                                </small>
                               </div>
                             </Col>
                             <h5 className="fs-14 fw-semibold mb-3">
-                              Project status
+                              Project status <small className="text-danger">*</small>
                             </h5>
 
-                           <div className="inline mb-3">
-                           <FormGroup check inline>
-                              <Input type="radio" />
-                              <Label check>In Progress</Label>
-                            </FormGroup>
-                            <FormGroup check inline>
-                              <Input type="radio" />
-                              <Label check>Finished</Label>
-                            </FormGroup>
-                           </div>
+                            <div className="inline mb-3">
+                              <FormGroup check inline>
+                                <Input
+                                  type="radio"
+                                  name="projectStatus"
+                                  defaultValue="In Progress"
+                                />
+                                <Label check>In Progress</Label>
+                              </FormGroup>
+                              <FormGroup check inline>
+                                <Input
+                                  type="radio"
+                                  name="projectStatus"
+                                  defaultValue="Finished"
+                                />
+                                <Label check>Finished</Label>
+                              </FormGroup>
+                            </div>
                             <Col lg={12}>
                               <div className="mb-3">
                                 <Label
-                                  htmlFor="teamSize"
+                                  htmlFor="startWorkingFrom"
                                   className="form-label"
                                 >
-                                  Worked from
+                                  Start Working From <small className="text-danger">*</small>
                                 </Label>
                                 <Input
                                   type="month"
                                   className="form-control"
-                                  id="teamSize"
-                                  to="https://www.facebook.com"
+                                  id="startWorkingFrom"
                                 />
                               </div>
                             </Col>
@@ -198,7 +257,7 @@ function Projects() {
                             <Col lg={12}>
                               <div className="mb-3">
                                 <Label
-                                  htmlFor="exampleFormControlTextarea1"
+                                  htmlFor="detailsOfProject"
                                   className="form-label"
                                 >
                                   Details of project
@@ -206,7 +265,9 @@ function Projects() {
                                 <textarea
                                   className="form-control"
                                   rows="5"
-                                  id="aboutme"
+                                  defaultValue=""
+                                  placeholder="Technologies/Tech Stack used/ Purpose of Project etc"
+                                  id="detailsOfProject"
                                 />
                               </div>
                             </Col>
@@ -231,6 +292,7 @@ function Projects() {
                                   type="number"
                                   className="form-control"
                                   id="teamSize"
+                                  defaultValue={1}
                                   to="https://www.facebook.com"
                                 />
                               </div>
@@ -245,7 +307,8 @@ function Projects() {
                                   type="year"
                                   className="form-control"
                                   id="role"
-                                  to="https://www.twitter.com"
+                                  defaultValue=""
+                                  placeholder="Project Lead, Developer,Tester etc"
                                 />
                               </div>
                             </Col>
@@ -255,12 +318,14 @@ function Projects() {
                                   htmlFor="roleDescription"
                                   className="form-label"
                                 >
-                                  Details of project
+                                  Role Description
                                 </Label>
                                 <textarea
                                   className="form-control"
                                   rows="5"
+                                  defaultValue=""
                                   id="roleDescription"
+                                  placeholder="Decsribe Your role in this project (Optional)"
                                 />
                               </div>
                             </Col>
@@ -271,12 +336,30 @@ function Projects() {
                                   htmlFor="skillsUsed"
                                   className="form-label"
                                 >
-                                  Skills Used
+                                  Skills Used <small className="text-danger">*</small>
                                 </Label>
                                 <Input
                                   type="text"
                                   className="form-control"
                                   id="skillsUsed"
+                                  defaultValue=""
+                                />
+                              </div>
+                            </Col>
+                            <Col lg={12}>
+                              <div className="mb-3">
+                                <Label
+                                  htmlFor="projectLink"
+                                  className="form-label"
+                                >
+                                  Project Link{" "}
+                                  <small className="text-muted">(if any)</small>
+                                </Label>
+                                <Input
+                                  type="text"
+                                  defaultValue=""
+                                  className="form-control"
+                                  id="projectLink"
                                 />
                               </div>
                             </Col>
@@ -296,7 +379,7 @@ function Projects() {
                         Close
                       </button>
                       <button
-                        type="button"
+                       onClick={handleSubmitEmploymentUpdate}
                         className="btn btn-primary waves-effect waves-light"
                       >
                         Save changes

@@ -95,7 +95,7 @@ function Employement({ user_id }) {
             type="button"
             className="btn btn-primary waves-effect waves-light"
           >
-            Add New Employement
+            Add New Employement/Experiences
           </button>
         </div>
         <div className="px-2 mb-2">

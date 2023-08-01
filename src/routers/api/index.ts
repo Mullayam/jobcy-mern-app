@@ -41,6 +41,7 @@ export class BaseRoutes {
         this.router.post("/apply/job", User.default.ApplyJob)
         this.router.get("/my/posted/jobs", User.default.GetJobsPostedByMember)
         this.router.get("/get-bookmarked/jobs", User.default.GetMemberBookmarkedJobs)
+        this.router.get("/get-myprofile/:user_id", User.default.FetchUserProfile)
         //update user Profile
 
         this.router.post("/update/profile-picture",fileUpload(), User.default.UpdateMemberProfilePicture)

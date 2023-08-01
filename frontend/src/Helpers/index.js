@@ -1,5 +1,5 @@
 import moment from "moment";
- 
+
 export const slugify = (str) => {
   return str
     .toLowerCase()
@@ -33,15 +33,27 @@ export const LabelAndValueFormat = (value) => {
   });
   return T;
 };
-export const CovertArraytoSelectFormat = (value) => { 
-   
-  const T = value.map((c) => {    
-    return { label:c, value:c };
+export const CovertArraytoSelectFormat = (value) => {
+  const T = value.map((c) => {
+    return { label: c, value: c };
   });
-  
+
   return T;
-}
-export const ObjectQueryToSearchString= (str)=>{  
-  
-  return Object.keys(str).map(key =>`${key}=${str[key]}`).join("&")
-}
+};
+export const ObjectQueryToSearchString = (str) => {
+  return Object.keys(str)
+    .map((key) => `${key}=${str[key]}`)
+    .join("&");
+};
+export const ObjectKeysAndValues = (obj) => {
+  let keys;
+  if (typeof obj === "undefined") {
+  } else {
+    keys = Object.keys(JSON.parse(obj));
+    const PureObject = keys.map((key) => {
+      return  JSON.parse(JSON.parse(obj)[key]);
+    });
+
+    return PureObject;
+  }
+};

@@ -101,7 +101,10 @@ export const UpdateMemberProfilePicture = async (data)=>{
 export const UpdateMemberResume = async (data)=>{
   return await instance.post("/v1/update/resume",data)
 }
-
+/* Fetch User Profile */
+export const FetchUserProfile = async (user_id,query)=>{
+  return await instance.get(`/v1/get-myprofile/${user_id}`)
+}
 /* Apply For Job */
  export const ApplyForJob = async (data)=>{
   return await instance.post("/v1/apply/job",data)

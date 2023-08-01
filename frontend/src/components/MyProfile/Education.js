@@ -13,15 +13,16 @@ import {
 import Select from "react-select";
 import { toast } from "react-toastify";
 import { UpdateMemberEducation } from "../../Apis/apiCore";
-function Education({ user_id }) {
+ 
+function Education({ user_id, educationList }) {
   const [modal, setModal] = useState(false);
   const [gradeSystem, setGradeSystem] = useState("");
+ 
   const openModal = () => setModal(!modal);
 
   function tog_modal() {
     setModal(!modal);
   }
-
   const handleAddNewEducation = async () => {
     const DataObj = {
       user_id,
@@ -33,14 +34,14 @@ function Education({ user_id }) {
       duration: document.getElementById("duration").value,
       gradeSystem,
     };
-
     const { data } = await UpdateMemberEducation(DataObj);
     if (data.success) {
-      openModal()
+      openModal();
       return toast.success(data.message);
     }
     return toast.error(data.message);
   };
+  
   return (
     <React.Fragment>
       <Card id="modals">
@@ -55,65 +56,62 @@ function Education({ user_id }) {
         </div>
         <div className="px-2 mb-2">
           <Card className="job-box card mt-2">
-            <CardBody className="p-4">
-              <Row>
-                <Col lg={1}></Col>
+            {/* <CardBody className="p-4">
+              {myEduList.length > 0
+                ? myEduList.map((item, index) => {
+                    return (
+                      <Row key={index}>
+                        <Col lg={10}>
+                          <div className="mt-3 mt-lg-0">
+                            <h5 className="fs-17 mb-1">
+                              <span className="text-dark">
+                                {item.education}
+                              </span>
+                            </h5>
+                            <ul className="list-inline mb-0">
+                              <li className="list-inline-item">
+                                <p className="text-muted fs-14 mb-0">
+                                  {item.courseName}
+                                </p>
+                              </li>
 
-                <Col lg={9}>
-                  <div className="mt-3 mt-lg-0">
-                    <h5 className="fs-17 mb-1">
-                      <span className="text-dark">Education Title</span>
-                    </h5>
-                    <ul className="list-inline mb-0">
-                      <li className="list-inline-item">
-                        <p className="text-muted fs-14 mb-0">Details</p>
-                      </li>
-                      <li className="list-inline-item">
-                        <p className="text-muted fs-14 mb-0">Year</p>
-                      </li>
-                      <li className="list-inline-item">
-                        <p className="text-muted fs-13 mb-0 badge bg-success-subtle text-success mt-1 mx-1">
-                          <i className="uil uil-wallet"></i> info
-                        </p>
-                      </li>
-                    </ul>
-                    <div className="mt-2">
-                      <span className="badge bg-danger-subtle text-success fs-13 mt-1 mx-1">
-                        extraaa
-                      </span>
-                    </div>
-                  </div>
-                </Col>
-                <Col lg={2} className="align-self-center">
-                  <ul className="list-inline mt-3 mb-0">
-                    <li
-                      className="list-inline-item"
-                      data-bs-toggle="tooltip"
-                      data-bs-placement="top"
-                      title="Edit"
-                    >
-                      <span className="avatar-sm bg-success-subtle text-success d-inline-block text-center rounded-circle fs-18">
-                        <i className="uil uil-edit"></i>
-                      </span>
-                    </li>
-                    <li
-                      className="list-inline-item"
-                      data-bs-toggle="tooltip"
-                      data-bs-placement="top"
-                      title="Delete"
-                    >
-                      <span
-                        onClick={() => openModal()}
-                        to="#"
-                        className="avatar-sm bg-danger-subtle text-danger d-inline-block text-center rounded-circle fs-18"
-                      >
-                        <i className="uil uil-trash-alt"></i>
-                      </span>
-                    </li>
-                  </ul>
-                </Col>
-              </Row>
-            </CardBody>
+                              <li className="list-inline-item">
+                                <p className="text-muted fs-14 mb-0">
+                                  {item.instituteName}
+                                </p>
+                              </li>
+                              <li className="list-inline-item">
+                                <p className="text-muted fs-13 mb-0 badge bg-success-subtle text-success mt-1 mx-1">
+                                  {item.courseType}
+                                </p>
+                              </li>
+                            </ul>
+                            <div className="mt-2">
+                              <span className="badge bg-info-subtle text-success fs-13 mt-1 mx-1">
+                                {item.specialization}
+                              </span>
+                            </div>
+                          </div>
+                        </Col>
+                        <Col lg={2} className="align-self-center">
+                          <ul className="list-inline mt-3 mb-0">
+                            <li
+                              className="list-inline-item"
+                              data-bs-toggle="tooltip"
+                              data-bs-placement="top"
+                              title="Edit"
+                            >
+                              <span className="avatar-sm bg-success-subtle text-success d-inline-block text-center rounded-circle fs-18">
+                                <i className="uil uil-edit"></i>
+                              </span>
+                            </li>
+                          </ul>
+                        </Col>
+                      </Row>
+                    );
+                  })
+                : "no"}
+            </CardBody> */}
           </Card>
         </div>
       </Card>

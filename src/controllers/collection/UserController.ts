@@ -163,11 +163,10 @@ class UserController {
             delete req.body.user_id
             const Obj_Str = JSON.stringify(req.body)
             await presql.buildQuery({ query: `UPDATE more_info SET projects = JSON_INSERT(projects,'$.${req.body.projectTitle}','${Obj_Str}') WHERE user_id = ${user_id}`, role: "0x00044" })
-            JSONResponse.Response(req, res, "New Project Added", {}, 200)
 
+            JSONResponse.Response(req, res, "New Project Added", {}, 200)
         } catch (error: any) {
             JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
-
         }
     }
     async UpdateMemberProfilePicture(req: Request, res: Response) {
@@ -219,6 +218,43 @@ class UserController {
             JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
 
         }
+    }
+
+    async FetchUserProfile (req: Request, res: Response){
+       try {
+       const SelectColumns = [
+        "member.user_id",
+        "member.username",
+        "member.fullname",
+        "member.image",
+        "member.email",
+        "member.location",
+        "member.account_type",
+        "member.info",
+        "member.about_me",
+        "member.created_at",
+        "more_info.education",
+        "more_info.experiences",
+        "more_info.projects",
+        "more_info.links",
+        "more_info.languages",
+        "more_info.skills",
+        "more_info.current_ctc",
+        "more_info.expected_ctc",
+        "more_info.hourly_rate",
+       
+       ]
+        const Details = await presql.buildQuery({ query: `SELECT ${SelectColumns.join(",")} FROM member INNER JOIN more_info ON member.user_id = more_info.user_id WHERE member.user_id ='${req.params.user_id}'`, role: "0x00044" })
+          Details[0].education  = helpers.ObjectKeysAndValues(Details[0].education)
+          Details[0].projects  = helpers.ObjectKeysAndValues(Details[0].projects)
+          Details[0].experiences  = helpers.ObjectKeysAndValues(Details[0].experiences)
+       
+        JSONResponse.Response(req, res, "User Profile", {Profile:Details[0]}, 200)
+
+       }catch (error: any) {
+        JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
+        
+       }
     }
 }
 export default new UserController()
