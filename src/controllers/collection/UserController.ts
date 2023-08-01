@@ -107,7 +107,7 @@ class UserController {
             JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
         }
     }
-    async UpdateMemberProfile(req: Request, res: Response) {         
+    async UpdateMemberProfile(req: Request, res: Response) {
 
         const Links = JSON.stringify({
             facebook: req.body.facebook,
@@ -127,36 +127,48 @@ class UserController {
         res.end()
     }
     async UpdateMemberEducation(req: Request, res: Response) {
-        const { user_id } = req.body
-        delete req.body.user_id
-        const Obj_Str = JSON.stringify(req.body)
-        await presql.buildQuery({ query: `UPDATE more_info SET education = JSON_INSERT(education,'$.${req.body.education}','${Obj_Str}') WHERE user_id = ${user_id}`, role: "0x00044" })
+        try {
+            const { user_id } = req.body
+            delete req.body.user_id
+            const Obj_Str = JSON.stringify(req.body)
+            await presql.buildQuery({ query: `UPDATE more_info SET education = JSON_INSERT(education,'$.${req.body.education}','${Obj_Str}') WHERE user_id = ${user_id}`, role: "0x00044" })
 
-        res.end()
+            JSONResponse.Response(req, res, "New Education Added", {}, 200)
+
+        } catch (error: any) {
+            JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
+
+        }
     }
     async UpdateMemberExperiences(req: Request, res: Response) {
         try {
             const { user_id } = req.body
             delete req.body.user_id
             const Obj_Str = JSON.stringify(req.body)
-           
-          await presql.buildQuery({ query: `UPDATE more_info SET experiences = JSON_INSERT(experiences,'$.${req.body.currentPosition}','${Obj_Str}') WHERE user_id = ${user_id}`, role: "0x00044" })   
-         
 
-        JSONResponse.Response(req, res, "New Experience Added", {}, 200)
-           
-        } catch (error:any) {
+            await presql.buildQuery({ query: `UPDATE more_info SET experiences = JSON_INSERT(experiences,'$.${req.body.currentPosition}','${Obj_Str}') WHERE user_id = ${user_id}`, role: "0x00044" })
+
+
+            JSONResponse.Response(req, res, "New Experience Added", {}, 200)
+
+        } catch (error: any) {
             JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
-            
+
         }
     }
-    
+
     async UpdateMemberProjects(req: Request, res: Response) {
-        const { user_id } = req.body
-        delete req.body.user_id
-        const Obj_Str = JSON.stringify(req.body)
-        await presql.buildQuery({ query: `UPDATE more_info SET projects = JSON_INSERT(projects,'$.${req.body.projectTitle}','${Obj_Str}') WHERE user_id = ${user_id}`, role: "0x00044" })        
-        res.end()
+        try {
+            const { user_id } = req.body
+            delete req.body.user_id
+            const Obj_Str = JSON.stringify(req.body)
+            await presql.buildQuery({ query: `UPDATE more_info SET projects = JSON_INSERT(projects,'$.${req.body.projectTitle}','${Obj_Str}') WHERE user_id = ${user_id}`, role: "0x00044" })
+            JSONResponse.Response(req, res, "New Project Added", {}, 200)
+
+        } catch (error: any) {
+            JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
+
+        }
     }
     async UpdateMemberProfilePicture(req: Request, res: Response) {
         const ProfileImg = req.files?.image as UploadedFile
