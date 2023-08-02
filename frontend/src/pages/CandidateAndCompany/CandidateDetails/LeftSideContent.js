@@ -4,8 +4,31 @@ import { Card, CardBody, Col } from "reactstrap";
 
 //Import userImage
 import userImage1 from "../../../assets/images/user/img-01.jpg";
+import { WhatsappTemplate } from "../../../Constants";
 
-const LeftSideContent = () => {
+const LeftSideContent = ({ applicant }) => {
+  const Stars = ({ stars, reviews }) => {
+    const starArray = Array.from({ length:parseInt(applicant?.ratings) }, (_, index) => {
+      const number = index + 0.5;
+      return (
+        <span key={index}>
+          {stars >= index + 1 ? (
+            <i className="mdi mdi-star-outline"></i>
+          ) : stars >= number ? (
+            <i className="mdi mdi-star-half-full"></i>
+          ) : (
+            <i className="mdi mdi-star"></i>
+          )}
+        </span>
+      );
+    });
+    return (
+      <li className="list-inline-item text-warning review-rating">
+        {starArray}
+      </li>
+    );
+  };
+
   return (
     <React.Fragment>
       <Col lg={4}>
@@ -17,22 +40,42 @@ const LeftSideContent = () => {
                 alt=""
                 className="avatar-lg rounded-circle"
               />
-              <h6 className="fs-18 mb-0 mt-4">Gabriel Palmer</h6>
-              <p className="text-muted mb-4">Creative Designer</p>
+              <h6 className="fs-18 mb-0 mt-4">{applicant.fullname}</h6>
+              <p className="text-muted mb-4">{applicant.info}</p>
               <ul className="candidate-detail-social-menu list-inline mb-0">
                 <li className="list-inline-item">
-                  <Link to="#" className="social-link">
-                    <i className="uil uil-twitter-alt"></i>
+                  <Link
+                    to={`${applicant?.links?.facebook}`}
+                    className="social-link"
+                  >
+                    <i className="uil uil-facebook-f"></i>
                   </Link>
                 </li>
                 <li className="list-inline-item">
-                  <Link to="#" className="social-link">
+                  <Link
+                    to={`${WhatsappTemplate(
+                      applicant.links?.whatsapp,
+                      applicant.fullname
+                    )}`}
+                    className="social-link"
+                  >
                     <i className="uil uil-whatsapp"></i>
                   </Link>
                 </li>
                 <li className="list-inline-item">
-                  <Link to="#" className="social-link">
-                    <i className="uil uil-phone-alt"></i>
+                  <Link
+                    to={`${applicant?.links?.facebook}`}
+                    className="social-link"
+                  >
+                    <i className="uil uil-linkedin-alt"></i>
+                  </Link>
+                </li>
+                <li className="list-inline-item">
+                  <Link
+                    to={`${applicant?.links?.github}`}
+                    className="social-link"
+                  >
+                    <i className="uil uil-github-alt"></i>
                   </Link>
                 </li>
               </ul>
@@ -52,9 +95,11 @@ const LeftSideContent = () => {
               </li>
               <li>
                 <div className="d-flex">
-                  <label className="text-dark">Offered Salary</label>
+                  <label className="text-dark">Expected Salary</label>
                   <div>
-                    <p className="text-muted mb-0">$450 per hour</p>
+                    <p className="text-muted mb-0 mx-1">
+                      Rs. {applicant.expected_ctc}
+                    </p>
                   </div>
                 </div>
               </li>
@@ -63,7 +108,7 @@ const LeftSideContent = () => {
                   <label className="text-dark">Languages</label>
                   <div>
                     <p className="text-muted mb-0">
-                      English, Turkish, Japanese
+                      {applicant?.languages?.join(",")}
                     </p>
                   </div>
                 </div>
@@ -97,18 +142,16 @@ const LeftSideContent = () => {
               <Link to="#" className="btn btn-danger btn-hover w-100">
                 <i className="uil uil-phone"></i> Contact Me
               </Link>
-              <Link to="#" className="btn btn-primary btn-hover w-100 mt-2">
+              <Link
+                to={`${process.env.REACT_APP_STATIC_URL}/_static/jobcy/user/profile/resumes/${applicant?.cv}`}
+                target="_blank"
+                className="btn btn-primary btn-hover w-100 mt-2"
+              >
                 <i className="uil uil-import"></i> Download CV
               </Link>
             </div>
             <ul className="list-inline d-flex justify-content-between align-items-center mb-0 mt-2">
-              <li className="list-inline-item text-warning review-rating">
-                <i className="mdi mdi-star"></i>
-                <i className="mdi mdi-star"></i>
-                <i className="mdi mdi-star"></i>
-                <i className="mdi mdi-star"></i>
-                <i className="mdi mdi-star-half-full"></i>
-              </li>
+              <Stars/>
               <li className="list-inline-item">
                 <div className="favorite-icon">
                   <Link to="#">
@@ -121,21 +164,14 @@ const LeftSideContent = () => {
           <CardBody className="p-4 border-top">
             <h6 className="fs-17 fw-semibold mb-3">Professional Skills</h6>
             <div className="d-flex flex-wrap align-items-start gap-1">
-              <span className="badge bg-success-subtle text-success fs-13 mt-1">
-                User Interface Design
-              </span>
-              <span className="badge bg-success-subtle text-success fs-13 mt-1">
-                Web Design
-              </span>
-              <span className="badge bg-success-subtle text-success fs-13 mt-1">
-                Responsive Design
-              </span>
-              <span className="badge bg-success-subtle text-success fs-13 mt-1">
-                Mobile App Design
-              </span>
-              <span className="badge bg-success-subtle text-success fs-13 mt-1">
-                UI Design
-              </span>
+              {applicant?.skills?.map((item, index) => (
+                <span
+                  className="badge bg-success-subtle text-success fs-13 mt-1"
+                  key={index}
+                >
+                  {item}
+                </span>
+              ))}
             </div>
           </CardBody>
           <CardBody className="candidate-contact-details p-4 border-top">
@@ -148,7 +184,7 @@ const LeftSideContent = () => {
                   </div>
                   <div className="ms-3">
                     <h6 className="fs-14 mb-1">Email</h6>
-                    <p className="text-muted mb-0">gabrielpalmer@gmail.com</p>
+                    <p className="text-muted mb-0">{applicant.email}</p>
                   </div>
                 </div>
               </li>
@@ -159,7 +195,7 @@ const LeftSideContent = () => {
                   </div>
                   <div className="ms-3">
                     <h6 className="fs-14 mb-1">Address</h6>
-                    <p className="text-muted mb-0">Dodge City, Louisiana</p>
+                    <p className="text-muted mb-0">{applicant.email}</p>
                   </div>
                 </div>
               </li>
@@ -170,18 +206,7 @@ const LeftSideContent = () => {
                   </div>
                   <div className="ms-3">
                     <h6 className="fs-14 mb-1">Phone</h6>
-                    <p className="text-muted mb-0">+1(452) 125-6789</p>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div className="d-flex align-items-center mt-4">
-                  <div className="icon bg-primary-subtle text-primary flex-shrink-0">
-                    <i className="uil uil-skype-alt"></i>
-                  </div>
-                  <div className="ms-3">
-                    <h6 className="fs-14 mb-1">Skype</h6>
-                    <p className="text-muted mb-0">@gabrielpalmer</p>
+                    <p className="text-muted mb-0">{applicant.phone}</p>
                   </div>
                 </div>
               </li>

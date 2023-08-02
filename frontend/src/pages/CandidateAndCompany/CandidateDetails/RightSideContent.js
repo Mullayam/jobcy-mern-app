@@ -11,13 +11,11 @@ import blogImage1 from "../../../assets/images/blog/img-01.jpg";
 import blogImage2 from "../../../assets/images/blog/img-02.jpg";
 import blogImage3 from "../../../assets/images/blog/img-03.jpg";
 
-//Import user Images
-import userImage4 from "../../../assets/images/user/img-04.jpg";
-import userImage2 from "../../../assets/images/user/img-02.jpg";
+ 
 
 const images = [blogImage1, blogImage1, blogImage3];
 
-const RightSideContent = () => {
+const RightSideContent = ({ applicant }) => {
   const [photoIndex, setphotoIndex] = useState(0);
   const [isGallery, setisGallery] = useState(false);
   return (
@@ -45,122 +43,57 @@ const RightSideContent = () => {
           <CardBody className="p-4 candidate-personal-detail">
             <div>
               <h6 className="fs-17 fw-semibold mb-3">About Me</h6>
-              <p className="text-muted mb-2">
-                Very well thought out and articulate communication. Clear
-                milestones, deadlines and fast work. Patience. Infinite
-                patience. No shortcuts. Even if the client is being careless.
-                Some quick example text to build on the card title and bulk the
-                card's content Moltin gives you platform.
-              </p>
-              <p className="text-muted mb-0">
-                As a highly skilled and successfull product development and
-                design specialist with more than 4 Years of My experience lies
-                in successfully conceptualizing, designing, and modifying
-                consumer products specific to interior design and home
-                furnishings.
-              </p>
+              <p className="text-muted mt-2">{applicant.about_me}</p>
             </div>
             <div className="candidate-education-details mt-4 pt-3">
               <h6 className="fs-17 fw-bold mb-0">Education</h6>
-              <div className="candidate-education-content mt-4 d-flex">
-                <div className="circle flex-shrink-0 bg-primary-subtle text-primary">
-                  {" "}
-                  B{" "}
-                </div>
-                <div className="ms-4">
-                  <h6 className="fs-16 mb-1">
-                    BCA - Bachelor of Computer Applications
-                  </h6>
-                  <p className="mb-2 text-muted">
-                    International University - (2004 - 2010)
-                  </p>
-                  <p className="text-muted">
-                    There are many variations of passages of available, but the
-                    majority alteration in some form. As a highly skilled and
-                    successfull product development and design specialist with
-                    more than 4 Years of My experience.
-                  </p>
-                </div>
-              </div>
-              <div className="candidate-education-content mt-4 d-flex">
-                <div className="circle flex-shrink-0 bg-primary-subtle text-primary">
-                  {" "}
-                  M{" "}
-                </div>
-                <div className="ms-4">
-                  <h6 className="fs-16 mb-1">
-                    MCA - Master of Computer Application
-                  </h6>
-                  <p className="mb-2 text-muted">
-                    International University - (2010 - 2012)
-                  </p>
-                  <p className="text-muted">
-                    There are many variations of passages of available, but the
-                    majority alteration in some form. As a highly skilled and
-                    successfull product development and design specialist with
-                    more than 4 Years of My experience.
-                  </p>
-                </div>
-              </div>
-              <div className="candidate-education-content mt-4 d-flex">
-                <div className="circle flex-shrink-0 bg-primary-subtle text-primary">
-                  {" "}
-                  D{" "}
-                </div>
-                <div className="ms-4">
-                  <h6 className="fs-16 mb-1">Design Communication Visual</h6>
-                  <p className="text-muted mb-2">
-                    International University - (2012-2015)
-                  </p>
-                  <p className="text-muted">
-                    There are many variations of passages of available, but the
-                    majority alteration in some form. As a highly skilled and
-                    successfull product development and design specialist with
-                    more than 4 Years of My experience.
-                  </p>
-                </div>
-              </div>
+
+              {applicant?.education?.map((item, index) => (
+          <div className="candidate-education-content mt-4 d-flex" key={index}>
+            <div className="circle flex-shrink-0 bg-primary-subtle text-primary">
+              {index + 1}
+            </div>
+            <div className="ms-4">
+              <h6 className="fs-16 mb-1">
+                {item.courseName} {item.courseName}
+              </h6>
+              <p className="mb-2 text-muted">
+                {item.instituteName} - {item.duration}({item.batchDuration}{" "}
+                Years )
+              </p>
+              <p className="text-muted">
+               
+              </p>
+            </div>
+          </div>
+        ))}
             </div>
             <div className="candidate-education-details mt-4 pt-3">
               <h6 className="fs-17 fw-bold mb-0">Experience</h6>
-              <div className="candidate-education-content mt-4 d-flex">
-                <div className="circle flex-shrink-0 bg-primary-subtle text-primary">
-                  {" "}
-                  W{" "}
+              {applicant?.experiences?.map((item, index) => (
+                <div
+                  className="candidate-education-content mt-4 d-flex"
+                  key={index}
+                >
+                  <div className="circle flex-shrink-0 bg-primary-subtle text-primary">
+                    {index + 1}
+                  </div>
+                  <div className="ms-4">
+                    <h6 className="fs-16 mb-1">
+                      {item.currentPosition} ({item.employmentType})
+                    </h6>
+                    <p className="mb-2 text-muted">
+                      {item.currentCompany}
+                      {item.currentEmployment === "yes" ?? " - Present"}
+                    </p>
+                    <p className="text-muted">
+                      Served Time {item.totalExpereinceInYear}.
+                      {item.totalExpereinceInMonth} Years
+                    </p>
+                    <p className="text-muted">{item.jobProfile}</p>
+                  </div>
                 </div>
-                <div className="ms-4">
-                  <h6 className="fs-16 mb-1">
-                    Web Design & Development Team Leader
-                  </h6>
-                  <p className="mb-2 text-muted">
-                    Creative Agency - (2013 - 2016)
-                  </p>
-                  <p className="text-muted">
-                    There are many variations of passages of available, but the
-                    majority alteration in some form. As a highly skilled and
-                    successfull product development and design specialist with
-                    more than 4 Years of My experience.
-                  </p>
-                </div>
-              </div>
-              <div className="candidate-education-content mt-4 d-flex">
-                <div className="circle flex-shrink-0 bg-primary-subtle text-primary">
-                  {" "}
-                  P{" "}
-                </div>
-                <div className="ms-4">
-                  <h6 className="fs-16 mb-1">Project Manager</h6>
-                  <p className="mb-2 text-muted">
-                    Jobcy Technology Pvt.Ltd - (Pressent)
-                  </p>
-                  <p className="text-muted mb-0">
-                    There are many variations of passages of available, but the
-                    majority alteration in some form. As a highly skilled and
-                    successfull product development and design specialist with
-                    more than 4 Years of My experience.
-                  </p>
-                </div>
-              </div>
+              ))}
             </div>
             <div className="candidate-portfolio mt-4 pt-3">
               <h6 className="fs-17 fw-bold mb-0">Projects</h6>
@@ -212,7 +145,7 @@ const RightSideContent = () => {
                 </Col>
               </Row>
             </div>
-            <div className="mt-4 pt-3">
+            {/* <div className="mt-4 pt-3">
               <div className="d-sm-flex align-items-top">
                 <div className="flex-shrink-0">
                   <img
@@ -271,8 +204,8 @@ const RightSideContent = () => {
                   </div>
                 </div>
               </div>
-            </div>
-            <form action="#" className="mt-4 pt-3">
+            </div> */}
+            <div className="mt-4 pt-3">
               <h6 className="fs-17 fw-semibold mb-2">Add a review</h6>
               <p className="text-muted mb-3">Your Rating for this listing</p>
               <Row>
@@ -334,7 +267,7 @@ const RightSideContent = () => {
                   Submit Review <i className="uil uil-angle-right-b"></i>
                 </button>
               </div>
-            </form>
+            </div>
           </CardBody>
         </Card>
       </Col>

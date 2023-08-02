@@ -48,7 +48,7 @@ const JobListing = ({ jobList }) => {
                     </Link>
                   </Col>
 
-                  <Col lg={9}>
+                  <Col lg={8}>
                     <div className="mt-3 mt-lg-0">
                       <h5 className="fs-17 mb-1">
                         <Link to={`/jobdetails/${slugify(jobListingDetails.job_title)}-${jobListingDetails.jobID}`} className="text-dark">
@@ -104,8 +104,8 @@ const JobListing = ({ jobList }) => {
                     </div>
                   </Col>
 
-                  <Col lg={2} className="align-self-center">
-                    <ul className="list-inline mt-3 mb-0">
+                  <Col lg={3} className="align-self-center">
+                    <ul className="list-end mt-3 mb-0">
                       <li
                         className="list-inline-item"
                         data-bs-toggle="tooltip"
@@ -126,15 +126,30 @@ const JobListing = ({ jobList }) => {
                         title="Delete"
                       >
                         <span
+                        role="button"
                           onClick={() => {
                             openModal();
                             setDeleteJobId(jobListingDetails.jobID);
                           }}
-                          to="#"
+                         
                           className="avatar-sm bg-danger-subtle text-danger d-inline-block text-center rounded-circle fs-18"
                         >
                           <i className="uil uil-trash-alt"></i>
                         </span>
+                      </li>
+                      <li
+                        className="list-inline-item"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="top"
+                        title="Total Applicants"
+                      >
+                        <Link
+                        to={`/candidatelist/${slugify(jobListingDetails.name)}-${jobListingDetails.jobID}?jobApplicants=true`}
+                          role="button"                         
+                          className="avatar-sm bg-info-subtle text-danger d-inline-block text-center rounded-circle fs-18"
+                        >
+                          {jobListingDetails.total_applicants}
+                        </Link>
                       </li>
                     </ul>
                   </Col>

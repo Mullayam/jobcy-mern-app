@@ -4,10 +4,11 @@ import CandidateDetails from "./CandidateDetails";
 import JobFilters from "./JobFilters";
 import Section from "./Section";
 import Pagination from "../../Jobs/JobList/Pagination";
-
+ 
 const CandidateList = () => {
-  document.title =
-    "Candidate List | Jobcy - Job Listing Template | Themesdesign";
+  document.title =  "Applicatants List | Jobcy";
+
+ 
   return (
     <React.Fragment>
       <Section />

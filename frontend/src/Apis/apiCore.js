@@ -44,74 +44,85 @@ export const GetAllJobTypes = async () => {
   return await instance.get("/v1/all/job-types");
 };
 export const GetJobFromCategoryIdAndQueryFilters = async (id, filters) => {
-  const URL = id === undefined ? "/v1/get-jobs" : `/v1/get-jobs/${id}`;  
-  return await instance.get(URL, {     
-    params:  {filters} 
+  const URL = id === undefined ? "/v1/get-jobs" : `/v1/get-jobs/${id}`;
+  return await instance.get(URL, {
+    params: { filters },
   });
 };
-export const AddOrRemoveBookmarkedJob = async (data)=>{ 
-  return await instance.post("/v1/bookmark/job",data)}
-export const GetAllUserNotifications = async (data)=>{ 
-  return await instance.get("/v1/notifications",)
-}
-export  const GetJobDetailsFromJobId = async (jobId)=>{
-  return await instance.get(`/v1/single-job/${jobId}`)
-}
-export  const GetJobsPostedByMember = async (cfn_id)=>{   
-  return await instance.get("/v1/my/posted/jobs",{
-    params:{cfn_id}
-  })
-}
-export  const DeleteJobPostedByMember = async (jobId)=>{   
-  return await instance.delete("/v1/handle-job/action",{
-    params:{jobId}
-  })
-}
-export  const UpdateJobPostedByMember = async (jobId)=>{   
-  return await instance.put("/v1/handle-job/action",{
-    params:{jobId}
-  })
-}
+export const AddOrRemoveBookmarkedJob = async (data) => {
+  return await instance.post("/v1/bookmark/job", data);
+};
+export const GetAllUserNotifications = async (data) => {
+  return await instance.get("/v1/notifications");
+};
+export const GetJobDetailsFromJobId = async (jobId) => {
+  return await instance.get(`/v1/single-job/${jobId}`);
+};
+export const GetJobsPostedByMember = async (cfn_id) => {
+  return await instance.get("/v1/my/posted/jobs", {
+    params: { cfn_id },
+  });
+};
+export const DeleteJobPostedByMember = async (jobId) => {
+  return await instance.delete("/v1/handle-job/action", {
+    params: { jobId },
+  });
+};
+export const UpdateJobPostedByMember = async (jobId) => {
+  return await instance.put("/v1/handle-job/action", {
+    params: { jobId },
+  });
+};
 /* Get Bookmarked jobs for member  */
 
-export const GetMemberBookmarkedJobs = async (cfn_id)=>{
-  return await instance.get("/v1/get-bookmarked/jobs",{
-    params:{cfn_id}
-  })
-}
+export const GetMemberBookmarkedJobs = async (cfn_id) => {
+  return await instance.get("/v1/get-bookmarked/jobs", {
+    params: { cfn_id },
+  });
+};
 /* Update UserProfile */
-export const UpdateMemberProfile = async (data)=>{
-  return await instance.post("/v1/update/member-profile",data)
-}
-export const UpdateMemberEducation = async (data)=>{
-  return await instance.post("/v1/update/member/education",data)
-}
-export const UpdateMemberExperiences= async (data)=>{
-  return await instance.post("/v1/update/member/experiences",data)
-}
- 
-export const UpdateMemberProjects = async (data)=>{
-  return await instance.post("/v1/update/member/projects",data)
-}
+export const UpdateMemberProfile = async (data) => {
+  return await instance.post("/v1/update/member-profile", data);
+};
+export const UpdateMemberEducation = async (data) => {
+  return await instance.post("/v1/update/member/education", data);
+};
+export const UpdateMemberExperiences = async (data) => {
+  return await instance.post("/v1/update/member/experiences", data);
+};
 
-export const UpdateMemberProfilePicture = async (data)=>{
-  return await instance.post("/v1/update/profile-picture",data)
-}
+export const UpdateMemberProjects = async (data) => {
+  return await instance.post("/v1/update/member/projects", data);
+};
 
-export const UpdateMemberResume = async (data)=>{
-  return await instance.post("/v1/update/resume",data)
-}
+export const UpdateMemberProfilePicture = async (data) => {
+  return await instance.post("/v1/update/profile-picture", data);
+};
+
+export const UpdateMemberResume = async (data) => {
+  return await instance.post("/v1/update/resume", data);
+};
 /* Fetch User Profile */
-export const FetchUserProfile = async (user_id,query)=>{
-  return await instance.get(`/v1/get-myprofile/${user_id}`)
-}
+export const FetchUserProfile = async (user_id, query) => {
+  return await instance.get(`/v1/get-myprofile/${user_id}`);
+};
 /* Apply For Job */
- export const ApplyForJob = async (data)=>{
-  return await instance.post("/v1/apply/job",data)
-   
- }
+export const ApplyForJob = async (data) => {
+  return await instance.post("/v1/apply/job", data);
+};
 
 //  get all registerd comapnies
 export const GetRegisteredCompanies = async (SearchKeyword) => {
-  return await instance.post("https://www.thecompanycheck.com/api/CompanySearch/Search",SearchKeyword)
+  return await instance.post(
+    "https://www.thecompanycheck.com/api/CompanySearch/Search",
+    SearchKeyword
+  );
+};
+// get all applicants who applied for job
+export const TotalApplicantsAppliedForJob = async (slug) => {
+  return await instance.get(`/v1/total-applicants/${slug}`);
+};
+export const GetJobApplicantDetails = async (user_id) => {
+  return await instance.get(`/v1/applicant/details/${user_id}`);
+  
 }

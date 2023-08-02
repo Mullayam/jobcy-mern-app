@@ -64,9 +64,9 @@ const userRoutes = [
   //Candidate and Company Section
   { path: "/companydetails/:company_id", component: <CompanyDetails /> },
   { path: "/companylist", component: <CompanyList /> },
-  { path: "/candidatedetails/:user_id", component: <CandidateDetails /> },
+  { path: "/candidatedetails/:username/:user_id", component: <CandidateDetails /> },
   { path: "/candidategrid", component: <CandidateGrid /> },
-  { path: "/candidatelist", component: <CandidateList /> },
+  { path: "/candidatelist/:job_id?", component: <CandidateList /> },
 
   //Jobs Section
   { path: "/jobscategories", component: <JobsCategories /> },

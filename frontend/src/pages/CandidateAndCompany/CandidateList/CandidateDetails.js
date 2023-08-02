@@ -1,209 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { CardBody, Col, Row } from "reactstrap";
+import { TotalApplicantsAppliedForJob } from "../../../Apis/apiCore";
+import { FromNowDate, slugify } from "../../../Helpers";
 
 //Import images
-import userImage1 from "../../../assets/images/user/img-01.jpg";
-import userImage2 from "../../../assets/images/user/img-02.jpg";
-import userImage3 from "../../../assets/images/user/img-03.jpg";
-import userImage4 from "../../../assets/images/user/img-04.jpg";
-import userImage5 from "../../../assets/images/user/img-05.jpg";
-import userImage6 from "../../../assets/images/user/img-06.jpg";
-import userImage7 from "../../../assets/images/user/img-07.jpg";
-import userImage8 from "../../../assets/images/user/img-08.jpg";
 
 const CandidateDetails = () => {
-  const candidateDetails = [
-    {
-      id: 1,
-      userImg: userImage1,
-      candidateName: "Charles Dickens",
-      candidateDesignation: "Project Manager",
-      location: "Oakridge Lane Richardson",
-      salary: "$650 / hours",
-      rating: 4.8,
-      ratingClass: "badge bg-success ms-1",
-      addclassNameBookmark: false,
-      badges: [
-        {
-          id: 1,
-          badgeName: "Leader",
-          classname: "success"
-        },
-        {
-          id: 2,
-          badgeName: "Manager",
-          classname: "primary"
-        },
-        {
-          id: 2,
-          badgeName: "Developer",
-          classname: "warning"
-        }
-      ]
-    },
-    {
-      id: 2,
-      userImg: userImage2,
-      candidateName: "Gabriel Palmer",
-      candidateDesignation: "HTML Developer",
-      location: "Oakridge Lane California",
-      salary: "$250 / hours",
-      rating: 3.4,
-      ratingClass: "badge bg-warning ms-1",
-      addclassNameBookmark: true,
-      badges: [
-        {
-          id: 1,
-          badgeName: "Design",
-          classname: "info"
-        },
-        {
-          id: 2,
-          badgeName: "Developer",
-          classname: "primary"
-        }
-      ]
-    },
-    {
-      id: 3,
-      userImg: userImage3,
-      candidateName: "Rebecca Swartz ",
-      candidateDesignation: "Graphic Designer",
-      location: "Oakridge Lane Richardson",
-      salary: "$380 / hours",
-      rating: 4.3,
-      ratingClass: "badge bg-success ms-1",
-      addclassNameBookmark: false,
-      badges: [
-        {
-          id: 1,
-          badgeName: "Design",
-          classname: "success"
-        },
-        {
-          id: 2,
-          badgeName: "Developer",
-          classname: "primary"
-        }
-      ]
-    },
-    {
-      id: 4,
-      userImg: userImage4,
-      candidateName: "Betty Richards",
-      candidateDesignation: "Education Training",
-      location: "Oakridge Lane Richardson",
-      salary: "$650 / hours",
-      rating: 4.5,
-      ratingClass: "badge bg-success ms-1",
-      addclassNameBookmark: true,
-      badges: [
-        {
-          id: 1,
-          badgeName: "Trainer",
-          classname: "warning"
-        },
-        {
-          id: 2,
-          badgeName: "Adobe illustrator",
-          classname: "info"
-        }
-      ]
-    },
-    {
-      id: 5,
-      userImg: userImage5,
-      candidateName: "Jeffrey Montgomery",
-      candidateDesignation: "Restaurant Team Member",
-      location: "Oakridge Lane Richardson",
-      salary: "$125 / hours",
-      rating: 4.9,
-      ratingClass: "badge bg-success ms-1",
-      addclassNameBookmark: false,
-      badges: [
-        {
-          id: 1,
-          badgeName: "Trainer",
-          classname: "primary"
-        },
-        {
-          id: 2,
-          badgeName: "Adobe illustrator",
-          classname: "warning"
-        }
-      ]
-    },
-    {
-      id: 6,
-      userImg: userImage6,
-      candidateName: "Milton Osborn",
-      candidateDesignation: "Assistant / Store Keeper",
-      location: "Oakridge Lane Richardson",
-      salary: "$455 / hours",
-      rating: 2.5,
-      ratingClass: "badge bg-danger ms-1",
-      addclassNameBookmark: false,
-      badges: [
-        {
-          id: 1,
-          badgeName: "Trainer",
-          classname: "info"
-        },
-        {
-          id: 2,
-          badgeName: "Adobe illustrator",
-          classname: "primary"
-        }
-      ]
-    },
-    {
-      id: 7,
-      userImg: userImage7,
-      candidateName: "Harold Jordan",
-      candidateDesignation: "Executive, HR Operations",
-      location: "Oakridge Lane Richardson",
-      salary: "$799 / hours",
-      rating: 4.9,
-      ratingClass: "badge bg-success ms-1",
-      addclassNameBookmark: false,
-      badges: [
-        {
-          id: 1,
-          badgeName: "Trainer",
-          classname: "success"
-        },
-        {
-          id: 2,
-          badgeName: "Adobe illustrator",
-          classname: "primary"
-        }
-      ]
-    },
-    {
-      id: 8,
-      userImg: userImage8,
-      candidateName: "MichaeL Drake ",
-      candidateDesignation: "Full Stack Engineer",
-      location: "Oakridge Lane Richardson",
-      salary: "$240 / hours",
-      rating: 3.9,
-      ratingClass: "badge bg-warning ms-1",
-      addclassNameBookmark: false,
-      badges: [
-        {
-          id: 1,
-          badgeName: "Trainer",
-          classname: "info"
-        },
-        {
-          id: 2,
-          badgeName: "Adobe illustrator",
-          classname: "warning"
-        }
-      ]
-    }
-  ];
+  const [applicants, setApplicants] = React.useState([]);
+  const getApplicants = async () => {
+    const { data } = await TotalApplicantsAppliedForJob(9);
+    if (data.success) return setApplicants(data.data.Applicants);
+  };
+  React.useEffect(() => {
+    
+    getApplicants()
+  }, [])
+  
   return (
     <React.Fragment>
       <Row className="align-items-center">
@@ -252,14 +65,10 @@ const CandidateDetails = () => {
         </Col>
       </Row>
       <div className="candidate-list">
-        {candidateDetails.map((candidateDetailsNew, key) => (
+        {applicants?.map((candidateDetailsNew, key) => (
           <div
             key={key}
-            className={
-              candidateDetailsNew.addclassNameBookmark === true
-                ? "candidate-list-box bookmark-post card mt-4"
-                : "candidate-list-box card mt-4"
-            }
+            className="candidate-list-box card mt-4"
           >
             <CardBody className="p-4">
               <Row className="align-items-center">
@@ -267,7 +76,7 @@ const CandidateDetails = () => {
                   <div className="candidate-list-images">
                     <Link to="#">
                       <img
-                        src={candidateDetailsNew.userImg}
+                        src={`${process.env.REACT_APP_STATIC_URL}/_static/jobcy/user/profile/profileImg/${candidateDetailsNew.image}`}
                         alt=""
                         className="avatar-md img-thumbnail rounded-circle"
                       />
@@ -277,28 +86,24 @@ const CandidateDetails = () => {
                 <Col lg={5}>
                   <div className="candidate-list-content mt-3 mt-lg-0">
                     <h5 className="fs-19 mb-0">
-                      <Link to="/candidatedetails" className="primary-link">
-                        {candidateDetailsNew.candidateName}
+                      <Link to={`/candidatedetails/${slugify(candidateDetailsNew.fullname)}/${candidateDetailsNew.user_id}`} className="primary-link">
+                        {candidateDetailsNew.fullname}
                       </Link>
-
-                      <span className={candidateDetailsNew.ratingClass}>
+                      <span className={"badge bg-success   mx-2"}>
                         <i className="mdi mdi-star align-middle"></i>
-                        {candidateDetailsNew.rating}
+                        {((candidateDetailsNew.ratings)/1).toFixed(1)}
                       </span>
                     </h5>
                     <p className="text-muted mb-2">
                       {" "}
-                      {candidateDetailsNew.candidateDesignation}
+                      {candidateDetailsNew.info}
                     </p>
                     <ul className="list-inline mb-0 text-muted">
                       <li className="list-inline-item">
                         <i className="mdi mdi-map-marker"></i>{" "}
                         {candidateDetailsNew.location}
                       </li>
-                      <li className="list-inline-item">
-                        <i className="uil uil-wallet"></i>{" "}
-                        {candidateDetailsNew.salary}
-                      </li>
+                     
                     </ul>
                   </div>
                 </Col>
@@ -319,9 +124,7 @@ const CandidateDetails = () => {
                 </Col>
               </Row>
               <div className="favorite-icon">
-                <Link to="#">
-                  <i className="uil uil-heart-alt fs-18"></i>
-                </Link>
+               {FromNowDate(candidateDetailsNew.applied_on)}
               </div>
             </CardBody>
           </div>

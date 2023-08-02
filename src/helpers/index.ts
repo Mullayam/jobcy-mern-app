@@ -57,23 +57,24 @@ class Helpers {
     }
     purifyString(str: string): string {
         return str
-        .toLowerCase()
-        .trim()
-        .replace(/\s/g, "")
-        .replace(/[\s_-]+/g, "-")
-        .replace(/^-+|-+$/g, "");
+            .toLowerCase()
+            .trim()
+            .replace(/\s/g, "")
+            .replace(/[\s_-]+/g, "-")
+            .replace(/^-+|-+$/g, "");
     }
-    ObjectKeysAndValues = (obj:string):string[] => {
+    ObjectKeysAndValues = (obj: string): string[] => {
         let keys = Object.keys(JSON.parse(obj));
-         
         const PureObject = keys.map((key) => {
-            
-          return  JSON.parse(JSON.parse(obj)[key]);
+            return JSON.parse(JSON.parse(obj)[key]);
         });
-    
         return PureObject;
     }
-        
+    FormatSalary = (salary: number) => {
+        return salary.toLocaleString("en-IN", { maximumFractionDigits: 0 });
+    };
+
+
 
 }
 export default new Helpers()

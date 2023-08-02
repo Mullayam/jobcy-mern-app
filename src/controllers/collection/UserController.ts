@@ -92,7 +92,7 @@ class UserController {
     async GetJobsPostedByMember(req: Request, res: Response) {
 
         try {
-            const getJob = await presql.buildQuery({ query: `SELECT jobs.id as jobID,job_title,job_location,industry_type,job_type,offered_salary,companies.id as cid,companies.name,companies.img FROM jobs INNER JOIN companies ON jobs.company_id = companies.id WHERE posted_by = ${req.query.cfn_id} `, role: "0x00042" })
+            const getJob = await presql.buildQuery({ query: `SELECT jobs.id as jobID,job_title,job_location,industry_type,job_type,offered_salary,companies.id as cid,companies.name,companies.img,COUNT(applied_jobs.user_id) as total_applicants FROM jobs LEFT JOIN applied_jobs ON jobs.id = applied_jobs.job_id INNER JOIN companies ON jobs.company_id = companies.id  WHERE jobs.posted_by = ${req.query.cfn_id} GROUP BY jobs.id`, role: "0x00042" })
             JSONResponse.Response(req, res, "MyJobs", { MyJobs: getJob }, 200)
         } catch (error: any) {
             JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
@@ -220,48 +220,95 @@ class UserController {
         }
     }
 
-    async FetchUserProfile (req: Request, res: Response){
-       try {
-       const SelectColumns = [
-        "member.user_id",
-        "member.username",
-        "member.fullname",
-        "member.image",
-        "member.email",
-        "member.phone",
-        "member.location",
-        "member.account_type",
-        "member.info",
-        "member.about_me",
-        "member.created_at",
-        "more_info.education",
-        "more_info.experiences",
-        "more_info.projects",
-        "more_info.links",
-        "more_info.languages",
-        "more_info.cv",
-        "more_info.skills",
-        "more_info.current_ctc",
-        "more_info.expected_ctc",
-        "more_info.hourly_rate",
-       
-       ]
-        const Details = await presql.buildQuery({ query: `SELECT ${SelectColumns.join(",")} FROM member INNER JOIN more_info ON member.user_id = more_info.user_id WHERE member.user_id ='${req.params.user_id}'`, role: "0x00044" })
-          Details[0].education  = helpers.ObjectKeysAndValues(Details[0].education)
-          Details[0].projects  = helpers.ObjectKeysAndValues(Details[0].projects)
-          Details[0].experiences  = helpers.ObjectKeysAndValues(Details[0].experiences)
-          Details[0].cv  = JSON.parse(Details[0].cv)
-          Details[0].links  = JSON.parse(Details[0].links)
-          Details[0].languages  = JSON.parse(Details[0].languages)
-          Details[0].skills  = JSON.parse(Details[0].skills)
+    async FetchUserProfile(req: Request, res: Response) {
+        try {
+            const SelectColumns = [
+                "member.user_id",
+                "member.username",
+                "member.fullname",
+                "member.image",
+                "member.email",
+                "member.phone",
+                "member.location",
+                "member.account_type",
+                "member.info",
+                "member.about_me",
+                "member.created_at",
+                "more_info.education",
+                "more_info.experiences",
+                "more_info.projects",
+                "more_info.links",
+                "more_info.languages",
+                "more_info.cv",
+                "more_info.skills",
+                "more_info.current_ctc",
+                "more_info.expected_ctc",
+                "more_info.hourly_rate",
+
+            ]
+            const Details = await presql.buildQuery({ query: `SELECT ${SelectColumns.join(",")} FROM member INNER JOIN more_info ON member.user_id = more_info.user_id WHERE member.user_id ='${req.params.user_id}'`, role: "0x00044" })
+            Details[0].education = helpers.ObjectKeysAndValues(Details[0].education)
+            Details[0].projects = helpers.ObjectKeysAndValues(Details[0].projects)
+            Details[0].experiences = helpers.ObjectKeysAndValues(Details[0].experiences)
+            Details[0].cv = JSON.parse(Details[0].cv)
+            Details[0].links = JSON.parse(Details[0].links)
+            Details[0].languages = JSON.parse(Details[0].languages)
+            Details[0].skills = JSON.parse(Details[0].skills)
 
 
-        JSONResponse.Response(req, res, "User Profile", {Profile:Details[0]}, 200)
+            JSONResponse.Response(req, res, "User Profile", { Profile: Details[0] }, 200)
 
-       }catch (error: any) {
-        JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
-        
-       }
+        } catch (error: any) {
+            JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
+
+        }
+    }
+    async GetJobApplicantDetails(req: Request, res: Response) {
+        try {
+            const SelectColumns = [
+                "member.user_id",
+                "member.fullname",
+                "member.image",
+                "member.email",
+                "member.phone",
+                "member.location",
+                "member.account_type",
+                "member.info",
+                "member.about_me",
+                "member.created_at",
+                "more_info.education",
+                "more_info.experiences",
+                "more_info.projects",
+                "more_info.links",
+                "more_info.languages",
+                "more_info.cv",
+                "more_info.skills",
+                "more_info.current_ctc",
+                "more_info.expected_ctc",
+                "more_info.hourly_rate",
+                "AVG(member_ratings.ratings) as ratings",
+
+            ]
+            const Details = await presql.buildQuery({ query: `SELECT ${SelectColumns.join(",")} FROM member INNER JOIN more_info ON member.user_id = more_info.user_id LEFT JOIN member_ratings ON member.user_id = member_ratings.user_id WHERE member.user_id ='${req.params.user_id}'`, role: "0x00044" })
+            Details[0].education = helpers.ObjectKeysAndValues(Details[0].education)
+            Details[0].projects = helpers.ObjectKeysAndValues(Details[0].projects)
+            Details[0].experiences = helpers.ObjectKeysAndValues(Details[0].experiences)
+            Details[0].cv = JSON.parse(Details[0].cv).cvfile.name
+         
+            Details[0].links = JSON.parse(Details[0].links)
+            Details[0].languages = JSON.parse(Details[0].languages)
+            Details[0].skills = JSON.parse(Details[0].skills)
+            Details[0].expected_ctc = helpers.FormatSalary(Details[0].current_ctc)
+            Details[0].expected_ctc = helpers.FormatSalary(Details[0].expected_ctc)
+            Details[0].ratings = (Details[0].ratings/1).toFixed(1)
+
+            JSONResponse.Response(req, res, "User Profile", { Profile: Details[0] }, 200)
+
+        } catch (error: any) {
+            console.log(error)
+            JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
+
+        }
     }
 }
 export default new UserController()

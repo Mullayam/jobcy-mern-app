@@ -23,6 +23,8 @@ export class BaseRoutes {
             .delete(Company.default.DeleteCompant)
         this.router.post("/add-company", Company.default.AddNewCompany)
 /* Job Routes */       
+        this.router.get("/total-applicants/:slug", Jobs.default.TotalApplicantsAppliedForJob)
+        
         this.router.get("/single-job/:jobId?", Jobs.default.GetSingleJobWithID)
         this.router.post("/new-job", Jobs.default.AddNewJob)
         this.router.route("/handle-job/action")
@@ -42,6 +44,7 @@ export class BaseRoutes {
         this.router.get("/my/posted/jobs", User.default.GetJobsPostedByMember)
         this.router.get("/get-bookmarked/jobs", User.default.GetMemberBookmarkedJobs)
         this.router.get("/get-myprofile/:user_id", User.default.FetchUserProfile)
+        this.router.get("/applicant/details/:user_id", User.default.GetJobApplicantDetails)
         //update user Profile
 
         this.router.post("/update/profile-picture",fileUpload(), User.default.UpdateMemberProfilePicture)
@@ -50,7 +53,7 @@ export class BaseRoutes {
         this.router.post("/update/member/experiences", User.default.UpdateMemberExperiences)
         this.router.post("/update/member/education", User.default.UpdateMemberEducation)
         this.router.post("/update/member/projects", User.default.UpdateMemberProjects)
-
+ 
 
 
 /* Procted Routes  */
