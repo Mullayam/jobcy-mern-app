@@ -45,15 +45,4 @@ export const ObjectQueryToSearchString = (str) => {
     .map((key) => `${key}=${str[key]}`)
     .join("&");
 };
-export const ObjectKeysAndValues = (obj) => {
-  let keys;
-  if (typeof obj === "undefined") {
-  } else {
-    keys = Object.keys(JSON.parse(obj));
-    const PureObject = keys.map((key) => {
-      return  JSON.parse(JSON.parse(obj)[key]);
-    });
-
-    return PureObject;
-  }
-};
+ 

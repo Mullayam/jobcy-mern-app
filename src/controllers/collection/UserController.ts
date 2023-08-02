@@ -228,6 +228,7 @@ class UserController {
         "member.fullname",
         "member.image",
         "member.email",
+        "member.phone",
         "member.location",
         "member.account_type",
         "member.info",
@@ -238,6 +239,7 @@ class UserController {
         "more_info.projects",
         "more_info.links",
         "more_info.languages",
+        "more_info.cv",
         "more_info.skills",
         "more_info.current_ctc",
         "more_info.expected_ctc",
@@ -248,7 +250,12 @@ class UserController {
           Details[0].education  = helpers.ObjectKeysAndValues(Details[0].education)
           Details[0].projects  = helpers.ObjectKeysAndValues(Details[0].projects)
           Details[0].experiences  = helpers.ObjectKeysAndValues(Details[0].experiences)
-       
+          Details[0].cv  = JSON.parse(Details[0].cv)
+          Details[0].links  = JSON.parse(Details[0].links)
+          Details[0].languages  = JSON.parse(Details[0].languages)
+          Details[0].skills  = JSON.parse(Details[0].skills)
+
+
         JSONResponse.Response(req, res, "User Profile", {Profile:Details[0]}, 200)
 
        }catch (error: any) {

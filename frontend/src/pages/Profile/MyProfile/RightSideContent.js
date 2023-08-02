@@ -14,19 +14,15 @@ import classnames from "classnames";
 import OverviewTab from "../../../components/MyProfile/OverviewTab";
 import SettingsForm from "../../../components/MyProfile/SettingsForm";
 import Education from "../../../components/MyProfile/Education";
-
 import Projects from "../../../components/MyProfile/Projects";
 import Employement from "../../../components/MyProfile/Employement";
-import { useAuth } from "../../../Hooks/useAuthContext";
-import { FetchUserProfile } from "../../../Apis/apiCore";
+ 
 //Images Import
 
-const RightSideContent = () => {
-  const {
-    Auth: { user },
-  } = useAuth();
+const RightSideContent = ({profile,user}) => {
+ 
   const [activeTab, setActiveTab] = useState(1);
-  const [profile, setProfile] = useState({});
+  
   const tabChange = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
   };
@@ -65,15 +61,6 @@ const RightSideContent = () => {
     { tabId: 4, label: "Employement/Experiences" },
     { tabId: 5, label: "Projects" },
   ];
-  const GetEducationDetails = async () => {
-    const { data } = await FetchUserProfile(user.user_id);
-    if (data.success) {
-      return setProfile(data.data.Profile);
-    }
-  };
-  React.useEffect(() => {
-    GetEducationDetails();
-  }, []);
 
   return (
     <React.Fragment>

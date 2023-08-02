@@ -13,11 +13,11 @@ import {
 import Select from "react-select";
 import { toast } from "react-toastify";
 import { UpdateMemberEducation } from "../../Apis/apiCore";
- 
+
 function Education({ user_id, educationList }) {
   const [modal, setModal] = useState(false);
   const [gradeSystem, setGradeSystem] = useState("");
- 
+
   const openModal = () => setModal(!modal);
 
   function tog_modal() {
@@ -32,6 +32,7 @@ function Education({ user_id, educationList }) {
       courseType: document.getElementById("courseType").value,
       specialization: document.getElementById("specialization").value,
       duration: document.getElementById("duration").value,
+      batchDuration: document.getElementById("batchDuration").value,
       gradeSystem,
     };
     const { data } = await UpdateMemberEducation(DataObj);
@@ -41,7 +42,7 @@ function Education({ user_id, educationList }) {
     }
     return toast.error(data.message);
   };
-  
+
   return (
     <React.Fragment>
       <Card id="modals">
@@ -56,12 +57,12 @@ function Education({ user_id, educationList }) {
         </div>
         <div className="px-2 mb-2">
           <Card className="job-box card mt-2">
-            {/* <CardBody className="p-4">
-              {myEduList.length > 0
-                ? myEduList.map((item, index) => {
+            <CardBody className="p-4">
+              {educationList?.length > 0
+                ? educationList.map((item, index) => {
                     return (
                       <Row key={index}>
-                        <Col lg={10}>
+                        <Col lg={10} md={8}>
                           <div className="mt-3 mt-lg-0">
                             <h5 className="fs-17 mb-1">
                               <span className="text-dark">
@@ -86,6 +87,13 @@ function Education({ user_id, educationList }) {
                                 </p>
                               </li>
                             </ul>
+
+                            <p className="text-muted fs-13 mb-0 badge bg-success-subtle text-success mt-1 mx-1">
+                              Passed: {item.duration}
+                            </p>
+                            <p className="text-muted fs-13 mb-0 badge bg-success-subtle text-success mt-1 mx-1">
+                            Course Duration  {item.batchDuration} Years
+                            </p>
                             <div className="mt-2">
                               <span className="badge bg-info-subtle text-success fs-13 mt-1 mx-1">
                                 {item.specialization}
@@ -93,7 +101,7 @@ function Education({ user_id, educationList }) {
                             </div>
                           </div>
                         </Col>
-                        <Col lg={2} className="align-self-center">
+                        <Col lg={2} md={4} className="align-self-center">
                           <ul className="list-inline mt-3 mb-0">
                             <li
                               className="list-inline-item"
@@ -111,7 +119,7 @@ function Education({ user_id, educationList }) {
                     );
                   })
                 : "no"}
-            </CardBody> */}
+            </CardBody>
           </Card>
         </div>
       </Card>
@@ -214,7 +222,7 @@ function Education({ user_id, educationList }) {
 
                 <div className="mt-4">
                   <Row>
-                    <Col lg={12}>
+                    <Col lg={6}>
                       <div className="mb-3">
                         <Label htmlFor="duration" className="form-label">
                           Course Duration
@@ -223,11 +231,22 @@ function Education({ user_id, educationList }) {
                           type="month"
                           className="form-control"
                           id="duration"
-                          to="https://www.facebook.com"
                         />
                       </div>
                     </Col>
-
+                    <Col lg={6}>
+                      <div className="mb-3">
+                        <Label htmlFor="batchDuration" className="form-label">
+                          Batch Duration
+                        </Label>
+                        <Input
+                          type="number"
+                          className="form-control"
+                          id="batchDuration"
+                          placeholder="in Years (B.Sc-3,B.Tech-4)"
+                        />
+                      </div>
+                    </Col>
                     <Col lg={12}>
                       <div className="mb-3">
                         <Label htmlFor="gradeSystem" className="form-label">

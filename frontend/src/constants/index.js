@@ -9,3 +9,8 @@ export const DateOptions = [
   export const JobSchema  =["Work From Home","Remote","Hybrid","Work From Office"]
   export const TypeofEmployment = ["Freelance","Internship","Part Time","Full Time"];
   export const WorkExperience = ["Fresher","0-3 Years","0-3 Years","3-6 Years","6+ Years"];
+  export const WhatsappTemplate = (phone,name) =>{
+    if(phone==="") return phone;
+    const str =`https://api.whatsapp.com/send?phone=${phone}&text=Reference:Jobcy;\n Hi ${name}, i've some work for you, please lemme know if you're available`
+    return str
+  }

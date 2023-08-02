@@ -28,6 +28,7 @@ export class AppServer {
         }))
         this.app.use(bodyParser.urlencoded({ extended: false }));
         this.app.use("/_static/jobcy/images",express.static(path.join(process.cwd(), 'public',"images")));
+        this.app.use("/_static/jobcy/user/profile",express.static(path.join(process.cwd(), 'public',"uploads")));
     }
     private InitializeMiddlewares() {
         this.app.get('/first', (req, res) => {

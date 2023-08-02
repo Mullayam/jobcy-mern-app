@@ -15,7 +15,7 @@ import {
 import { UpdateMemberExperiences } from "../../Apis/apiCore";
 import { toast } from "react-toastify";
 
-function Employement({ user_id }) {
+function Employement({ user_id, experiencesList }) {
   let timer;
   const [modal, setModal] = useState(false);
   const openModal = () => setModal(!modal);
@@ -55,14 +55,13 @@ function Employement({ user_id }) {
         .value,
       currentCompany: document.getElementById("currentCompany").value,
       currentPosition: document.getElementById("currentPosition").value,
-      joiningDate: document.getElementById("joiningDate").value,      
+      joiningDate: document.getElementById("joiningDate").value,
       currentSalary: document.getElementById("currentSalary").value,
       skills: document.getElementById("skills").value,
       jobProfile: document.getElementById("jobProfile").value,
     };
 
-    Object.keys(ObjDat).map((value,i) => {
-      
+    Object.keys(ObjDat).map((value, i) => {
       if (ObjDat[value] === "") {
         document.getElementById(`${value}`).focus();
         error = true;
@@ -74,10 +73,13 @@ function Employement({ user_id }) {
     if (error) {
       return toast.error("All Fields are Required");
     }
-    const { data } = await UpdateMemberExperiences({...ObjDat,endingDate: document.getElementById("endingDate").value});
+    const { data } = await UpdateMemberExperiences({
+      ...ObjDat,
+      endingDate: document.getElementById("endingDate").value,
+    });
 
     if (data.success) {
-      openModal()
+      openModal();
       return toast.success(data.message);
     }
     return toast.error(data.message);
@@ -101,61 +103,108 @@ function Employement({ user_id }) {
         <div className="px-2 mb-2">
           <Card className="job-box card mt-2">
             <CardBody className="p-4">
-              <Row>
-                <Col lg={10}>
-                  <div className="mt-3 mt-lg-0">
-                    <h5 className="fs-17 mb-1">
-                      <span className="text-dark">Education Title</span>
-                    </h5>
-                    <ul className="list-inline mb-0">
-                      <li className="list-inline-item">
-                        <p className="text-muted fs-14 mb-0">Details</p>
-                      </li>
-                      <li className="list-inline-item">
-                        <p className="text-muted fs-14 mb-0">Year</p>
-                      </li>
-                      <li className="list-inline-item">
-                        <p className="text-muted fs-13 mb-0 badge bg-success-subtle text-success mt-1 mx-1">
-                          <i className="uil uil-wallet"></i> info
-                        </p>
-                      </li>
-                    </ul>
-                    <div className="mt-2">
-                      <span className="badge bg-danger-subtle text-success fs-13 mt-1 mx-1">
-                        extraaa
-                      </span>
+              {experiencesList?.length > 0
+                ? experiencesList.map((experience, index) => (
+                    <div key={index}>
+                      <Row >
+                        <Col lg={10} md={8}>
+                          <div className="mt-3 mt-lg-0">
+                            <h5 className="fs-17 mb-1">
+                              <span className="text-dark">
+                                {experience.currentPosition} -{" "}
+                                {experience.employmentType}{" "}
+                                {experience.currentEmployment === "yes"
+                                  ? "(Present)"
+                                  : null}
+                              </span>
+                            </h5>
+                            <ul className="list-inline mb-0">
+                              <li className="list-inline-item">
+                                <p className="text-muted fs-14 mb-0">
+                                  Total Expereince{" "}
+                                  {experience.totalExpereinceInYear}.
+                                  {experience.totalExpereinceInMonth} Years
+                                </p>
+                              </li>
+                              <li className="list-inline-item">
+                                <p className="text-muted fs-14 mb-0 badge bg-dark-subtle text-success mt-1 mx-1">
+                                  {experience.currentCompany}
+                                </p>
+                              </li>
+                              <li className="list-inline-item">
+                                <p className="text-muted fs-13 mb-0 badge bg-light-subtle  mt-1 mx-1">
+                                  <i className="uil uil-wallet"></i> Joined On{" "}
+                                  {experience.joiningDate}{" "}
+                                  {experience.endingDate !== ""
+                                    ? `To ${experience.endingDate}`
+                                    : ""}
+                                </p>
+                              </li>
+                              <li className="list-inline-item">
+                                <p className="text-muted fs-13 mb-0 badge bg-success-subtle text-success mt-1 mx-1">
+                                  <i className="uil uil-wallet"></i>{" "}
+                                  {experience.currentSalary}
+                                </p>
+                              </li>
+                            </ul>
+                            <div className="mt-2">
+                              {experience.skills.split(",").map((skill,i) => {
+                                return (
+                                  <span key={i} className="badge bg-info-subtle text-success fs-13 mt-1 mx-1">
+                                    {skill}
+                                  </span>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        </Col>
+                        <Col lg={2} md={4} className="align-self-center">
+                          <ul className="list-inline mt-3 mb-0">
+                            <li
+                              className="list-inline-item"
+                              data-bs-toggle="tooltip"
+                              data-bs-placement="top"
+                              title="Edit"
+                            >
+                              <span className="avatar-sm bg-success-subtle text-success d-inline-block text-center rounded-circle fs-18">
+                                <i className="uil uil-edit"></i>
+                              </span>
+                            </li>
+                          </ul>
+                        </Col>
+                      </Row>
+                      <div className="p-3 bg-light  mt-2">
+                        <div className="row justify-content-between">
+                          <Col md={8}>
+                            <div>
+                              <ul className="list-inline mb-0">
+                                <li className="list-inline-item">
+                                   Job Profile : {experience.jobProfile.substr(0, 50)}...
+                                </li>
+                                <li className="list-inline-item">
+                                  <span
+                                    to="#"
+                                    className="primary-link text-muted"
+                                  ></span>
+                                </li>
+                              </ul>
+                            </div>
+                          </Col>
+
+                          <Col md={3}>
+                            <div className="text-md-end">
+                              <span
+                                to="#applyNow"
+                                onClick={openModal}
+                                className="primary-link"
+                              ></span>
+                            </div>
+                          </Col>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </Col>
-                <Col lg={2} className="align-self-center">
-                  <ul className="list-inline mt-3 mb-0">
-                    <li
-                      className="list-inline-item"
-                      data-bs-toggle="tooltip"
-                      data-bs-placement="top"
-                      title="Edit"
-                    >
-                      <span className="avatar-sm bg-success-subtle text-success d-inline-block text-center rounded-circle fs-18">
-                        <i className="uil uil-edit"></i>
-                      </span>
-                    </li>
-                    <li
-                      className="list-inline-item"
-                      data-bs-toggle="tooltip"
-                      data-bs-placement="top"
-                      title="Delete"
-                    >
-                      <span
-                        onClick={() => openModal()}
-                        to="#"
-                        className="avatar-sm bg-danger-subtle text-danger d-inline-block text-center rounded-circle fs-18"
-                      >
-                        <i className="uil uil-trash-alt"></i>
-                      </span>
-                    </li>
-                  </ul>
-                </Col>
-              </Row>
+                  ))
+                : "no  experiences found"}
             </CardBody>
           </Card>
         </div>
@@ -258,7 +307,6 @@ function Employement({ user_id }) {
                         </Label>
                         <Input
                           type="number"
-                        
                           className="form-control"
                           id="totalExpereinceInYear"
                           defaultValue={0}

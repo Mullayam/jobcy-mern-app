@@ -2,10 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Card, CardBody, Col } from "reactstrap";
 
-//Import images
-import profileImage from "../../../assets/images/profile.jpg";
-
-const LeftSideContent = () => {
+//Import images 
+import { WhatsappTemplate} from "../../../Constants"
+const LeftSideContent = ({profile}) => {
+  const Img =  typeof (profile?.image) ==="undefined"? "default.png":profile?.image
+  console.log()
   return (
     <React.Fragment>
       <Col lg={4}>
@@ -13,12 +14,12 @@ const LeftSideContent = () => {
           <CardBody className="p-4">
             <div className="text-center pb-4 border-bottom">
               <img
-                src={profileImage}
+                src={`${process.env.REACT_APP_STATIC_URL}/_static/jobcy/user/profile/profileImg/${Img}`}
                 alt=""
                 className="avatar-lg img-thumbnail rounded-circle mb-4"
               />
-              <h5 className="mb-0">Jennifer Dickens</h5>
-              <p className="text-muted">Developer</p>
+              <h5 className="mb-0">{profile.fullname}</h5>
+              <p className="text-muted">{profile.info}</p>
               <ul className="list-inline d-flex justify-content-center align-items-center ">
                 <li className="list-inline-item text-warning fs-19">
                   <i className="mdi mdi-star"></i>
@@ -31,20 +32,25 @@ const LeftSideContent = () => {
               <ul className="candidate-detail-social-menu list-inline mb-0">
                 <li className="list-inline-item">
                   <Link
-                    to="#"
+                    to={`${profile.links?.facebook}`}
+                    target="_blank"
                     className="social-link rounded-3 btn-soft-primary"
                   >
                     <i className="uil uil-facebook-f"></i>
                   </Link>
                 </li>
                 <li className="list-inline-item">
-                  <Link to="#" className="social-link rounded-3 btn-soft-info">
-                    <i className="uil uil-twitter-alt"></i>
+                  <Link 
+                   target="_blank"
+                    to={`${profile.links?.github}`}
+                  className="social-link rounded-3 btn-soft-info">
+                    <i className="uil uil-github-alt"></i>
                   </Link>
                 </li>
                 <li className="list-inline-item">
                   <Link
-                    to="#"
+                   target="_blank"
+                     to={`${WhatsappTemplate(profile.links?.whatsapp, profile.fullname)}`}
                     className="social-link rounded-3 btn-soft-success"
                   >
                     <i className="uil uil-whatsapp"></i>
@@ -52,10 +58,11 @@ const LeftSideContent = () => {
                 </li>
                 <li className="list-inline-item">
                   <Link
-                    to="#"
+                   target="_blank"
+                     to={`${profile.links?.linkedin}`}
                     className="social-link rounded-3 btn-soft-danger"
                   >
-                    <i className="uil uil-phone-alt"></i>
+                    <i className="uil uil-linkedin-alt"></i>
                   </Link>
                 </li>
               </ul>
@@ -70,36 +77,36 @@ const LeftSideContent = () => {
                       <i className="uil uil-file"></i>
                     </div>
                     <div className="ms-3">
-                      <h6 className="fs-16 mb-0">Resume.pdf</h6>
-                      <p className="text-muted mb-0">1.25 MB</p>
+                      <h6 className="fs-16 mb-0">{profile?.cv?.cvfile.name}</h6>
+                      <p className="text-muted mb-0">{((profile?.cv?.cvfile?.size)/1000000).toFixed(2)} MB</p>
                     </div>
+                  
                     <div className="ms-auto">
-                      <Link to="#" download className="fs-20 text-muted">
+                      <Link to={`http://localhost:7132/_static/jobcy/user/profile/resumes/${profile?.cv?.cvfile.name}`} download className="fs-20 text-muted">
                         <i className="uil uil-import"></i>
                       </Link>
                     </div>
                   </div>
                 </li>
-                <li>
+                {profile?.cv?.coverletter &&  <li>
                   <div className="profile-document-list d-flex align-items-center mt-4 ">
                     <div className="icon flex-shrink-0">
                       <i className="uil uil-file"></i>
                     </div>
                     <div className="ms-3">
-                      <h6 className="fs-16 mb-0">Cover-letter.pdf</h6>
-                      <p className="text-muted mb-0">1.25 MB</p>
+                      <h6 className="fs-16 mb-0"> {profile?.cv?.coverletter.name}</h6>
+                      <p className="text-muted mb-0">{((profile?.cv?.coverletter?.size)/1000000).toFixed(2)} MB</p>
                     </div>
                     <div className="ms-auto">
-                      <Link
-                        to="#"
-                        download="dark-logo"
-                        className="fs-20 text-muted"
-                      >
+                    <Link to={`http://localhost:7132/_static/jobcy/user/profile/resumes/${profile?.cv?.coverletter.name}`} download className="fs-20 text-muted">
+
+                         
                         <i className="uil uil-import"></i>
                       </Link>
                     </div>
                   </div>
-                </li>
+                </li>}
+              
               </ul>
             </div>
 
@@ -112,7 +119,7 @@ const LeftSideContent = () => {
                       <label>Email</label>
                       <div>
                         <p className="text-muted text-break mb-0">
-                          jennifer@gmail.com
+                        {profile.email}
                         </p>
                       </div>
                     </div>
@@ -121,7 +128,7 @@ const LeftSideContent = () => {
                     <div className="d-flex">
                       <label>Phone Number</label>
                       <div>
-                        <p className="text-muted mb-0">+2 345 678 0000</p>
+                        <p className="text-muted mb-0">{profile.phone}</p>
                       </div>
                     </div>
                   </li>
@@ -129,7 +136,7 @@ const LeftSideContent = () => {
                     <div className="d-flex">
                       <label>Location</label>
                       <div>
-                        <p className="text-muted mb-0">New Caledonia</p>
+                        <p className="text-muted mb-0">{profile.location}</p>
                       </div>
                     </div>
                   </li>

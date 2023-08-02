@@ -5,7 +5,7 @@ const user = JSON.parse(localStorage.getItem("user"));
 const refreshAccessToken = JSON.parse(localStorage.getItem("refresh_token"));
 
 export const instance = axios.create({  
-  baseURL: "http://localhost:7132/api",
+  baseURL: process.env.REACT_APP_API_URL,
   // timeout: 1500,
   headers: {
     "Content-Type": "application/json",    

@@ -65,7 +65,9 @@ class Helpers {
     }
     ObjectKeysAndValues = (obj:string):string[] => {
         let keys = Object.keys(JSON.parse(obj));
+         
         const PureObject = keys.map((key) => {
+            
           return  JSON.parse(JSON.parse(obj)[key]);
         });
     
