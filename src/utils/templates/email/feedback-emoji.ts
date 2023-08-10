@@ -1,5 +1,5 @@
-export const WelcomeMessage = (url, name) => {
-    const html = `<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+export const FeedbackMessage = (url: string) => {
+  const html =`<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
   <head>
   <!--[if (gte mso 9)|(IE)]>
@@ -115,7 +115,7 @@ export const WelcomeMessage = (url, name) => {
     </tr>
     <tr  >
       <td align="center">
-        <img mc:edit="mc1" style="width:189px;border:0px;display: inline!important;" src="${url}/logo.png" width="189" border="0"    alt="logo">
+        <img mc:edit="mc1" style="width:189px;border:0px;display: inline!important;" src="${url}/logo.png" width="189" border="0"       alt="logo">
       </td>
     </tr>
     <tr>
@@ -125,30 +125,24 @@ export const WelcomeMessage = (url, name) => {
   </table>
   
   <table data-outer-table border="0" align="center" cellpadding="0" cellspacing="0" class="outer-table row" role="presentation" width="580" style="width:580px;max-width:580px;" >
-    <!-- black-intro-1 -->
-    <tr>
-    <td height="30" style="font-size:30px;line-height:30px;" >&nbsp;</td>
-  </tr>
-  <tr >
-    <td class="type48"  align="center" style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:64px;line-height:84px;font-weight:700;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
-        
-          <div mc:edit="mc2" >
-           Dear ${name}
-          </div>
-        
-    </td>
-  </tr>
-  <tr  > 
-    <td height="20" style="font-size:20px;line-height:20px;" >&nbsp;</td>
-  </tr>
+    <!-- black-intro-9 -->
     <tr>
       <td height="30" style="font-size:30px;line-height:30px;" >&nbsp;</td>
     </tr>
-    <tr >
-      <td class="type48"  align="center" style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:64px;line-height:84px;font-weight:700;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
+    <tr  >
+      <td  align="center" style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:48px;line-height:63px;font-weight:300;font-style:normal;color:#FF69AF;text-decoration:none;letter-spacing:0px;">
           
             <div mc:edit="mc2" >
-              Welcome to Jobcy
+              Your opinion matters
+            </div>
+          
+      </td>
+    </tr>
+    <tr  >
+      <td class="type48"  align="center" style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:64px;line-height:84px;font-weight:700;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
+          
+            <div mc:edit="mc3" >
+              Rate our Services
             </div>
           
       </td>
@@ -159,126 +153,123 @@ export const WelcomeMessage = (url, name) => {
     <tr  >
       <td  align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:18px;line-height:32px;font-weight:400;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
           
-            <div mc:edit="mc3" >
-            Welcome aboard to Jobcy, your premier destination for unlocking a world of exciting career opportunities! We are thrilled to have you as part of our growing community of job seekers and recruiters, all working together to shape the future of employment.<br>
-            At Jobcy, we understand the significance of finding the perfect job that aligns with your passion, skills, and aspirations. Our mission is to connect talented individuals like yourself with top-notch employers, ensuring a seamless and rewarding job recruitment experience.
+            <div mc:edit="mc4" >
+              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi accus antium iste natus. 
             </div>
           
       </td>
     </tr>
-    <tr  >
-      <td height="40" style="font-size:40px;line-height:40px;" >&nbsp;</td>
+    <tr>
+      <td height="10" style="font-size:10px;line-height:10px;" >&nbsp;</td>
     </tr>
-    <tr  >
+    <!-- black-intro-9 -->
+  </table>
+  
+  <table data-outer-table border="0" align="center" cellpadding="0" cellspacing="0" class="outer-table row" role="presentation" width="580" style="width:580px;max-width:580px;" >
+    <!-- black-rate-service -->
+    <tr>
+      <td height="10" style="font-size:10px;line-height:10px;" >&nbsp;</td>
+    </tr>
+    <tr>
       <td align="center">
-        <!-- Button -->
-        <table border="0" cellspacing="0" cellpadding="0" role="presentation" align="center">
-          <tr>
-            <td align="center"    bgcolor="#FF0076" style="border-radius: 6px;">
-        <!--[if (gte mso 9)|(IE)]>
-          <table border="0" cellpadding="0" cellspacing="0" align="center">
+      <!-- Content -->
+      <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation" width="100%" style="width:100%;max-width:100%;">
+        <tr  >
+          <td align="center">
+            <img mc:edit="mc5" style="width:34px;border:0px;display: inline!important;" src="${url}/arrow.png" width="34" border="0"       alt="arrow">
+          </td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#333333" > 
+          <!-- Inner -->
+          <table border="0" cellpadding="0" cellspacing="0" align="center" class="row container-padding" width="93.1%" style="width:93.1%;max-width:93.1%;">
             <tr>
-              <td align="center" width="38"></td>
-              <td align="center" height="60" style="height:60px;">
-              <![endif]-->
-                
-                  <a href="${url}" mc:edit="mc4"   style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:18px;line-height:28px;font-weight:700;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;padding: 16px 38px 16px 38px;display: inline-block;"><span>GET STARTED</span></a>
-                
-              <!--[if (gte mso 9)|(IE)]>
+              <td height="30" style="font-size:30px;line-height:30px;" >&nbsp;</td>
+            </tr>
+            <tr  > 
+              <td align="center">
+                <!-- Rate Service -->
+                <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation" width="100%" style="width:100%;max-width:100%;">
+                  <tr>
+                    <td align="center">
+                      <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
+                        <tr class="center-on-mobile">
+                          <td   class="rwd-on-mobile" align="center" valign="middle" height="96" style="height: 96px;">
+                            <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
+                              <tr>
+                                <td align="center">
+                                  <img mc:edit="mc6" style="width:96px;border:0px;display: inline!important;" src="${url}/one.png" width="96" border="0"       alt="One">
+                                </td>
+                                <td width="7"></td>
+                              </tr>
+                            </table>
+                          </td>
+                          <td   class="rwd-on-mobile" align="center" valign="middle" height="96" style="height: 96px;">
+                            <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
+                              <tr>
+                                <td width="7"></td>
+                                <td align="center">
+                                  <img mc:edit="mc7" style="width:96px;border:0px;display: inline!important;" src="${url}/two.png" width="96" border="0"       alt="Two">
+                                </td>
+                                <td width="7"></td>
+                              </tr>
+                            </table>
+                          </td>
+                          <td   class="rwd-on-mobile" align="center" valign="middle" height="96" style="height: 96px;">
+                            <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
+                              <tr>
+                                <td width="7"></td>
+                                <td align="center">
+                                  <img mc:edit="mc8" style="width:96px;border:0px;display: inline!important;" src="${url}/three.png" width="96" border="0"       alt="Three">
+                                </td>
+                                <td width="7"></td>
+                              </tr>
+                            </table>
+                          </td>
+                          <td   class="rwd-on-mobile" align="center" valign="middle" height="96" style="height: 96px;">
+                            <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
+                              <tr>
+                                <td width="7"></td>
+                                <td align="center">
+                                  <img mc:edit="mc9" style="width:96px;border:0px;display: inline!important;" src="${url}/four.png" width="96" border="0"       alt="Four">
+                                </td>
+                                <td width="7"></td>
+                              </tr>
+                            </table>
+                          </td>
+                          <td   class="rwd-on-mobile" align="center" valign="middle" height="96" style="height: 96px;">
+                            <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
+                              <tr>
+                                <td width="7"></td>
+                                <td align="center">
+                                  <img mc:edit="mc10" style="width:96px;border:0px;display: inline!important;" src="${url}/five.png" width="96" border="0"       alt="Five">
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+                <!-- Rate Service -->
               </td>
-              <td align="center" width="38"></td>
+            </tr>
+            <tr>
+              <td height="30" style="font-size:30px;line-height:30px;" >&nbsp;</td> 
             </tr>
           </table>
-        <![endif]-->
-            </td>
-          </tr>
-        </table>
-        <!-- Buttons -->
+          <!-- Inner -->
+          </td>
+        </tr>
+      </table>
+      <!-- Content -->
       </td>
     </tr>
     <tr>
-      <td height="30" style="font-size:30px;line-height:30px;" >&nbsp;</td>
+      <td height="40" style="font-size:40px;line-height:40px;" >&nbsp;</td>
     </tr>
-    <!-- black-intro-1 -->
-  </table>
-  
-  <table data-outer-table border="0" align="center" cellpadding="0" cellspacing="0" class="outer-table row" role="presentation" width="580" style="width:580px;max-width:580px;" >
-    <!-- black-fwd-image-1 -->
-    <tr>
-      <td height="30" style="font-size:30px;line-height:30px;" >&nbsp;</td>
-    </tr>
-    <tr  >
-      <td align="center" class="img-responsive">
-        <img mc:edit="mc5" class="auto-width" style="display:block;width:100%;max-width:100%;border:0px;"    width="580" src="${url}/fwd-image-1.jpg" border="0"  alt="picture">
-      </td>
-    </tr>
-    <tr>
-      <td height="30" style="font-size:30px;line-height:30px;" >&nbsp;</td>
-    </tr>
-    <!-- black-fwd-image-1 -->
-  </table>
-  
-  <table data-outer-table border="0" align="center" cellpadding="0" cellspacing="0" class="outer-table row" role="presentation" width="580" style="width:580px;max-width:580px;" >
-    <!-- black-step-1 -->
-    <tr>
-      <td height="70" style="font-size:70px;line-height:70px;" >&nbsp;</td>
-    </tr>
-    <tr  >
-      <td align="center">
-        <!-- rwd-col -->
-        <table border="0" cellpadding="0" cellspacing="0" align="center" role="presentation" class="row">
-          <tr>
-            <td class="rwd-col" align="center">
-  
-              <table border="0" align="right" cellpadding="0" cellspacing="0" role="presentation" class="center-float"> 
-                <tr>
-                  <td align="center">
-                    <img mc:edit="mc6" style="width:52px;border:0px;display: inline!important;" src="${url}/account-icon.png" width="52" border="0"      alt="icon">
-                  </td>
-                </tr>
-              </table>
-  
-            </td>
-            <td class="rwd-col" align="center" width="6" height="10" style="width:10px;max-width:10px;height:10px;">&nbsp;</td>
-            <td class="rwd-col" align="center">
-  
-              <table border="0" align="left" cellpadding="0" cellspacing="0" role="presentation" class="center-float"> 
-                <tr>
-                  <td  align="center" style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:24px;line-height:32px;font-weight:700;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
-                      
-                        <div mc:edit="mc7" >
-                        User-Friendly Interfac
-                        </div>
-                      
-                  </td>
-                </tr>
-              </table>
-  
-            </td>
-          </tr>
-          <tr>
-            <td height="5" style="font-size:5px;line-height:5px;">&nbsp;</td>
-          </tr>
-        </table>
-        <!-- rwd-col -->
-      </td>
-    </tr>
-    <tr  >
-      <td height="20" style="font-size:20px;line-height:20px;" >&nbsp;</td>
-    </tr>
-    <tr  >
-      <td  align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:18px;line-height:32px;font-weight:400;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
-          
-            <div mc:edit="mc8" >
-            Our user-centric website and mobile app have been designed to streamline your job search process, making it easy to find and apply for positions that match your profile.
-            </div>
-          
-      </td>
-    </tr>
-    <tr>
-      <td height="30" style="font-size:30px;line-height:30px;" >&nbsp;</td>
-    </tr>
-    <!-- black-step-1 -->
+    <!-- black-rate-service -->
   </table>
   
   <table data-outer-table border="0" align="center" cellpadding="0" cellspacing="0" class="outer-table row" role="presentation" width="580" style="width:580px;max-width:580px;" >
@@ -293,160 +284,12 @@ export const WelcomeMessage = (url, name) => {
       <td height="30" style="font-size:30px;line-height:30px;" >&nbsp;</td>
     </tr>
     <!-- black-splitter -->
-  </table>
-  
-  <table data-outer-table border="0" align="center" cellpadding="0" cellspacing="0" class="outer-table row" role="presentation" width="580" style="width:580px;max-width:580px;" >
-    <!-- black-step-2 -->
-    <tr>
-      <td height="20" style="font-size:20px;line-height:20px;" >&nbsp;</td>
-    </tr>
-    <tr  >
-      <td align="center">
-        <!-- rwd-col -->
-        <table border="0" cellpadding="0" cellspacing="0" align="center" role="presentation" class="row">
-          <tr>
-            <td class="rwd-col" align="center">
-  
-              <table border="0" align="right" cellpadding="0" cellspacing="0" role="presentation" class="center-float"> 
-                <tr>
-                  <td align="center">
-                    <img mc:edit="mc9" style="width:52px;border:0px;display: inline!important;" src="${url}/skills-icon.png" width="52" border="0"      alt="icon">
-                  </td>
-                </tr>
-              </table>
-  
-            </td>
-            <td class="rwd-col" align="center" width="6" height="10" style="width:10px;max-width:10px;height:10px;">&nbsp;</td>
-            <td class="rwd-col" align="center">
-  
-              <table border="0" align="left" cellpadding="0" cellspacing="0" role="presentation" class="center-float"> 
-                <tr>
-                  <td  align="center" style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:24px;line-height:32px;font-weight:700;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
-                      
-                        <div mc:edit="mc10" >
-                        Personalized Job Matches
-                        </div>
-                      
-                  </td>
-                </tr>
-              </table>
-  
-            </td>
-          </tr>
-          <tr>
-            <td height="5" style="font-size:5px;line-height:5px;">&nbsp;</td>
-          </tr>
-        </table>
-        <!-- rwd-col -->
-      </td>
-    </tr>
-    <tr  >
-      <td height="20" style="font-size:20px;line-height:20px;" >&nbsp;</td>
-    </tr>
-    <tr  >
-      <td  align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:18px;line-height:32px;font-weight:400;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
-          
-            <div mc:edit="mc11" >
-            Our advanced algorithms will analyze your profile and preferences, presenting you with tailored job recommendations that match your unique skill set and interests.
-            </div>
-          
-      </td>
-    </tr>
-    <tr>
-      <td height="30" style="font-size:30px;line-height:30px;" >&nbsp;</td>
-    </tr>
-    <!-- black-step-2 -->
-  </table>
-  
-  <table data-outer-table border="0" align="center" cellpadding="0" cellspacing="0" class="outer-table row" role="presentation" width="580" style="width:580px;max-width:580px;" >
-    <!-- black-splitter -->
-    <tr>
-      <td height="30" style="font-size:30px;line-height:30px;" >&nbsp;</td>
-    </tr>
-    <tr>
-      <td align="center" height="8"  style="font-size:8px;line-height:8px;border-top: 8px dotted #333333;">&nbsp;</td>
-    </tr>
-    <tr>
-      <td height="30" style="font-size:30px;line-height:30px;" >&nbsp;</td>
-    </tr>
-    <!-- black-splitter -->
-  </table>
-  
-  <table data-outer-table border="0" align="center" cellpadding="0" cellspacing="0" class="outer-table row" role="presentation" width="580" style="width:580px;max-width:580px;" >
-    <!-- black-step-3 -->
-    <tr>
-      <td height="20" style="font-size:20px;line-height:20px;" >&nbsp;</td>
-    </tr>
-    <tr  >
-      <td align="center">
-        <!-- rwd-col -->
-        <table border="0" cellpadding="0" cellspacing="0" align="center" role="presentation" class="row">
-          <tr>
-            <td class="rwd-col" align="center">
-  
-              <table border="0" align="right" cellpadding="0" cellspacing="0" role="presentation" class="center-float"> 
-                <tr>
-                  <td align="center">
-                    <img mc:edit="mc12" style="width:52px;border:0px;display: inline!important;" src="${url}/post-icon.png" width="52" border="0"      alt="icon">
-                  </td>
-                </tr>
-              </table>
-  
-            </td>
-            <td class="rwd-col" align="center" width="6" height="10" style="width:10px;max-width:10px;height:10px;">&nbsp;</td>
-            <td class="rwd-col" align="center">
-  
-              <table border="0" align="left" cellpadding="0" cellspacing="0" role="presentation" class="center-float"> 
-                <tr>
-                  <td  align="center" style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:24px;line-height:32px;font-weight:700;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
-                      
-                        <div mc:edit="mc13" >
-                        Extensive Job Opportunities
-                        </div>
-                      
-                  </td>
-                </tr>
-              </table>
-  
-            </td>
-          </tr>
-          <tr>
-            <td height="5" style="font-size:5px;line-height:5px;">&nbsp;</td>
-          </tr>
-        </table>
-        <!-- rwd-col -->
-      </td>
-    </tr>
-    <tr  >
-      <td height="20" style="font-size:20px;line-height:20px;" >&nbsp;</td>
-    </tr>
-    <tr  >
-      <td  align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:18px;line-height:32px;font-weight:400;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
-          
-            <div mc:edit="mc14" >
-            Our platform boasts a vast array of job listings across various industries, providing you with a diverse range of options to explore.
-            </div>
-          
-      </td>
-    </tr>
-    <tr>
-      <td height="30" style="font-size:30px;line-height:30px;" >&nbsp;</td>
-    </tr>
-    <!-- black-step-3 -->
-  </table>
-  
-  <table data-outer-table border="0" align="center" cellpadding="0" cellspacing="0" class="outer-table row" role="presentation" width="580" style="width:580px;max-width:580px;" >
-    <!-- black-gap -->
-    <tr>
-      <td height="30" style="font-size:30px;line-height:30px;" >&nbsp;</td>
-    </tr>
-    <!-- black-gap -->
   </table>
   
   <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation" class="row" width="580" style="width:580px;max-width:580px;" >
     <!-- black-footer -->
     <tr>
-      <td height="100" style="font-size:100px;line-height:100px;" >&nbsp;</td>
+      <td height="30" style="font-size:30px;line-height:30px;" >&nbsp;</td>
     </tr>
     <tr  >
       <td align="center">
@@ -455,7 +298,7 @@ export const WelcomeMessage = (url, name) => {
             <td    class="rwd-on-mobile center-text" align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:24px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;">
               <!-- Links -->
                 
-                  <a href="#" mc:edit="mc15"   style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:28px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;display:inline-block;vertical-align:middle;"><span>About Us</span></a> 
+                  <a href="#" mc:edit="mc11"   style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:28px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;display:inline-block;vertical-align:middle;"><span>About Us</span></a> 
                 
               <!-- Links -->
             </td>
@@ -471,7 +314,7 @@ export const WelcomeMessage = (url, name) => {
             <td    class="rwd-on-mobile center-text" align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:24px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;">
               <!-- Links -->
                 
-                  <a href="#" mc:edit="mc16"   style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:28px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;display:inline-block;vertical-align:middle;"><span>Help</span></a> 
+                  <a href="#" mc:edit="mc12"   style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:28px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;display:inline-block;vertical-align:middle;"><span>Help</span></a> 
                 
               <!-- Links -->
             </td>
@@ -487,7 +330,7 @@ export const WelcomeMessage = (url, name) => {
             <td    class="rwd-on-mobile center-text" align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:24px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;">
               <!-- Links -->
                 
-                  <a href="#" mc:edit="mc17"   style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:28px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;display:inline-block;vertical-align:middle;"><span>Privacy Policy</span></a> 
+                  <a href="#" mc:edit="mc13"   style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:28px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;display:inline-block;vertical-align:middle;"><span>Privacy Policy</span></a> 
                 
               <!-- Links -->
             </td>
@@ -503,7 +346,7 @@ export const WelcomeMessage = (url, name) => {
             <td    class="rwd-on-mobile center-text" align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:24px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;">
               <!-- Links -->
                 
-                  <a href="#" mc:edit="mc18"   style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:28px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;display:inline-block;vertical-align:middle;"><span>Contact Us</span></a> 
+                  <a href="#" mc:edit="mc14"   style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:28px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;display:inline-block;vertical-align:middle;"><span>Contact Us</span></a> 
                 
               <!-- Links -->
             </td>
@@ -528,44 +371,83 @@ export const WelcomeMessage = (url, name) => {
                     <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
                       <tr>
                         <td align="center">
-                          <img mc:edit="mc19" style="width:28px;border:0px;display: inline!important;" src="${url}/facebook.png" width="28" border="0"       alt="icon">
+                          <img mc:edit="mc15" style="width:28px;border:0px;display: inline!important;" src="${url}/facebook.png" width="28" border="0"       alt="icon">
                         </td>
                         <td width="7"></td>
                       </tr>
                     </table>
                   </td>
-  
-                 
   
                   <td   class="rwd-on-mobile" align="center" valign="middle" height="28" style="height: 28px;">
                     <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
                       <tr>
                         <td width="7"></td>
                         <td align="center">
-                          <img mc:edit="mc21" style="width:28px;border:0px;display: inline!important;" src="${url}/linkedin.png" width="28" border="0"       alt="icon">
+                          <img mc:edit="mc16" style="width:28px;border:0px;display: inline!important;" src="${url}/twitter.png" width="28" border="0"       alt="icon">
                         </td>
                         <td width="7"></td>
                       </tr>
                     </table>
                   </td>
-  
-                
   
                   <td   class="rwd-on-mobile" align="center" valign="middle" height="28" style="height: 28px;">
                     <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
                       <tr>
                         <td width="7"></td>
                         <td align="center">
-                          <img mc:edit="mc23" style="width:28px;border:0px;display: inline!important;" src="${url}/instagram.png" width="28" border="0"       alt="icon">
+                          <img mc:edit="mc17" style="width:28px;border:0px;display: inline!important;" src="${url}/linkedin.png" width="28" border="0"       alt="icon">
                         </td>
                         <td width="7"></td>
                       </tr>
                     </table>
                   </td>
   
-                 
+                  <td   class="rwd-on-mobile" align="center" valign="middle" height="28" style="height: 28px;">
+                    <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
+                      <tr>
+                        <td width="7"></td>
+                        <td align="center">
+                          <img mc:edit="mc18" style="width:28px;border:0px;display: inline!important;" src="${url}/pinterest.png" width="28" border="0"       alt="icon">
+                        </td>
+                        <td width="7"></td>
+                      </tr>
+                    </table>
+                  </td>
   
-                 
+                  <td   class="rwd-on-mobile" align="center" valign="middle" height="28" style="height: 28px;">
+                    <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
+                      <tr>
+                        <td width="7"></td>
+                        <td align="center">
+                          <img mc:edit="mc19" style="width:28px;border:0px;display: inline!important;" src="${url}/instagram.png" width="28" border="0"       alt="icon">
+                        </td>
+                        <td width="7"></td>
+                      </tr>
+                    </table>
+                  </td>
+  
+                  <td   class="rwd-on-mobile" align="center" valign="middle" height="28" style="height: 28px;">
+                    <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
+                      <tr>
+                        <td width="7"></td>
+                        <td align="center">
+                          <img mc:edit="mc20" style="width:28px;border:0px;display: inline!important;" src="${url}/dribbble.png" width="28" border="0"       alt="icon">
+                        </td>
+                        <td width="7"></td>
+                      </tr>
+                    </table>
+                  </td>
+  
+                  <td   class="rwd-on-mobile" align="center" valign="middle" height="28" style="height: 28px;">
+                    <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
+                      <tr>
+                        <td width="7"></td>
+                        <td align="center">
+                          <img mc:edit="mc21" style="width:28px;border:0px;display: inline!important;" src="${url}/youtube.png" width="28" border="0"       alt="icon">
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
                 </tr>
               </table>
             </td>
@@ -588,11 +470,11 @@ export const WelcomeMessage = (url, name) => {
               <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
                 <tr  >
                   <td align="center">
-                    <img mc:edit="mc26" style="display:block;width:100%;max-width:117px;border:0px;"    width="117" src="${url}/App-Store.png" border="0"  alt="icon">
+                    <img mc:edit="mc22" style="display:block;width:100%;max-width:117px;border:0px;"    width="117" src="${url}/App-Store.png" border="0"  alt="icon">
                   </td>
                   <td width="10" style="width:10px;"></td>
                   <td align="center">
-                    <img mc:edit="mc27" style="display:block;width:100%;max-width:117px;border:0px;"    width="117" src="${url}/Google-play.png" border="0"  alt="icon"></td>
+                    <img mc:edit="mc23" style="display:block;width:100%;max-width:117px;border:0px;"    width="117" src="${url}/Google-play.png" border="0"  alt="icon"></td>
                 </tr>
               </table>
               <!-- column -->
@@ -612,9 +494,9 @@ export const WelcomeMessage = (url, name) => {
           <tr>
             <td class="center-text"  align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:24px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;">
               
-                <div mc:edit="mc28" >
-                  ${new Date().getUTCFullYear()} Jobcy Inc. All Rights Reserved.<br>
-                  Powered By ENJOYS. Bhiwani - Haryana
+                <div mc:edit="mc24" >
+                  2022 black Inc. All Rights Reserved.<br>
+                  Address name St. 152, City Name, State, Country Name
                 </div>
               
             </td>
@@ -625,7 +507,41 @@ export const WelcomeMessage = (url, name) => {
     <tr  >
       <td height="20" style="font-size:20px;line-height:20px;" >&nbsp;</td>
     </tr>
-     
+    <tr  >
+      <td align="center">
+        <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
+          <tr class="center-on-mobile">
+            <td    class="rwd-on-mobile center-text" align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:24px;font-weight:300;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;">
+              <a href="*|UNSUB|*"  style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;font-weight:400;line-height:24px;color:#999999;text-decoration:none;">Unsubscribe</a>
+            </td>
+            <td   class="hide-mobile" align="center" valign="middle">
+              <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
+                <tr>
+                  <td width="5"></td>
+                  <td class="center-text"  align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:24px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;">/</td>
+                  <td width="5"></td>
+                </tr>
+              </table>
+            </td>
+            <td    class="rwd-on-mobile center-text" align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:24px;font-weight:300;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;">
+              <a href="*|ARCHIVE|*"  style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;font-weight:400;line-height:24px;color:#999999;text-decoration:none;">View Online</a>
+            </td>
+            <td   class="hide-mobile" align="center" valign="middle">
+              <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
+                <tr>
+                  <td width="5"></td>
+                  <td class="center-text"  align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:24px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;">/</td>
+                  <td width="5"></td>
+                </tr>
+              </table>
+            </td>
+            <td    class="rwd-on-mobile center-text" align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:24px;font-weight:300;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;">
+              <a href="*|FORWARD|*"  style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;font-weight:400;line-height:24px;color:#999999;text-decoration:none;">Send to a friend</a>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
     <tr>
       <td height="50" style="font-size:50px;line-height:50px;" >&nbsp;</td>
     </tr>
@@ -638,6 +554,6 @@ export const WelcomeMessage = (url, name) => {
   
   </body>
   </html>
-  `;
-    return html;
-};
+  `
+  return html
+}

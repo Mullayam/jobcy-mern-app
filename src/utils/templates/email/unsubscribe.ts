@@ -1,4 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+export const Unsubscribe = (url: string) => {
+  const html = `
+  <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
 <!--[if (gte mso 9)|(IE)]>
@@ -24,7 +26,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 
-<style type="text/css"> 
+<style type="text/css">
 /*Basics*/
 body {margin:0px !important; padding:0px !important; display:block !important; min-width:100% !important; width:100% !important; -webkit-text-size-adjust:none;}
 table {border-spacing:0; mso-table-lspace:0pt; mso-table-rspace:0pt;}
@@ -124,7 +126,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
 </table>
 
 <table data-outer-table border="0" align="center" cellpadding="0" cellspacing="0" class="outer-table row" role="presentation" width="580" style="width:580px;max-width:580px;" >
-  <!-- black-intro-18 -->
+  <!-- black-intro-3 -->
   <tr>
     <td height="30" style="font-size:30px;line-height:30px;" >&nbsp;</td>
   </tr>
@@ -132,130 +134,25 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
     <td class="type48"  align="center" style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:64px;line-height:84px;font-weight:700;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
         
           <div mc:edit="mc2" >
-            Thank you!
+            We’re Sorry <br class="hide-mobile"> to See You Go
+          </div>
+        
+    </td>
+  </tr>
+  <tr  > 
+    <td height="20" style="font-size:20px;line-height:20px;" >&nbsp;</td>
+  </tr>
+  <tr  >
+    <td  align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:18px;line-height:32px;font-weight:400;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
+        
+          <div mc:edit="mc3" >
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi accus antium iste natus. 
           </div>
         
     </td>
   </tr>
   <tr  >
-    <td height="10" style="font-size:10px;line-height:10px;" >&nbsp;</td>
-  </tr>
-  <tr  >
-    <td align="center">
-      <!-- rwd-col -->
-      <table border="0" cellpadding="0" cellspacing="0" align="center" role="presentation">
-        <tr>
-          <td class="rwd-col" align="center">
-
-            <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
-              <tr>
-                <td  align="right" style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:32px;line-height:42px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;">
-                    
-                      <div mc:edit="mc3" >
-                       Invoice id:
-                      </div>
-                    
-                </td>
-              </tr>
-            </table>
-
-          </td>
-          <td class="rwd-col" align="center" width="10" height="5" style="width:10px;max-width:10px;height:5px;">&nbsp;</td>
-          <td class="rwd-col" align="center">
-
-            <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
-              <tr>
-                <td  align="left" style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:32px;line-height:42px;font-weight:400;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
-                    
-                      <div mc:edit="mc4" >
-                       Black#798436#
-                      </div>
-                    
-                </td>
-              </tr>
-            </table>
-
-          </td>
-        </tr>
-      </table>
-      <!-- rwd-col -->
-    </td>
-  </tr>
-  <tr>
-    <td height="30" style="font-size:30px;line-height:30px;" >&nbsp;</td>
-  </tr>
-  <!-- black-intro-18 -->
-</table>
-
-<table data-outer-table border="0" align="center" cellpadding="0" cellspacing="0" class="outer-table row" role="presentation" width="580" style="width:580px;max-width:580px;" >
-  <!-- black-splitter -->
-  <tr>
-    <td height="30" style="font-size:30px;line-height:30px;" >&nbsp;</td>
-  </tr>
-  <tr>
-    <td align="center" height="8"  style="font-size:8px;line-height:8px;border-top: 8px dotted #333333;">&nbsp;</td>
-  </tr>
-  <tr>
-    <td height="30" style="font-size:30px;line-height:30px;" >&nbsp;</td>
-  </tr>
-  <!-- black-splitter -->
-</table>
-
-<table data-outer-table border="0" align="center" cellpadding="0" cellspacing="0" class="outer-table row" role="presentation" width="580" style="width:580px;max-width:580px;" >
-  <!-- black-total-price -->
-  <tr>
-    <td height="30" style="font-size:30px;line-height:30px;" >&nbsp;</td>
-  </tr>
-  <tr  >
-    <td align="center">
-      <!-- rwd-col -->
-      <table border="0" cellpadding="0" cellspacing="0" align="center" role="presentation">
-        <tr>
-          <td class="rwd-col" align="center">
-
-            <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
-              <tr>
-                <td  align="center" style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:40px;line-height:40px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;">
-                    
-                      <div mc:edit="mc5" >
-                       Total:
-                      </div>
-                    
-                </td>
-              </tr>
-            </table>
-
-          </td>
-          <td class="rwd-col" align="center" width="10" height="5" style="width:10px;max-width:10px;height:5px;">&nbsp;</td>
-          <td class="rwd-col" align="center">
-
-            <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
-              <tr>
-                <td  align="center" style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:40px;line-height:40px;font-weight:400;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
-                    
-                      <div mc:edit="mc6" >
-                       $2,226.52
-                      </div>
-                    
-                </td>
-              </tr>
-            </table>
-
-          </td>
-        </tr>
-      </table>
-      <!-- rwd-col -->
-    </td>
-  </tr>
-  <tr>
-    <td height="30" style="font-size:30px;line-height:30px;" >&nbsp;</td>
-  </tr>
-  <!-- black-total-price -->
-</table>
-
-<table data-outer-table border="0" align="center" cellpadding="0" cellspacing="0" class="outer-table row" role="presentation" width="580" style="width:580px;max-width:580px;" >
-  <tr>
-    <td height="70" style="font-size:70px;line-height:70px;" >&nbsp;</td>
+    <td height="40" style="font-size:40px;line-height:40px;" >&nbsp;</td>
   </tr>
   <tr  >
     <td align="center">
@@ -270,7 +167,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
             <td align="center" height="60" style="height:60px;">
             <![endif]-->
               
-                <a href="#" mc:edit="mc7"   style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:18px;line-height:28px;font-weight:700;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;padding: 16px 38px 16px 38px;display: inline-block;"><span>DOWNLOAD INVOICE</span></a>
+                <a href="#" mc:edit="mc4"   style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:18px;line-height:28px;font-weight:700;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;padding: 16px 38px 16px 38px;display: inline-block;"><span>REACTIVATE</span></a>
               
             <!--[if (gte mso 9)|(IE)]>
             </td>
@@ -285,8 +182,9 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
     </td>
   </tr>
   <tr>
-    <td height="60" style="font-size:60px;line-height:60px;" >&nbsp;</td>
+    <td height="30" style="font-size:30px;line-height:30px;" >&nbsp;</td>
   </tr>
+  <!-- black-intro-3 -->
 </table>
 
 <table data-outer-table border="0" align="center" cellpadding="0" cellspacing="0" class="outer-table row" role="presentation" width="580" style="width:580px;max-width:580px;" >
@@ -315,7 +213,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
           <td    class="rwd-on-mobile center-text" align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:24px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;">
             <!-- Links -->
               
-                <a href="#" mc:edit="mc8"   style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:28px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;display:inline-block;vertical-align:middle;"><span>About Us</span></a> 
+                <a href="#" mc:edit="mc5"   style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:28px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;display:inline-block;vertical-align:middle;"><span>About Us</span></a> 
               
             <!-- Links -->
           </td>
@@ -331,7 +229,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
           <td    class="rwd-on-mobile center-text" align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:24px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;">
             <!-- Links -->
               
-                <a href="#" mc:edit="mc9"   style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:28px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;display:inline-block;vertical-align:middle;"><span>Help</span></a> 
+                <a href="#" mc:edit="mc6"   style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:28px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;display:inline-block;vertical-align:middle;"><span>Help</span></a> 
               
             <!-- Links -->
           </td>
@@ -347,7 +245,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
           <td    class="rwd-on-mobile center-text" align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:24px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;">
             <!-- Links -->
               
-                <a href="#" mc:edit="mc10"   style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:28px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;display:inline-block;vertical-align:middle;"><span>Privacy Policy</span></a> 
+                <a href="#" mc:edit="mc7"   style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:28px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;display:inline-block;vertical-align:middle;"><span>Privacy Policy</span></a> 
               
             <!-- Links -->
           </td>
@@ -363,7 +261,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
           <td    class="rwd-on-mobile center-text" align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:24px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;">
             <!-- Links -->
               
-                <a href="#" mc:edit="mc11"   style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:28px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;display:inline-block;vertical-align:middle;"><span>Contact Us</span></a> 
+                <a href="#" mc:edit="mc8"   style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:28px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;display:inline-block;vertical-align:middle;"><span>Contact Us</span></a> 
               
             <!-- Links -->
           </td>
@@ -388,7 +286,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
                   <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
                     <tr>
                       <td align="center">
-                        <img mc:edit="mc12" style="width:28px;border:0px;display: inline!important;" src="${url}/facebook.png" width="28" border="0"       alt="icon">
+                        <img mc:edit="mc9" style="width:28px;border:0px;display: inline!important;" src="${url}/facebook.png" width="28" border="0"       alt="icon">
                       </td>
                       <td width="7"></td>
                     </tr>
@@ -400,7 +298,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
                     <tr>
                       <td width="7"></td>
                       <td align="center">
-                        <img mc:edit="mc13" style="width:28px;border:0px;display: inline!important;" src="${url}/twitter.png" width="28" border="0"       alt="icon">
+                        <img mc:edit="mc10" style="width:28px;border:0px;display: inline!important;" src="${url}/twitter.png" width="28" border="0"       alt="icon">
                       </td>
                       <td width="7"></td>
                     </tr>
@@ -412,7 +310,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
                     <tr>
                       <td width="7"></td>
                       <td align="center">
-                        <img mc:edit="mc14" style="width:28px;border:0px;display: inline!important;" src="${url}/linkedin.png" width="28" border="0"       alt="icon">
+                        <img mc:edit="mc11" style="width:28px;border:0px;display: inline!important;" src="${url}/linkedin.png" width="28" border="0"       alt="icon">
                       </td>
                       <td width="7"></td>
                     </tr>
@@ -424,7 +322,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
                     <tr>
                       <td width="7"></td>
                       <td align="center">
-                        <img mc:edit="mc15" style="width:28px;border:0px;display: inline!important;" src="${url}/pinterest.png" width="28" border="0"       alt="icon">
+                        <img mc:edit="mc12" style="width:28px;border:0px;display: inline!important;" src="${url}/pinterest.png" width="28" border="0"       alt="icon">
                       </td>
                       <td width="7"></td>
                     </tr>
@@ -436,7 +334,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
                     <tr>
                       <td width="7"></td>
                       <td align="center">
-                        <img mc:edit="mc16" style="width:28px;border:0px;display: inline!important;" src="${url}/instagram.png" width="28" border="0"       alt="icon">
+                        <img mc:edit="mc13" style="width:28px;border:0px;display: inline!important;" src="${url}/instagram.png" width="28" border="0"       alt="icon">
                       </td>
                       <td width="7"></td>
                     </tr>
@@ -448,7 +346,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
                     <tr>
                       <td width="7"></td>
                       <td align="center">
-                        <img mc:edit="mc17" style="width:28px;border:0px;display: inline!important;" src="${url}/dribbble.png" width="28" border="0"       alt="icon">
+                        <img mc:edit="mc14" style="width:28px;border:0px;display: inline!important;" src="${url}/dribbble.png" width="28" border="0"       alt="icon">
                       </td>
                       <td width="7"></td>
                     </tr>
@@ -460,7 +358,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
                     <tr>
                       <td width="7"></td>
                       <td align="center">
-                        <img mc:edit="mc18" style="width:28px;border:0px;display: inline!important;" src="${url}/youtube.png" width="28" border="0"       alt="icon">
+                        <img mc:edit="mc15" style="width:28px;border:0px;display: inline!important;" src="${url}/youtube.png" width="28" border="0"       alt="icon">
                       </td>
                     </tr>
                   </table>
@@ -487,11 +385,11 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
             <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation">
               <tr  >
                 <td align="center">
-                  <img mc:edit="mc19" style="display:block;width:100%;max-width:117px;border:0px;"    width="117" src="${url}/App-Store.png" border="0"  alt="icon">
+                  <img mc:edit="mc16" style="display:block;width:100%;max-width:117px;border:0px;"    width="117" src="${url}/App-Store.png" border="0"  alt="icon">
                 </td>
                 <td width="10" style="width:10px;"></td>
                 <td align="center">
-                  <img mc:edit="mc20" style="display:block;width:100%;max-width:117px;border:0px;"    width="117" src="${url}/Google-play.png" border="0"  alt="icon"></td>
+                  <img mc:edit="mc17" style="display:block;width:100%;max-width:117px;border:0px;"    width="117" src="${url}/Google-play.png" border="0"  alt="icon"></td>
               </tr>
             </table>
             <!-- column -->
@@ -511,7 +409,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
         <tr>
           <td class="center-text"  align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:14px;line-height:24px;font-weight:400;font-style:normal;color:#999999;text-decoration:none;letter-spacing:0px;">
             
-              <div mc:edit="mc21" >
+              <div mc:edit="mc18" >
                 2022 black Inc. All Rights Reserved.<br>
                 Address name St. 152, City Name, State, Country Name
               </div>
@@ -571,3 +469,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
 
 </body>
 </html>
+
+  `
+  return html
+}
