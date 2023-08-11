@@ -1,17 +1,13 @@
 import nodemailer from 'nodemailer'
  
 import { MailOptionsInterface } from '../types/index.js';
-import Logging from '../logging/Logging.js';
- 
- 
+import Logging from '../logging/Logging.js'; 
 
 export default class MailService {
     private static instance: MailService;
     private transporter!: nodemailer.Transporter;
     constructor() {
         this.createConnection()
-       
-       
     }
     //VERIFY CONNECTION
     private async verifyConnection() {

@@ -1,5 +1,6 @@
 import { createClient } from "redis";
 import type { RedisClientType } from "redis";
+import Logging from "../logging/Logging.js";
 
 export class Services {
   public cache: RedisClientType;
@@ -16,12 +17,12 @@ export class Services {
 
   private async ConnectRedisClient() {
     this.cache.on("error", (error: any) => console.error(`Error : ${error}`));
-    await this.cache.connect().then(() => console.log(`Redis Connected Successfully`)).catch((error: any) => console.error(`Error : ${error}`));
+    await this.cache.connect().then(() => Logging.alert(`Redis Connected Successfully`)).catch((error: any) => Logging.error(`Error : ${error}`));
   }
   clearCache() {
     this.cache.flushAll();
   }
-  clearHash(hashKey:string) {
+  clearHash(hashKey: string) {
     this.cache.del(JSON.stringify(hashKey));
   }
 
