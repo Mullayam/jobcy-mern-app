@@ -1,8 +1,7 @@
-export const typeDefs =    `
 
+import { QueryTypefs, MutationTypeDefs } from "./combineGqlFile.js"
+export { resolvers } from "./combineGqlFile.js"
+export const typeDefs = `
+    ${QueryTypefs}
+    ${MutationTypeDefs}
 `
-export const resolvers = {
-    Query: {
-        hello: () => 'world',
-    },
-}
