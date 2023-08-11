@@ -2,12 +2,15 @@
   "name": "jobcy",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
+  "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && cd frontend && npm run build",
+    "install": "cd dist && pnpm install && node index.js",
+    "prepare": "tsc",
     "dev": "nodemon",
-    "start": "npm install && npm run build"
+    "all": "npm run build && npm run install ",
+    "start": "cd dist && node index.js"
   },
   "keywords": [
     "jobcy",
@@ -27,7 +30,7 @@
   },
   "license": "ISC",
   "dependencies": {
-    "@enjoys/presql": "^1.2.4",
+    "@apollo/server": "^4.9.1",
     "@rudderstack/rudder-sdk-node": "^2.0.3",
     "@types/express-fileupload": "^1.4.1",
     "bcryptjs": "^2.4.3",
@@ -39,9 +42,13 @@
     "googleapis": "^122.0.0",
     "jsonwebtoken": "^9.0.1",
     "moment": "^2.29.4",
+    "mysql2": "^3.6.0",
     "nanoid": "^4.0.2",
     "nodemailer": "^6.9.4",
-    "redis": "^4.6.7"
+    "pm2": "^5.3.0",
+    "redis": "^4.6.7",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.3.17"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",

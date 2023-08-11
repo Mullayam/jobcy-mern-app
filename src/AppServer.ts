@@ -7,7 +7,7 @@ import { Routes } from './routers/index.js'
 import { Middlewares } from './middlewares/index.js'
 import Helpers from './helpers/index.js';
 import { Clusters } from './services/CorePerformance.js';
-
+import {AppDataSource} from './DataSource.js'
 export class AppServer {
     protected app: Application;
 
@@ -28,6 +28,7 @@ export class AppServer {
         this.app.use(bodyParser.urlencoded({ extended: false }));
         this.app.use("/_static/jobcy/images",express.static(path.join(process.cwd(), 'public',"images")));
         this.app.use("/_static/jobcy/user/profile",express.static(path.join(process.cwd(), 'public',"uploads")));
+      
     }
     private InitializeMiddlewares() {
         this.app.get('/first', (req, res) => {
@@ -35,7 +36,7 @@ export class AppServer {
         })
         this.app.use(Middlewares.MiddlewareFunction);
         if (process.env.APP_ENV === "PRODUCTION") {
-            this.app.use(express.static(path.join(process.cwd(), 'build')));
+            this.app.use(express.static(path.join(process.cwd(), 'frontend',"build")));
         }
     }
     private InitializeRoutes(): void {
@@ -56,6 +57,7 @@ export class AppServer {
         
     }
     private IntializeAppServer() {
+        
         this.app.listen(this.PORT, () => console.log("App Started at http://localhost:7132"))
     }
     RunApplication() {

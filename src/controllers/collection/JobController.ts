@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { presql } from "../../connection/conn.js";
+import { presql } from "../../app/conn.js";
 import JSONResponse from "../../services/JSONResponse.js";
 import helpers from "../../helpers/index.js";
 
