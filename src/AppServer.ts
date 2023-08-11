@@ -24,12 +24,11 @@ export class AppServer {
         Logging.preview("Applying Configuration")
         this.app.use(express.json());
         this.app.use(bodyParser.urlencoded({ extended: false }));
-        this.app.use("/_static/jobcy/images", express.static(path.join(process.cwd(), 'public', "images")));
-        this.app.use("/_static/jobcy/user/profile", express.static(path.join(process.cwd(), 'public', "uploads")));
+
     }
 
     private LoadInstances() {
-        new AppModules(this.app)
+        new AppModules(this.app, express)
         new Production(this.app)
     }
     private InitializeRoutes(): void {
@@ -39,15 +38,19 @@ export class AppServer {
         })
         // this.app.use('/api', new Routes().router)
     }
-
     private IntializeAppServer() {
         this.app.listen(this.PORT, () => Logging.log("App Started at http://localhost:7132"))
     }
     RunApplication() {
         Logging.preview("App is Ready")
-        if (process.env.APP_ENV === "PRODUCTION") {
+
             new Clusters().Workers(() => this.IntializeAppServer())
-        }
-        this.IntializeAppServer()
+       
+        this.app.on('error', err => Logging.error(err))
+        this.app.on('ready', (err) => {
+            Logging.info(err)
+            this.IntializeAppServer()
+        })
+
     }
 }
