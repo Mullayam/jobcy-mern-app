@@ -11,8 +11,7 @@ import { Clusters } from './services/CorePerformance.js';
 export class AppServer {
     protected app: Application;
 
-    constructor(private PORT: number = 7132) {
-        
+    constructor(private PORT: number = 7132) {        
         this.app = express()
         this.PORT = PORT
         this.config()
@@ -52,6 +51,9 @@ export class AppServer {
                 res.redirect(`/${myUrlWithParams.search}`);
             });
         }
+    }
+    private ExceptionHandling() {
+        
     }
     private IntializeAppServer() {
         this.app.listen(this.PORT, () => console.log("App Started at http://localhost:7132"))
