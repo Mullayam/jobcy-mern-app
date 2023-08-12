@@ -1,6 +1,6 @@
 import express from 'express'
 import JSONResponse from '../services/JSONResponse.js'
-import { BaseRoutes } from './api/index.js';
+// import { BaseRoutes } from './api/index.js';
 import { Authentication } from '../controllers/index.js';
 import { Middlewares } from '../middlewares/index.js';
 
@@ -8,12 +8,18 @@ export class Routes {
     public router: express.Router;
     constructor() {
         this.router = express.Router();
+        this.AuthRoutes();
         this.PublicRoutes();
         this.ProtectedRoutes();
         this.UnhandledRoutes();
     }
 
-    private PublicRoutes(): void {
+    /**
+     * Initializes the routes for user authentication.
+     *
+     * @return {void} This function does not return anything.
+     */
+    private AuthRoutes(): void {
         this.router.post("/login", Authentication.default.Login)
         this.router.post("/register", Authentication.default.Register)
         this.router.post("/forget-password", Authentication.default.ForgetPassword)
@@ -21,9 +27,25 @@ export class Routes {
         this.router.get("/current-user/:id", Authentication.default.CurrentUser)
         this.router.get("/g/auth", Authentication.default.HandleGoogleAuth)
     }
-    protected ProtectedRoutes() {
+    /**
+     * A description of the entire function.
+     *
+     * @param {type} paramName - description of parameter
+     * @return {type} description of return value
+     */
+    private PublicRoutes(): void {
+
+    }
+    /**
+     * Initializes the protected routes for the API.
+     *
+     * This function adds the necessary middleware to protect the routes of the API. It uses the `isApiProtected` middleware to ensure that only authenticated users can access these routes.
+     *
+     * @return {void}
+     */
+    protected ProtectedRoutes(): void {
         this.router.use(Middlewares.isApiProtected)
-        this.router.use("/v1", new BaseRoutes(express.Router()).router)
+        // this.router.use("/v1", new BaseRoutes(express.Router()).router)
     }
     private UnhandledRoutes(): void {
         this.router.use("*", (req, res) => JSONResponse.Response(req, res, "API is Running", { error: "Not Found", code: 404, message: "Unhandled Route" }))

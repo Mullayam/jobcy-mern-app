@@ -1,22 +1,62 @@
-import { Entity, Column } from "typeorm"
+import { Entity, Column, Index, Unique, OneToOne, JoinColumn, CreateDateColumn } from "typeorm"
+// import {MoreInfo} from './more-info.js'
+@Entity({ name: "members" })
+export class Member {
+    @Column({ length: 26 })
+    // @OneToOne(() => MoreInfo, (MoreInfo) => MoreInfo.user_id)
+    // @JoinColumn()
+    user_id!: number
 
-@Entity()
-export class Photo {
-    @Column()
-    id: number
+    @Column({ length: 26, nullable: true })
+
+    username?: string
+    @Column({ length: 32, nullable: true })
+
+    fullname?: string
+
+    @Column({ length: 32, default: "default.png" })
+    image?: string
+
+    @Index()
+    @Unique(["email"])
+    email!: string
 
     @Column()
-    name: string
+    password!: string
 
     @Column()
-    description: string
+    phone?: boolean
+
+    @Column({ type: 'simple-json', nullable: true })
+    location?: {
+        address1?: string
+        address2?: string
+        city?: string
+        pincode?: number
+        state?: string
+        country?: string
+    }
+
+    @Column({ name: "account_type" })
+    account?: string
+
+    @Column({ type: 'simple-json', nullable: true })
+    info?: {
+        locationPreferences?: string[],
+        currentJobProfie: string,
+
+    }
 
     @Column()
-    filename: string
+    about_me?: string
 
-    @Column()
-    views: number
+    @CreateDateColumn()
+    createdAt!: Date
 
-    @Column()
-    isPublished: boolean
+    @Column({ name: "profile_status", default: "online", enum: ["online", "offline", "busy", "do not disturb"] })
+    profileStatus?: string
+
+    @Column({ default: false })
+    status?: number
+
 }
