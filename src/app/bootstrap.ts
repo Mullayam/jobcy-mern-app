@@ -39,7 +39,7 @@ export class AppModules {
         AppModules.presql.initialize()
             .then(() => {
                 Logging.alert("Database Connected Successfuly")
-                this.app.emit("read", "Intiating Application Server")
+                this.app.emit("ready", "Intiating Application Server")
             })
             .catch((error) => {
                 if (error.code === "ECONNREFUSED") {

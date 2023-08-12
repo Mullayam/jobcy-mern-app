@@ -4,6 +4,7 @@ import express, { Application, } from 'express'
 import { AppModules } from './app/bootstrap.js';
 import Logging from './logging/Logging.js';
 import { ProductionModules } from './services/Production.js';
+import { HttpException } from "./app/libs/HttpException.js";
 
 export class AppServer {
     protected app: Application;
@@ -48,7 +49,8 @@ export class AppServer {
     private InitializeRoutes(): void {
         Logging.preview("Routes Mapped")
         this.app.get('/', (req, res) => {
-            res.status(200).json({ status: true, code: 200, message: "Api is Running Successfully" });
+            throw new HttpException({ name: "PARTIAL_CONTENT", message: "test" })
+            // res.status(200).json({ status: true, code: 200, message: "Api is Running Successfully" });
         })
         // this.app.use('/api', new Routes().router)
     }
@@ -73,5 +75,7 @@ export class AppServer {
             Logging.info(err)
             this.IntializeAppServer()
         })
+
     }
+
 }
