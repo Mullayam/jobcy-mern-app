@@ -1,7 +1,7 @@
 export const queries = {
     hello: () => "Hello World!",
-    sayHello: (parent: any, { name }: { name: string }) => {
-        return "Hello " + name
-    }
+    // Login: (parent: any, { email, password }: { email: string, password: string }) => {
+    //     return "Hello " 
+    // }
 
 }

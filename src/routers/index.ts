@@ -3,7 +3,7 @@ import JSONResponse from '../services/JSONResponse.js'
 // import { BaseRoutes } from './api/index.js';
 import { Authentication } from '../controllers/index.js';
 import { Middlewares } from '../middlewares/index.js';
-
+ 
 export class Routes {
     public router: express.Router;
     constructor() {
@@ -21,20 +21,19 @@ export class Routes {
      */
     private AuthRoutes(): void {
         this.router.post("/login", Authentication.default.Login)
-        this.router.post("/register", Authentication.default.Register)
-        this.router.post("/forget-password", Authentication.default.ForgetPassword)
-        this.router.get("/token/:id", Authentication.default.RefreshToken)
-        this.router.get("/current-user/:id", Authentication.default.CurrentUser)
-        this.router.get("/g/auth", Authentication.default.HandleGoogleAuth)
+        // this.router.post("/register", Authentication.default.Register)
+        // this.router.post("/forget-password", Authentication.default.ForgetPassword)
+        // this.router.get("/token/:id", Authentication.default.RefreshToken)
+        // this.router.get("/current-user/:id", Authentication.default.CurrentUser)
+        // this.router.get("/g/auth", Authentication.default.HandleGoogleAuth)
     }
     /**
      * A description of the entire function.
-     *
-     * @param {type} paramName - description of parameter
-     * @return {type} description of return value
+     *     
+     * @return {void} description of return value
      */
     private PublicRoutes(): void {
-
+       
     }
     /**
      * Initializes the protected routes for the API.

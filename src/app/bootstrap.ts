@@ -7,6 +7,7 @@ import { GraphQL_Server } from '../factory/index.js'
 import { AppDataSource } from '../DataSource.js'
 import { Middlewares } from '../middlewares/index.js'
 import path from 'path';
+import { expressMiddleware } from '@apollo/server/express4';
 export class AppModules {
     public static presql = AppDataSource
     private app: Application
@@ -27,6 +28,20 @@ export class AppModules {
     private async InitializeGraphQlServer(): Promise<void> {
         Logging.preview("Initializing GraphQL Server")
         await GraphQL_Server.start()
+        this.app.use("/graphql", expressMiddleware(GraphQL_Server,
+        //  {
+        //     context: async ({ req, res }) => {
+        //         // Get the user token from the headers.
+        //         const token = req.headers.authorization || '';
+
+        //         // Try to retrieve a user with the token
+        //         // const user = await getUser(token);
+        //         console.log("context")
+        //         // Add the user to the context
+        //         return { test: token };
+        //     }
+        // }
+        ))
     }
     /**
      * Initializes the TypeORM Datasource.

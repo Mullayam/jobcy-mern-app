@@ -23,7 +23,7 @@ export class Middlewares {
       res.send({
         success: false,
         error: error.message,
-        message: "Please Generate App Secret First, "+ `http://${req.headers.host}/first`,
+        message: "Please Generate App Secret First, " + `http://${req.headers.host}/first`,
       });
      
     }    
@@ -125,6 +125,7 @@ export class Middlewares {
       const requestId = Helpers.RequestId();
         req.headers['X-Request-Id'] = requestId;
         res.setHeader('X-Request-Id', requestId);
+        res.setHeader('X-Platform', "Jobcy");
         next();
   }
 }

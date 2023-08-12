@@ -1,10 +1,12 @@
 import bodyParser from "body-parser";
 import express, { Application, } from 'express'
-// import { Routes } from './routers/index.js' 
+import { Routes } from './routers/index.js' 
 import { AppModules } from './app/bootstrap.js';
 import Logging from './logging/Logging.js';
 import { ProductionModules } from './services/Production.js';
 import { HttpException } from "./app/libs/HttpException.js";
+import { expressMiddleware } from "@apollo/server/express4";
+import { GraphQL_Server } from "./factory/index.js";
 
 export class AppServer {
     protected app: Application;
@@ -34,6 +36,7 @@ export class AppServer {
     private LoadInstances(): void {
         new AppModules(this.app, express)
         new ProductionModules(this.app)
+       
     }
     /**
      * Initializes the routes for the application.
@@ -48,11 +51,10 @@ export class AppServer {
      */
     private InitializeRoutes(): void {
         Logging.preview("Routes Mapped")
-        this.app.get('/', (req, res) => {
-            throw new HttpException({ name: "PARTIAL_CONTENT", message: "test" })
-            // res.status(200).json({ status: true, code: 200, message: "Api is Running Successfully" });
+        this.app.get('/', (req, res) => {            
+            res.status(200).json({ status: true, code: 200, message: "Api is Running Successfully" });
         })
-        // this.app.use('/api', new Routes().router)
+        this.app.use('/api', new Routes().router)
     }
     /**
      * Initializes the app server and starts listening on the specified port.

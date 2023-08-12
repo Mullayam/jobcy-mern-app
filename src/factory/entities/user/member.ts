@@ -1,10 +1,12 @@
-import { Entity, Column, Index, Unique, OneToOne, JoinColumn, CreateDateColumn } from "typeorm"
-// import {MoreInfo} from './more-info.js'
-@Entity({ name: "members" })
-export class Member {
+import { Entity, Column, Index, Unique, OneToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, BaseEntity } from "typeorm"
+ 
+import { MoreInfo } from './more-info.js'
+@Entity("members")
+@Unique(["email","username"])
+export class Member extends BaseEntity{
     @Column({ length: 26 })
-    // @OneToOne(() => MoreInfo, (MoreInfo) => MoreInfo.user_id)
-    // @JoinColumn()
+    @OneToOne(() => MoreInfo)
+    @JoinColumn()
     user_id!: number
 
     @Column({ length: 26, nullable: true })
@@ -17,8 +19,7 @@ export class Member {
     @Column({ length: 32, default: "default.png" })
     image?: string
 
-    @Index()
-    @Unique(["email"])
+    @Index() 
     email!: string
 
     @Column()
@@ -50,13 +51,17 @@ export class Member {
     @Column()
     about_me?: string
 
-    @CreateDateColumn()
-    createdAt!: Date
-
     @Column({ name: "profile_status", default: "online", enum: ["online", "offline", "busy", "do not disturb"] })
     profileStatus?: string
 
     @Column({ default: false })
     status?: number
 
+    @CreateDateColumn()
+    createdAt!: Date
+
+    @UpdateDateColumn()
+    updatedDate!: Date
+
 }
+ 

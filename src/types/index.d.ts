@@ -1,7 +1,4 @@
-import { DatabaseEntityValues } from "@enjoys/presql/src/interface/config.js";
-
-
-import { JwtPayload } from "jsonwebtoken";
+ import { JwtPayload } from "jsonwebtoken";
 
 interface UserInfoJwtPayload {
     id?: string,

@@ -1,11 +1,12 @@
-import { Entity, Column, OneToOne, JoinColumn } from "typeorm"
+import { Entity, Column, OneToOne, JoinColumn, UpdateDateColumn, PrimaryGeneratedColumn, Index } from "typeorm"
 import { Member } from "./member.js"
-@Entity({ name: "more-info" })
+@Entity("more-info")
 export class MoreInfo {
-    @Column({ length: 26 })
-    @OneToOne(() => Member, (member) => member.user_id)
-    @JoinColumn()
-    user_id!: Member
+    @PrimaryGeneratedColumn()
+    id!: number
+    @Column({ length: 26 ,unique:true,})    
+    @Index()
+    user_id!: number
 
     @Column({ type: 'json', nullable: true })
     education?: {
@@ -46,5 +47,8 @@ export class MoreInfo {
 
     @Column({ name: "hourly_rate", nullable: true })
     perHourRate?: number
+
+    @UpdateDateColumn()
+    updatedDate!: Date
 
 }
