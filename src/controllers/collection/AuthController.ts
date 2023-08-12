@@ -5,22 +5,25 @@ import jwt from 'jsonwebtoken'
 import Helpers, { BlacklistedTokens, Tokens } from '../../helpers/index.js'
 import { SECRET_KEY } from '../../middlewares/index.js'
 import { Services } from "../../services/index.js";
-import Utils from '../../utils/index.js'
-import { LoginResponse } from '../../types/index.js'
+import Utils from '../../utils/index.js' 
 import { ForgetPassword } from "../../utils/templates/email/forgot-password.js"
 import { WelcomeMessage } from "../../utils/templates/email/welcome-message.js"
 import MailService from '../../services/EmailConfiguration.js'
 
 import { Member } from '../../factory/entities/user/member.js'
+import { AppDataSource } from '../../DataSource.js'
+ 
 const Email = MailService.getInstance()
 
 class Authentication {
     async Login(req: Request, res: Response){
         try {
+            
             if (!req.body.email || !req.body.password) {
                 throw new Error("Please Provide Email and Password");
             }
-            const isUser = await Member.findOneBy({ email: req.body.email })
+            new Member()
+            const isUser = await AppDataSource.manager.findOne(Member,{ where:{email: req.body.email}})
 
             if (!isUser) {
                 throw new Error("User doest not Exist");
@@ -29,9 +32,9 @@ class Authentication {
                 throw new Error("Invalid Credentials");
             }
 
-            const Token = jwt.sign({ id: "testID", name: "mullayam" }, SECRET_KEY, { expiresIn: "10" })
+            const Token = jwt.sign({ id: "testID", name: "mullayam" }, SECRET_KEY, { expiresIn: "3600" })
             const RefreshToken = Helpers.CreateRefreshToken()
-            Tokens.set("testID", RefreshToken)
+            Tokens.set(`${isUser.userId}`, RefreshToken)
             res.cookie("token", Token, { domain: process.env.APP_DOMAIN, expires: new Date(Date.now() + 1000 * 60 * 60 * 24) })
             res.cookie("refresh_token", RefreshToken, { domain: process.env.APP_DOMAIN, expires: new Date(Date.now() + 1000 * 60 * 60 * 24) })
             return JSONResponse.Response(req, res, "Login Successful ,Redirecting...", { User: isUser, Token, RefreshToken }, 200)
@@ -40,7 +43,7 @@ class Authentication {
             return JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
         }
     }
-    // async Register(req: Request, res: Response): Promise<LoginResponse | void> {
+    // async Register(req: Request, res: Response) {
 
     //     try {
     //         // check for errors
@@ -48,8 +51,8 @@ class Authentication {
     //             throw new Error("Please Provide Email and Password");
     //         }
     //         // check user exist or not
-    //         const isUser = await presql.findOne({ table: "member", where: { email: req.body.email } })
-    //         if (isUser.length >= 1) {
+    //         const isUser = await Member.findOne({ where: { email: req.body.email } })
+    //         if (isUser) {
     //             throw new Error("User Already Exist");
     //         }
     //         const userID = Utils.CreateUserID()
@@ -58,8 +61,9 @@ class Authentication {
 
     //         // create custom userid
     //         const UserInfo = { userId: userID, username, fullname: req.body.name, email: req.body.email, password: HashedPassword } // user object
-    //         await presql.create({ table: "member", data: UserInfo }) // query to insert into database
-    //         await presql.create({ table: "more_info", data: { user_id: userID } }) // query to insert into database
+    //         // await Member.create(UserInfo)
+            
+    //        // query to insert into database
     //         const Token = jwt.sign({ id: userID, username, }, SECRET_KEY, { expiresIn: "24h" }) // jwt token sign
     //         const RefreshToken = Helpers.CreateRefreshToken() // refresh token
     //         Tokens.set(userID, RefreshToken)
@@ -120,36 +124,36 @@ class Authentication {
     //         return JSONResponse.Error(req, res, "Something Went Wrong", { message: error.message }, 403)
     //     }
     // }
-    async CurrentUser(req: Request, res: Response) {
-        let isCached = false;
-        let UserInfo;
-        const id = req.params.id
-        const cache = new Services().cache
-        try {
-            const cacheResults = await cache.get(id)
-            if (cacheResults) {
-                isCached = true;
-                UserInfo = JSON.parse(cacheResults);
-            } else {
-                UserInfo = await Member.findOneBy({
-                    user_id: Number(id)
-                })
-                cache.set(id, JSON.stringify(UserInfo), {
-                    EX: 180,
-                    NX: true,
-                })
-            }
-            JSONResponse.Response(req, res, "", { UserInfo, isCached }, 200)
-        } catch (error: any) {
-            JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
-        }
+    // async CurrentUser(req: Request, res: Response) {
+    //     let isCached = false;
+    //     let UserInfo;
+    //     const id = req.params.id
+    //     const cache = new Services().cache
+    //     try {
+    //         const cacheResults = await cache.get(id)
+    //         if (cacheResults) {
+    //             isCached = true;
+    //             UserInfo = JSON.parse(cacheResults);
+    //         } else {
+    //             UserInfo = await Member.findOneBy({
+    //                 userId: Number(id)
+    //             })
+    //             cache.set(id, JSON.stringify(UserInfo), {
+    //                 EX: 180,
+    //                 NX: true,
+    //             })
+    //         }
+    //         JSONResponse.Response(req, res, "", { UserInfo, isCached }, 200)
+    //     } catch (error: any) {
+    //         JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
+    //     }
 
-    }
+    // }
     HandleGoogleAuth(req: Request, res: Response) {
 
     }
     protected async CheckUserExistorNot(email: string): Promise<any> {
-        return await Member.findOne({ where: { email } })
-
+        return  await AppDataSource.manager.findOne(Member,{ where:{email}})
+ 
     }
 } export default new Authentication()

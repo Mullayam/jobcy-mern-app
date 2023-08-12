@@ -1,13 +1,31 @@
-import { Entity, Column, Index, Unique, OneToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, BaseEntity } from "typeorm"
- 
-import { MoreInfo } from './more-info.js'
+import { Entity, Column, Index, Unique, OneToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, PrimaryColumn, OneToMany } from "typeorm"
+import { MoreInfo } from './moreInfo.js'
+import {Tokens} from './tokens.js'
+export enum UserStatus {
+    ONLINE = 'online',
+    OFFLINE = 'offline',
+    BUSY = 'busy',
+    DND = 'do-not-disturb',
+}
+export enum AccountType {
+    USER = 'user',
+    RECRUITER = 'recruiter',
+}
+const LocationObject = JSON.stringify({
+    address1: "",
+    address2: "",
+    city: "",
+    pincode: "",
+    state: "",
+    country: "",
+})
 @Entity("members")
-@Unique(["email","username"])
-export class Member extends BaseEntity{
-    @Column({ length: 26 })
-    @OneToOne(() => MoreInfo)
+@Unique(["email", "username"])
+export class Member {
+    @PrimaryColumn()
+    @OneToOne(() => MoreInfo, (more_info) => more_info.userId)
     @JoinColumn()
-    user_id!: number
+    userId!: number
 
     @Column({ length: 26, nullable: true })
 
@@ -19,7 +37,8 @@ export class Member extends BaseEntity{
     @Column({ length: 32, default: "default.png" })
     image?: string
 
-    @Index() 
+    @Column()
+    @Index()
     email!: string
 
     @Column()
@@ -28,7 +47,9 @@ export class Member extends BaseEntity{
     @Column()
     phone?: boolean
 
-    @Column({ type: 'simple-json', nullable: true })
+    @Column({
+        type: 'simple-json', nullable: true, default: LocationObject
+    })
     location?: {
         address1?: string
         address2?: string
@@ -38,7 +59,7 @@ export class Member extends BaseEntity{
         country?: string
     }
 
-    @Column({ name: "account_type" })
+    @Column({ name: "account_type", default: [AccountType.USER], type: 'enum', enum: AccountType })
     account?: string
 
     @Column({ type: 'simple-json', nullable: true })
@@ -48,10 +69,10 @@ export class Member extends BaseEntity{
 
     }
 
-    @Column()
+    @Column({ nullable: true })
     about_me?: string
 
-    @Column({ name: "profile_status", default: "online", enum: ["online", "offline", "busy", "do not disturb"] })
+    @Column({ name: "profile_status", default: UserStatus.ONLINE, type: 'enum', enum: UserStatus })
     profileStatus?: string
 
     @Column({ default: false })
@@ -63,5 +84,6 @@ export class Member extends BaseEntity{
     @UpdateDateColumn()
     updatedDate!: Date
 
+    @OneToMany(()=>Tokens,(tokens)=>tokens.userId)
+    tokens?:Tokens[]
 }
- 
