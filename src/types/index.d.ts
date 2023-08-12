@@ -1,5 +1,5 @@
 import { DatabaseEntityValues } from "@enjoys/presql/src/interface/config.js";
- 
+
 
 import { JwtPayload } from "jsonwebtoken";
 
@@ -13,7 +13,7 @@ export interface LoginResponse {
     Token: string
     RefreshToken: string
 }
-export interface MailOptionsInterface{
+export interface MailOptionsInterface {
     from?: string;
     to: string | string[];
     cc?: string | string[];
@@ -35,14 +35,14 @@ export interface IUser {
     isEmailVerified: boolean;
     isProfileCompleted: boolean;
 }
-type IRole={}
+type IRole = {}
 export type IResponse<Res> = {
     message: string;
     data: {
-         
+
     };
 };
- 
+
 export type LoggingLevel = "emerg" | "alert" | "crit" | "error" | "notice" | "info" | "debug"
 export type LoggingOptions = {
     file: {
@@ -62,9 +62,10 @@ export type LoggingOptions = {
         format: winston.Logform.Format;
     };
 }
-export interface HttpStatus {
+export interface HttpStatusName {
     OK: number;
     CREATED: number;
+    ACCEPTED: number;
     ACCEPTED: number;
     NO_CONTENT: number;
     BAD_REQUEST: number;
@@ -75,5 +76,5 @@ export interface HttpStatus {
     INTERNAL_SERVER_ERROR: number;
 }
 export interface HttpExceptionParams {
-    name?: string, message: string, stack?: string
+    name: keyof HttpStatusName, message: string, stack?: string
 }

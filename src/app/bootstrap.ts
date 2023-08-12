@@ -19,11 +19,23 @@ export class AppModules {
         this.InitializeGraphQlServer()
         this.TypeORM_Datasource()
     }
-    private async InitializeGraphQlServer() {
+    /**
+     * Initializes the GraphQL server.
+     *
+     * @return {Promise<void>} A promise that resolves when the server is initialized.
+     */
+    private async InitializeGraphQlServer(): Promise<void> {
         Logging.preview("Initializing GraphQL Server")
         await GraphQL_Server.start()
     }
-    private async TypeORM_Datasource() {
+    /**
+     * Initializes the TypeORM Datasource.
+     *
+     * @private
+     * @async
+     * @return {Promise<void>} Promise that resolves once the datasource is initialized.
+     */
+    private async TypeORM_Datasource(): Promise<void> {
         AppModules.presql.initialize()
             .then(() => {
                 Logging.alert("Database Connected Successfuly")
@@ -38,7 +50,13 @@ export class AppModules {
                 console.log(error)
             })
     }
-    private InjectDependencies() {
+    /**
+     * Injects the dependencies needed for the application.
+     *
+     * @private
+     * @return {void}
+     */
+    private InjectDependencies(): void {
         Logging.preview("Dependencies Injected")
         this.app.use(cors({
             origin: '*',
@@ -48,7 +66,13 @@ export class AppModules {
         this.app.use("/_static/jobcy/user/profile", this.express.static(path.join(process.cwd(), 'public', "uploads")));
 
     }
-    private InitializeMiddlewares() {
+    /**
+     * Initialize the middlewares for the application.
+     *
+     * @private
+     * @return {void}
+     */
+    private InitializeMiddlewares():void {
         Logging.preview("Middlewares Applied")
         this.app.get('/first', (req, res) => {
             res.status(200).json({ status: true, APP_KEY: helpers.generateToken(), message: "APP KEY/SECRET Generated Successfully, Go to .env file and add APP_KEY, Restart Server" });

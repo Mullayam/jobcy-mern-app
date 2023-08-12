@@ -1,9 +1,9 @@
 import { Application, Request, Response, NextFunction } from 'express'
 import Logging from "../logging/Logging.js";
-import { HttpException } from "./HttpException.js";
+import { HttpException } from "../app/libs/HttpException.js";
 import url from 'url';
 
-export class Production {
+export class ProductionModules {
 
     private app: Application
     constructor(app: Application) {
