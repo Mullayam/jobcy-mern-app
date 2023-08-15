@@ -138,11 +138,26 @@ class Helpers {
      * @param {number} salary - The salary to be formatted.
      * @return {string} - The formatted salary as a string.
      */
-    FormatSalary (salary: number): string {
+    FormatSalary(salary: number): string {
         return salary.toLocaleString("en-IN", { maximumFractionDigits: 0 });
     };
 
+    /**
+     * Slugify a given string.
+     *
+     * @param {string} str - The string to be slugified.
+     * @return {string} The slugified string.
+     */
+    Slugify(str: string): string {
 
+        return str
+            .toLowerCase()
+            .trim()
+            .replace(/[^\w\s-]/g, "")
+            .replace(/[\s_-]+/g, "-")
+            .replace(/^-+|-+$/g, "");
+
+    }
 
 }
 export default new Helpers()

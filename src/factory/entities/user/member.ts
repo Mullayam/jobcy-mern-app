@@ -1,7 +1,10 @@
 import { Entity, Column, Index, Unique, OneToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, PrimaryColumn, OneToMany, } from "typeorm"
 
-import { Tokens } from './tokens.js'
+ 
 import { MyListings } from "./myListings.js"
+import { Notifications } from "./notifications.js"
+ 
+
 export enum UserStatus {
     ONLINE = 'online',
     OFFLINE = 'offline',
@@ -81,13 +84,12 @@ export class Member {
 
     @UpdateDateColumn()
     updatedDate!: Date
+     
+    @OneToMany(() => MyListings, (myListings) => myListings.user)     
+    myListing!: MyListings[]
 
-    @Column({ nullable: true })
    
-    @JoinColumn({ name: "tokens", foreignKeyConstraintName: "tokens_userId_fk", referencedColumnName: "userId" })
-    tokens?: number
-
-    @OneToMany(() => MyListings, (ml) => ml.userId, { nullable: false })
-    @JoinColumn({ name: "myListings", foreignKeyConstraintName: "mylisting_userId_fk", referencedColumnName: "userId" })
-    myListings?: MyListings[]
+    @OneToMany(() => Notifications, (noti) => noti.user, { nullable: false })
+    @JoinColumn()
+    notifications!: Notifications[]
 }

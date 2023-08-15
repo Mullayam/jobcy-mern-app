@@ -6,20 +6,21 @@ export class MyListings {
     @PrimaryGeneratedColumn()
     id!: number
 
-    @ManyToOne(() => Member, (member) => member.myListings,{nullable:false})
-    @JoinColumn({ name:"userId" ,foreignKeyConstraintName: "mylisting_userId_fk", referencedColumnName: "userId"})     
-    userId!: Member[]
-
     @Column()
     jobId!: string
 
     @CreateDateColumn({ nullable: true })
     appliedOn!: Date
 
-    @Column({default:false})
+    @Column({ default: false })
     isApplied!: boolean
 
-    @Column({default:false})
+    @Column({ default: false })
     isBookmarked!: boolean
+
+
+    @ManyToOne(() => Member, (member) => member.myListing)
+    @JoinColumn({ name: "userId", foreignKeyConstraintName: "mylisting_userId_fk", referencedColumnName: "userId" })
+    user!: any
 
 }

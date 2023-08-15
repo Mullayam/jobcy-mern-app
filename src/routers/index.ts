@@ -1,7 +1,7 @@
 import express from 'express'
 import JSONResponse from '../services/JSONResponse.js'
 // import { BaseRoutes } from './api/index.js';
-import { Authentication } from '../controllers/index.js';
+// import { Authentication } from '../controllers/index.js';
 import { Middlewares } from '../middlewares/index.js';
  
 export class Routes {
@@ -20,7 +20,7 @@ export class Routes {
      * @return {void} This function does not return anything.
      */
     private AuthRoutes(): void {
-        this.router.post("/login", Authentication.default.Login)
+        // this.router.post("/login", Authentication.default.Login)
         // this.router.post("/register", Authentication.default.Register)
         // this.router.post("/forget-password", Authentication.default.ForgetPassword)
         // this.router.get("/token/:id", Authentication.default.RefreshToken)

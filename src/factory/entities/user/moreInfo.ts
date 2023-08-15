@@ -8,7 +8,7 @@ export class MoreInfo {
     
     @OneToOne(() => Member, (member) => member.userId)
     @JoinColumn({name:"userId",foreignKeyConstraintName: "userId",referencedColumnName: "userId"})
-    userId!: Member
+    user!: Member
 
     @Column({ type: 'json', nullable: true })
     education?: {

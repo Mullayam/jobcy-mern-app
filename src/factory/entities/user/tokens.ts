@@ -1,4 +1,4 @@
-import { Entity, Column, JoinColumn, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn, OneToOne } from "typeorm"
+import { Entity, Column, JoinColumn, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn, OneToOne,Index } from "typeorm"
 import { Member } from "./member.js"
 @Entity("tokens")
 
@@ -6,11 +6,13 @@ export class Tokens {
     @PrimaryGeneratedColumn()
     id!: number
 
-    @OneToOne(() => Member, (member) => member.tokens,{nullable:false})
-    @JoinColumn({ name:"userId" ,foreignKeyConstraintName: "tokens_userId_fk", referencedColumnName: "userId" })
-    userId!: Member
+    @OneToOne(() => Member)
+    @JoinColumn({name:"userId"})
+    @Index()
+    user!: Member
 
     @Column()
+    @Index()
     token!: string
 
     @CreateDateColumn({ nullable: true })
