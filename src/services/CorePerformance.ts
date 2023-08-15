@@ -3,6 +3,11 @@ import cluster from "cluster";
 import Logging from "../logging/Logging.js";
 const clusterWorkerSize = os.cpus().length;
 export class Clusters {
+    /**
+     * Workers function that handles running the application in a clustered environment.
+     *
+     * @param {() => void} RunApplication - The function to run the application.
+     */
     Workers(RunApplication: () => void) {
         if (process.env.APP_ENV === "PRODUCTION" && process.env.CLUSTERS === "true") {
             if (cluster.isPrimary) {

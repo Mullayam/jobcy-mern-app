@@ -20,8 +20,8 @@ export class CacheService {
      * @private
      * @return {void}
      */
-    private ConnectRedisClient(): void {
-        this.cache.connect().then(() => Logging.info(`Redis Connected Successfully`)).catch((error: any) => Logging.error(`Error : ${error}`));
+    private async ConnectRedisClient(): Promise<void> {
+        await this.cache.connect().then(() => Logging.info(`Redis Connected Successfully`)).catch((error: any) => Logging.error(`Error : ${error}`));
     }
     /**
      * Deletes the cache.
@@ -57,11 +57,18 @@ export class CacheService {
     }
     /**
      * Clears all cache.
-     *
-     * @param {void} None - No parameters needed.
      * @return {void} No return value.
      */
     public static clearAllCache(): void {
         this.prototype.DeleteCache()
+    }
+
+    /**
+     * Clears the cache for a given hash key.
+     *
+     * @param {string} hashKey - The hash key to clear the cache for.
+     */
+    clearHash(hashKey: string) {
+        this.cache.del(JSON.stringify(hashKey));
     }
 }

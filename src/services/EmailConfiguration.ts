@@ -61,7 +61,14 @@ export default class MailService {
                 return info;
             });
     }
-    async TemplateMail(requestId: string | number | string[], options: MailOptionsInterface) {
+    /**
+     * Sends a template mail using the provided options.
+     *
+     * @param {string | number | string[]} requestId - The ID of the request.
+     * @param {MailOptionsInterface} options - The options for the mail.
+     * @return {Promise<any>} - A promise that resolves to the information about the sent mail.
+     */
+    async TemplateMail(requestId: string | number | string[], options: MailOptionsInterface): Promise<any> {
         return await this.transporter
         .sendMail({
             from: `${process.env.SENDER_NAME as string} <${process.env.MAIL_USER as string}>`, // sender address

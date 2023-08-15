@@ -11,6 +11,10 @@ export class ProductionModules {
         this.ExceptionHandling()
         this.RedirectRoute()
     }
+    /**
+     * Applies exception handling to the application.     
+      
+     */
     protected ExceptionHandling() {
         Logging.preview("Exception Handling Applied")
         this.app.use((err: Error, req: Request, res: Response, next: NextFunction) => {            
@@ -18,6 +22,12 @@ export class ProductionModules {
             next()
         })
     }
+    /**
+     * Creates a redirect route if the application environment is set to "PRODUCTION".
+     *
+     * @param {type} paramName - description of parameter
+     * @return {type} description of return value
+     */
     protected RedirectRoute() {
         if (process.env.APP_ENV === "PRODUCTION") {
             this.app.use("*", (req, res) => {

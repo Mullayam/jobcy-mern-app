@@ -4,24 +4,60 @@ export let Tokens = new Map();
 export let BlacklistedTokens: string[] = [];
 class Helpers {
 
-    generateToken(byteLength: number = 48) {
+    /**
+     * Generates a token of random bytes with the specified byte length.
+     *
+     * @param {number} byteLength - The length of the token in bytes. Defaults to 48.
+     * @return {string} - The generated token as a base64-encoded string.
+     */
+    generateToken(byteLength: number = 48): string {
         return crypto.randomBytes(byteLength).toString("base64")
     }
-    CreateRefreshToken(byteLength: number = 32) {
+    /**
+     * Generates a refresh token of a specified length.
+     *
+     * @param {number} byteLength - The length of the refresh token in bytes. Defaults to 32.
+     * @return {string} - The generated refresh token.
+     */
+    CreateRefreshToken(byteLength: number = 32): string {
         return crypto.randomBytes(byteLength).toString("base64")
     }
-    RequestId(byteLength: number = 16) {
+    /**
+     * Generates a random request ID with the specified byte length.
+     *
+     * @param {number} byteLength - The length of the byte array used to generate the request ID. Defaults to 16.
+     * @return {string} - The generated request ID as a base64 encoded string.
+     */
+    RequestId(byteLength: number = 16): string {
         return crypto.randomBytes(byteLength).toString("base64")
     }
-    HandleRefreshToken(id: string) {
+    /**
+     * Generates a new refresh token for the given ID and stores it in the Tokens map.
+     *
+     * @param {string} id - The ID of the user for whom the refresh token is generated.
+     * @return {string} - The newly generated refresh token.
+     */
+    HandleRefreshToken(id: string): string {
         const RefreshToken = this.CreateRefreshToken()
         Tokens.set(id, RefreshToken)
         return RefreshToken
     }
+    /**
+     * Converts a string to a number.
+     *
+     * @param {string} str - The string to be converted.
+     * @return {number} The converted number.
+     */
     StringToNumber(str: string) {
 
     }
-    QueryToObject(query: string) {
+    /**
+     * Converts a query string to an object.
+     *
+     * @param {string} query - The query string to convert.
+     * @return {object} The resulting object.
+     */
+    QueryToObject(query: string): object {
         let NewObject = {}
         query.split("&").map(item => {
             const [key, value] = item.split("=")
@@ -31,6 +67,12 @@ class Helpers {
 
         return NewObject
     }
+    /**
+     * Converts a string representation of a date word into a formatted date string.
+     *
+     * @param {string} str - The string representation of the date word.
+     * @return {string} - The formatted date string.
+     */
     ConvertDateWordsToDate(str: string): string {
         let newDate;
         if (str === "Latest") {
@@ -49,12 +91,26 @@ class Helpers {
         const date = this.SimpleDateStr(newDate)
         return date
     }
+    /**
+     * Generates a string representation of a date.
+     *
+     * @param {Date} newDate - The date to convert to a string. Defaults to the current date.
+     * @return {string} The string representation of the date.
+     */
     SimpleDateStr(newDate: Date = new Date()): string {
         const newDateStr = newDate.toISOString().split("T")
         const date = (newDateStr[0] + " " + newDateStr[1].split(".")[0]).trim().toString()
 
         return date
     }
+    /**
+     * Cleans and purifies a string by converting it to lowercase, removing leading and trailing whitespace,
+     * removing all spaces, replacing multiple spaces or underscores with a single hyphen,
+     * and removing leading and trailing hyphens.
+     *
+     * @param {string} str - The string to be purified.
+     * @return {string} The purified string.
+     */
     purifyString(str: string): string {
         return str
             .toLowerCase()
@@ -63,14 +119,26 @@ class Helpers {
             .replace(/[\s_-]+/g, "-")
             .replace(/^-+|-+$/g, "");
     }
-    ObjectKeysAndValues = (obj: string): string[] => {
+    /**
+     * Generates the keys and values of an object.
+     *
+     * @param {string} obj - the object to generate keys and values for
+     * @return {string[]} an array containing the keys and values of the object
+     */
+    ObjectKeysAndValues(obj: string): string[] {
         let keys = Object.keys(JSON.parse(obj));
         const PureObject = keys.map((key) => {
             return JSON.parse(JSON.parse(obj)[key]);
         });
         return PureObject;
     }
-    FormatSalary = (salary: number) => {
+    /**
+     * Formats the salary to a string with comma-separated thousands and no decimal places.
+     *
+     * @param {number} salary - The salary to be formatted.
+     * @return {string} - The formatted salary as a string.
+     */
+    FormatSalary (salary: number): string {
         return salary.toLocaleString("en-IN", { maximumFractionDigits: 0 });
     };
 
