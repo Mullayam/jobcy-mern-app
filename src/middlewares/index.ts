@@ -1,4 +1,3 @@
-
 import { Request, Response, NextFunction } from "express";
 import jwt, { JwtPayload,Secret } from "jsonwebtoken";
 import Helpers from "../helpers/index.js";
@@ -94,8 +93,7 @@ export class Middlewares {
   public static isApiProtected(req: Request, res: Response, next: NextFunction) {
     try {      
       console.log("Checking API KEY")
-      const headers = req.headers;   
-       
+      const headers = req.headers;
       const apiKey = headers["api_key"] || undefined;      
       if (typeof apiKey === "undefined") {
       return  res.status(404).json({
@@ -121,6 +119,13 @@ export class Middlewares {
     }
 
   }
+  /**
+   * Sets the X-Request-Id and X-Platform headers in the request and response objects.
+   *
+   * @param {Request} req - The request object.
+   * @param {Response} res - The response object.
+   * @param {NextFunction} next - The next function in the middleware chain.
+   */
   public static IRequestHeaders(req: Request, res: Response, next: NextFunction) {
       const requestId = Helpers.RequestId();
         req.headers['X-Request-Id'] = requestId;

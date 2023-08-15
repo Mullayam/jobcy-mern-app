@@ -4,9 +4,6 @@ import { Routes } from './routers/index.js'
 import { AppModules } from './app/bootstrap.js';
 import Logging from './logging/Logging.js';
 import { ProductionModules } from './services/Production.js';
-import { HttpException } from "./app/libs/HttpException.js";
-import { expressMiddleware } from "@apollo/server/express4";
-import { GraphQL_Server } from "./factory/index.js";
 
 export class AppServer {
     protected app: Application;

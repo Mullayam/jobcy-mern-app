@@ -1,4 +1,4 @@
- import { JwtPayload } from "jsonwebtoken";
+import { JwtPayload } from "jsonwebtoken";
 
 interface UserInfoJwtPayload {
     id?: string,
@@ -110,3 +110,16 @@ export type HttpStatusCodes = {
     "SERVICE_UNAVAILABLE": 503,
     "GATEWAY_TIMEOUT": 504,
 }
+export interface AuthProviders {
+    [key: AuthProvidersList]: AuthProvidersKeys
+}
+export interface AuthProvidersScopes {
+    [key: AuthProvidersList]: string[];
+
+}
+export interface AuthProvidersKeys {
+    clientID: string;
+    clientSecret: string;
+    callbackURL: string;
+};
+export type AuthProvidersList = "google" | "facebook" | "github"
