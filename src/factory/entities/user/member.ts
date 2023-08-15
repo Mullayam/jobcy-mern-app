@@ -1,6 +1,7 @@
-import { Entity, Column, Index, Unique, OneToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, PrimaryColumn, OneToMany } from "typeorm"
-import { MoreInfo } from './moreInfo.js'
-import {Tokens} from './tokens.js'
+import { Entity, Column, Index, Unique, OneToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, PrimaryColumn, OneToMany, } from "typeorm"
+
+import { Tokens } from './tokens.js'
+import { MyListings } from "./myListings.js"
 export enum UserStatus {
     ONLINE = 'online',
     OFFLINE = 'offline',
@@ -22,9 +23,8 @@ const LocationObject = JSON.stringify({
 @Entity("members")
 @Unique(["email", "username"])
 export class Member {
+
     @PrimaryColumn()
-    @OneToOne(() => MoreInfo, (more_info) => more_info.userId)
-    @JoinColumn()
     userId!: number
 
     @Column({ length: 26, nullable: true })
@@ -64,9 +64,7 @@ export class Member {
 
     @Column({ type: 'simple-json', nullable: true })
     info?: {
-        locationPreferences?: string[],
-        currentJobProfie: string,
-
+        [key: string]: any,
     }
 
     @Column({ nullable: true })
@@ -84,6 +82,12 @@ export class Member {
     @UpdateDateColumn()
     updatedDate!: Date
 
-    @OneToMany(()=>Tokens,(tokens)=>tokens.userId)
-    tokens?:Tokens[]
+    @Column({ nullable: true })
+   
+    @JoinColumn({ name: "tokens", foreignKeyConstraintName: "tokens_userId_fk", referencedColumnName: "userId" })
+    tokens?: number
+
+    @OneToMany(() => MyListings, (ml) => ml.userId, { nullable: false })
+    @JoinColumn({ name: "myListings", foreignKeyConstraintName: "mylisting_userId_fk", referencedColumnName: "userId" })
+    myListings?: MyListings[]
 }
