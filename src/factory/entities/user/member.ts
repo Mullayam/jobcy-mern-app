@@ -1,7 +1,8 @@
-import { Entity, Column, Index, Unique, JoinColumn, CreateDateColumn, UpdateDateColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm"
+import { Entity, Column, Index, Unique, JoinColumn, CreateDateColumn, UpdateDateColumn, OneToMany, PrimaryGeneratedColumn, OneToOne } from "typeorm"
 import { MyListings } from "./myListings.js"
 import { Notifications } from "./notifications.js"
 import { AppliedJobs } from "../jobs/appliedJobs.js"
+import { MoreInfo } from "./moreInfo.js"
 
 
 
@@ -86,6 +87,10 @@ export class Member {
 
     @UpdateDateColumn()
     updatedDate!: Date
+
+    @OneToOne(() => MoreInfo, (mem_info) => mem_info.id)
+    @JoinColumn()
+    moreInfo!: MoreInfo
 
     @OneToMany(() => MyListings, (myListings) => myListings.user)
     myListing!: MyListings[]

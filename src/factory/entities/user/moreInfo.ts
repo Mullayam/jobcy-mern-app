@@ -1,14 +1,10 @@
 import { Entity, Column, UpdateDateColumn, PrimaryGeneratedColumn, Index, JoinColumn, OneToOne } from "typeorm"
-import { Member } from "./member.js"
+ 
 
 @Entity("more_info")
 export class MoreInfo {
     @PrimaryGeneratedColumn()
-    id!: number
-    
-    @OneToOne(() => Member, (member) => member.id)
-    @JoinColumn({foreignKeyConstraintName: "userId"})
-    user!: Member
+    id!: number       
 
     @Column({ type: 'json', nullable: true })
     education?: {

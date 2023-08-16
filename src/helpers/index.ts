@@ -45,10 +45,13 @@ class Helpers {
     /**
      * Converts a string to a number.
      *
-     * @param {string} str - The string to be converted.
+     *  
      * @return {number} The converted number.
      */
-    StringToNumber(str: string) {
+    CreateOTP(min:number=100000, max:number=999999): number {
+        return  Math.floor(
+            Math.random() * (max - min + 1) + min
+          )
 
     }
     /**

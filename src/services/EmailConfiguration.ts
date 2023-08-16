@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer'
- 
+
 import { MailOptionsInterface } from '../types/index.js';
-import Logging from '../logging/Logging.js'; 
+import Logging from '../logging/Logging.js';
 
 export default class MailService {
     private static instance: MailService;
@@ -30,7 +30,7 @@ export default class MailService {
     private getTransporter() {
         return this.transporter;
     }
-   
+
     //INSTANCE CREATE FOR MAIL
     static getInstance() {
         if (!MailService.instance) {
@@ -44,7 +44,7 @@ export default class MailService {
         return await this.transporter
             .sendMail({
                 from: `${process.env.SENDER_NAME as string} <${process.env.MAIL_USER as string}>`, // sender address
-                to: options.to,                
+                to: options.to,
                 subject: options.subject,
                 text: options.text,
                 html: options.html,
@@ -68,26 +68,20 @@ export default class MailService {
      * @param {MailOptionsInterface} options - The options for the mail.
      * @return {Promise<any>} - A promise that resolves to the information about the sent mail.
      */
-    async TemplateMail(requestId: string | number | string[], options: MailOptionsInterface): Promise<any> {
+    async TemplateMail({ to, subject, html, text, from }: MailOptionsInterface): Promise<any> {
         return await this.transporter
-        .sendMail({
-            from: `${process.env.SENDER_NAME as string} <${process.env.MAIL_USER as string}>`, // sender address
-            to: options.to,           
-            subject: options.subject,
-            text: options.text,
-            html: options.html,
-        })
-        .then((info) => {
-            console.log(info)
-            Logging.info(`${requestId} - Mail sent successfully!!`);
-            Logging.info(`${requestId} - [MailResponse]=${info.response} [MessageID]=${info.messageId}`);
-            if (process.env.NODE_ENV === 'local') {
-                Logging.info(`${requestId} - Nodemailer ethereal URL: ${nodemailer.getTestMessageUrl(
-                    info
-                )}`);
-            }
-            return info;
-        });
+            .sendMail({
+                from: `${from || process.env.SENDER_NAME as string} <${process.env.MAIL_USER as string}>`, // sender address
+                to,
+                subject,
+                text,
+                html,
+            })
+            .then((info) => {
+                Logging.info(` Mail sent successfully to ${to} [MailResponse]=${info.response} [MessageID]=${info.messageId}!!`);
+
+                return info;
+            });
     }
 
 

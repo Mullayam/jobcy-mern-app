@@ -22,18 +22,23 @@ export class Routes {
     private AuthRoutes(): void {
         this.router.post("/login", Authentication.default.Login)
         this.router.post("/register", Authentication.default.Register)
-        // this.router.post("/forget-password", Authentication.default.ForgetPassword)
-        // this.router.get("/token/:id", Authentication.default.RefreshToken)
-        // this.router.get("/current-user/:id", Authentication.default.CurrentUser)
-        // this.router.get("/g/auth", Authentication.default.HandleGoogleAuth)
+        this.router.post("/forget-password", Authentication.default.ForgetPassword)
+        this.router.get("/token/:id", Authentication.default.RefreshToken)
+        this.router.get("/current-user/:id", Authentication.default.CurrentUser)
+        this.router.get("/g/auth", Authentication.default.HandleGoogleAuthCallback)
+     
+       
+    
     }
     /**
-     * A description of the entire function.
+     * All Other Routes which are publicly accessable and required may or may not some of middlewares
      *     
      * @return {void} description of return value
      */
     private PublicRoutes(): void {
-       
+           /** Payment Routes */
+        // this.router.post("/payment/initiate-transaction", Authentication.default.HandleGoogleAuthCallback)
+        // this.router.post("/payment/response", Authentication.default.HandleGoogleAuthCallback)
     }
     /**
      * Initializes the protected routes for the API.

@@ -8,6 +8,9 @@ dependencies:
   '@apollo/server':
     specifier: ^4.9.1
     version: 4.9.1(graphql@16.7.1)
+  '@enjoys/paytm':
+    specifier: ^0.0.2
+    version: 0.0.2
   '@rudderstack/rudder-sdk-node':
     specifier: ^2.0.3
     version: 2.0.3
@@ -292,6 +295,10 @@ packages:
       colorspace: 1.1.4
       enabled: 2.0.0
       kuler: 2.0.0
+    dev: false
+
+  /@enjoys/paytm@0.0.2:
+    resolution: {integrity: sha512-49e7XYWkVJ6y/E8DxJ8Xg6YYIgUB/LQUdSxZCCj8uxNTVXnWWhzpVb5suYkk7sb6V9Ups9o+KmVNbDWvNACtIQ==}
     dev: false
 
   /@graphql-tools/merge@8.4.2(graphql@16.7.1):

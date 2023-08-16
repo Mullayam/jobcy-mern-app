@@ -1,4 +1,4 @@
-export const EmailVerification =(url:string)=> {
+export const EmailVerification =(url:string,GeneratedToken:string)=> {
   const html =`
   <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
@@ -146,7 +146,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
     <td  align="center" style="font-family:'Roboto',Arial,Helvetica,sans-serif;font-size:18px;line-height:32px;font-weight:400;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
         
           <div mc:edit="mc3" >
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi accus antium iste natus. 
+           Please Verify Your Account and get a Verfication Badge from us. This will help you get recognition and easier communication with the recruiters
           </div>
         
     </td>
@@ -167,7 +167,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
             <td align="center" height="60" style="height:60px;">
             <![endif]-->
               
-                <a href="#" mc:edit="mc4"   style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:18px;line-height:28px;font-weight:700;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;padding: 16px 38px 16px 38px;display: inline-block;"><span>SUBSCRIBE NOW</span></a>
+                <a href="" mc:edit="mc4"   style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:18px;line-height:28px;font-weight:700;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;padding: 16px 38px 16px 38px;display: inline-block;"><span>CLICK HERE</span></a>
               
             <!--[if (gte mso 9)|(IE)]>
             </td>
