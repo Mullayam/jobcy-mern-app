@@ -10,10 +10,10 @@ export class CompanyRatings {
     @ManyToOne(type => Companies, company => company.id)
     @JoinColumn()
     @Index()
-    companyId!: any
+    company!: Companies
 
-    @ManyToOne(type => Member, mem => mem.userId)
-    @JoinColumn()
+    @ManyToOne(type => Member, mem => mem.id)
+    @JoinColumn({ foreignKeyConstraintName: "companyRatingsByUser"})
     @Index()
     user!: any
 

@@ -8,12 +8,12 @@ export class JobRatings {
     @PrimaryGeneratedColumn()
     id!: number
     @ManyToOne(type => Jobs, jobs => jobs.id)
-    @JoinColumn()
+    @JoinColumn({name:"jobId", referencedColumnName: "id", foreignKeyConstraintName: "jobRatingsByJob"})
     @Index()
-    jobs!:any
+    jobs!:Jobs
 
-    @ManyToOne(type => Member, mem => mem.userId)
-    @JoinColumn()
+    @ManyToOne(type => Member, mem => mem.id)
+    @JoinColumn({ foreignKeyConstraintName: "jobRatingsByUser"})
     @Index()
     user!: any
 
@@ -27,6 +27,6 @@ export class JobRatings {
     rating!:number
 
     @CreateDateColumn()
-    submittedOn!:Date
+    addedOn!:Date
 
 }

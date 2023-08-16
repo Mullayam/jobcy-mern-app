@@ -5,25 +5,36 @@ import jwt from 'jsonwebtoken'
 import Helpers, { BlacklistedTokens, Tokens } from '../../helpers/index.js'
 import { SECRET_KEY } from '../../middlewares/index.js'
 import { Services } from "../../services/index.js";
-import Utils from '../../utils/index.js' 
+import Utils from '../../utils/index.js'
 import { ForgetPassword } from "../../utils/templates/email/forgot-password.js"
 import { WelcomeMessage } from "../../utils/templates/email/welcome-message.js"
 import MailService from '../../services/EmailConfiguration.js'
 
 import { Member } from '../../factory/entities/user/member.js'
 import { AppDataSource } from '../../DataSource.js'
- 
+import { MoreInfo } from '../../factory/entities/user/moreInfo.js'
+
 const Email = MailService.getInstance()
 
+const UserRepo = AppDataSource.getRepository(Member)
+const UserMoreInfo = AppDataSource.getRepository(MoreInfo)
 class Authentication {
-    async Login(req: Request, res: Response){
+
+    /**
+     * Logs in a user by checking their email and password.
+     *
+     * @param {Request} req - the request object
+     * @param {Response} res - the response object
+     * @return {Promise<void>} - returns a Promise that resolves to void
+     */
+    async Login(req: Request, res: Response): Promise<void> {
         try {
-            
+
             if (!req.body.email || !req.body.password) {
                 throw new Error("Please Provide Email and Password");
             }
             new Member()
-            const isUser = await AppDataSource.manager.findOne(Member,{ where:{email: req.body.email}})
+            const isUser = await AppDataSource.manager.findOne(Member, { where: { email: req.body.email } })
 
             if (!isUser) {
                 throw new Error("User doest not Exist");
@@ -34,7 +45,7 @@ class Authentication {
 
             const Token = jwt.sign({ id: "testID", name: "mullayam" }, SECRET_KEY, { expiresIn: "3600" })
             const RefreshToken = Helpers.CreateRefreshToken()
-            Tokens.set(`${isUser.userId}`, RefreshToken)
+            Tokens.set(`${isUser.id}`, RefreshToken)
             res.cookie("token", Token, { domain: process.env.APP_DOMAIN, expires: new Date(Date.now() + 1000 * 60 * 60 * 24) })
             res.cookie("refresh_token", RefreshToken, { domain: process.env.APP_DOMAIN, expires: new Date(Date.now() + 1000 * 60 * 60 * 24) })
             return JSONResponse.Response(req, res, "Login Successful ,Redirecting...", { User: isUser, Token, RefreshToken }, 200)
@@ -43,40 +54,40 @@ class Authentication {
             return JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
         }
     }
-    // async Register(req: Request, res: Response) {
+    async Register(req: Request, res: Response) {
 
-    //     try {
-    //         // check for errors
-    //         if (!req.body.email || !req.body.password || !req.body.name) {
-    //             throw new Error("Please Provide Email and Password");
-    //         }
-    //         // check user exist or not
-    //         const isUser = await Member.findOne({ where: { email: req.body.email } })
-    //         if (isUser) {
-    //             throw new Error("User Already Exist");
-    //         }
-    //         const userID = Utils.CreateUserID()
-    //         const username = req.body.name.toLowerCase().split(" ")[0] + userID.slice(0, 5)
-    //         const HashedPassword = Utils.HashPassword(req.body.password)
+        try {
+            // check for errors
+            if (!req.body.email || !req.body.password || !req.body.name) {
+                throw new Error("Please Provide Email and Password");
+            }
+            // check user exist or not
+            const isUser = await UserRepo.findOne({ where: { email: req.body.email } })
+            if (isUser) {
+                throw new Error("User Already Exist");
+            } 
+            const userID = Utils.CreateUserID()
+            const username = req.body.name.toLowerCase().split(" ")[0] + userID.slice(0, 5)
+            const HashedPassword = Utils.HashPassword(req.body.password)
 
-    //         // create custom userid
-    //         const UserInfo = { userId: userID, username, fullname: req.body.name, email: req.body.email, password: HashedPassword } // user object
-    //         // await Member.create(UserInfo)
+            // create custom userid
+            const UserInfo = { username, fullname: req.body.name, email: req.body.email, password: HashedPassword } // user object
+            const User = await UserRepo.save(UserInfo)
+            await UserMoreInfo.save(User)
+            // query to insert into database
+            const Token = jwt.sign({ id: User.id, username, type: User.account, profileStatus: User.profileStatus }, SECRET_KEY, { expiresIn: "24h" }) // jwt token sign
+            const RefreshToken = Helpers.CreateRefreshToken() // refresh token
+            Tokens.set(User.id, RefreshToken)
+            res.cookie("token", Token, { domain: process.env.APP_DOMAIN, expires: new Date(Date.now() + 1000 * 60 * 60 * 24) })
+            res.cookie("refresh_token", RefreshToken, { domain: process.env.APP_DOMAIN, expires: new Date(Date.now() + 1000 * 60 * 60 * 24) })
+            return JSONResponse.Response(req, res, "User Register Successully", { Token, RefreshToken }, 200)
+            //      SendEmail(req.body.email, "Reset Password", "Reset Password", "Reset Password")
             
-    //        // query to insert into database
-    //         const Token = jwt.sign({ id: userID, username, }, SECRET_KEY, { expiresIn: "24h" }) // jwt token sign
-    //         const RefreshToken = Helpers.CreateRefreshToken() // refresh token
-    //         Tokens.set(userID, RefreshToken)
-    //         res.cookie("token", Token, { domain: process.env.APP_DOMAIN, expires: new Date(Date.now() + 1000 * 60 * 60 * 24) })
-    //         res.cookie("refresh_token", RefreshToken, { domain: process.env.APP_DOMAIN, expires: new Date(Date.now() + 1000 * 60 * 60 * 24) })
-    //         JSONResponse.Response(req, res, "User Register Successully", { Token, RefreshToken }, 200)
-    //         // await SendEmail(req.body.email, "Reset Password", "Reset Password", "Reset Password")
-    //         return
 
-    //     } catch (error: any) {
-    //         return JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
-    //     }
-    // }
+        } catch (error: any) {
+            return JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
+        }
+    }
     // async ForgetPassword(req: Request, res: Response): Promise<Response | void> {
     //     try {
     //         // check for errors
@@ -97,33 +108,33 @@ class Authentication {
 
     //     }
     // }
-    // RefreshToken(req: Request, res: Response) {
-    //     try {
-    //         if (!req.params.id) {
-    //             throw new Error("Id is Required Parameter");
-    //         }
-    //         if (!req.query.refresh_token) {
-    //             throw new Error("Please Provide Previously Generated Refresh Token");
-    //         }
-    //         if (BlacklistedTokens.includes(req.query.refresh_token as string)) {
-    //             throw new Error("This Token is Already Used in Please Login Again");
-    //         } else {
-    //             if (Tokens.has(req.params.id)) {
-    //                 if (Tokens.get(req.params.id) === req.query.refresh_token) {
-    //                     BlacklistedTokens.push(req.query.refresh_token as string)
-    //                     const RefreshToken = Helpers.HandleRefreshToken(req.params.id)
-    //                     res.cookie("refresh_token", RefreshToken, { expires: new Date(Date.now() + 1000 * 60 * 60 * 24) })
-    //                     return JSONResponse.Response(req, res, "Refresh Token Generated", { message: RefreshToken }, 200)
-    //                 }
-    //             }
-    //             else {
-    //                 throw new Error("There is no Refresh Token Found Please Login Again");
-    //             }
-    //         }
-    //     } catch (error: any) {
-    //         return JSONResponse.Error(req, res, "Something Went Wrong", { message: error.message }, 403)
-    //     }
-    // }
+    RefreshToken(req: Request, res: Response) {
+        try {
+            if (!req.params.id) {
+                throw new Error("Id is Required Parameter");
+            }
+            if (!req.query.refresh_token) {
+                throw new Error("Please Provide Previously Generated Refresh Token");
+            }
+            if (BlacklistedTokens.includes(req.query.refresh_token as string)) {
+                throw new Error("This Token is Already Used in Please Login Again");
+            } else {
+                if (Tokens.has(req.params.id)) {
+                    if (Tokens.get(req.params.id) === req.query.refresh_token) {
+                        BlacklistedTokens.push(req.query.refresh_token as string)
+                        const RefreshToken = Helpers.HandleRefreshToken(req.params.id)
+                        res.cookie("refresh_token", RefreshToken, { expires: new Date(Date.now() + 1000 * 60 * 60 * 24) })
+                        return JSONResponse.Response(req, res, "Refresh Token Generated", { message: RefreshToken }, 200)
+                    }
+                }
+                else {
+                    throw new Error("There is no Refresh Token Found Please Login Again");
+                }
+            }
+        } catch (error: any) {
+            return JSONResponse.Error(req, res, "Something Went Wrong", { message: error.message }, 403)
+        }
+    }
     // async CurrentUser(req: Request, res: Response) {
     //     let isCached = false;
     //     let UserInfo;
@@ -153,7 +164,7 @@ class Authentication {
 
     }
     protected async CheckUserExistorNot(email: string): Promise<any> {
-        return  await AppDataSource.manager.findOne(Member,{ where:{email}})
- 
+        return await AppDataSource.manager.findOne(Member, { where: { email } })
+
     }
 } export default new Authentication()

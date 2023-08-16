@@ -6,7 +6,7 @@ export class Tokens {
     @PrimaryGeneratedColumn()
     id!: number
 
-    @OneToOne(() => Member)
+    @OneToOne(() => Member,(mem)=>mem.id)
     @JoinColumn({name:"userId"})
     @Index()
     user!: Member

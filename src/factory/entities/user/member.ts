@@ -1,9 +1,9 @@
-import { Entity, Column, Index, Unique, OneToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, PrimaryColumn, OneToMany, } from "typeorm"
-
- 
+import { Entity, Column, Index, Unique, JoinColumn, CreateDateColumn, UpdateDateColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 import { MyListings } from "./myListings.js"
 import { Notifications } from "./notifications.js"
- 
+import { AppliedJobs } from "../jobs/appliedJobs.js"
+
+
 
 export enum UserStatus {
     ONLINE = 'online',
@@ -27,14 +27,16 @@ const LocationObject = JSON.stringify({
 @Unique(["email", "username"])
 export class Member {
 
-    @PrimaryColumn()
-    userId!: number
+    @PrimaryGeneratedColumn("uuid")
+    id!: number
 
     @Column({ length: 26, nullable: true })
+    gid?: string
 
+    @Column({ length: 26, nullable: true })
     username?: string
-    @Column({ length: 32, nullable: true })
 
+    @Column({ length: 32, nullable: true })
     fullname?: string
 
     @Column({ length: 32, default: "default.png" })
@@ -47,8 +49,8 @@ export class Member {
     @Column()
     password!: string
 
-    @Column()
-    phone?: boolean
+    @Column({ nullable: true })
+    phone?: number
 
     @Column({
         type: 'simple-json', nullable: true, default: LocationObject
@@ -84,12 +86,22 @@ export class Member {
 
     @UpdateDateColumn()
     updatedDate!: Date
-     
-    @OneToMany(() => MyListings, (myListings) => myListings.user)     
+
+    @OneToMany(() => MyListings, (myListings) => myListings.user)
     myListing!: MyListings[]
 
-   
+
     @OneToMany(() => Notifications, (noti) => noti.user, { nullable: false })
     @JoinColumn()
     notifications!: Notifications[]
+
+    @OneToMany(() => AppliedJobs, (applied_jobs) => applied_jobs.user, { nullable: false })
+    @JoinColumn()
+    appliedJobs!: AppliedJobs[]
+
+    @OneToMany(() => AppliedJobs, (applied_jobs) => applied_jobs.posted_by, { nullable: false })
+    @JoinColumn()
+    appliedJobsPostedBy!: AppliedJobs[]
+
 }
+

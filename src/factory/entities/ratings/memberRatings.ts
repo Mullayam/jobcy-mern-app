@@ -7,15 +7,15 @@ export class MemberRatings {
     @PrimaryGeneratedColumn()
     id!: number
 
-    @ManyToOne(type => Member, mem => mem.userId)
+    @ManyToOne(type => Member, mem => mem.id)
     @JoinColumn()
     @Index()
-    fromUser!:any
+    from!:any // rating by another  to for user
 
-    @ManyToOne(type => Member, mem => mem.userId)
+    @ManyToOne(type => Member, mem => mem.id)
     @JoinColumn()
     @Index()
-    ofUser!:any
+    for!:any // rating for user
 
     @Column()
     subject!:string
@@ -27,6 +27,6 @@ export class MemberRatings {
     rating!:number
 
     @CreateDateColumn()
-    submittedOn!:Date
+    addedOn!:Date
 
 }

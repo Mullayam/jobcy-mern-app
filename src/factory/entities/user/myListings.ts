@@ -20,7 +20,7 @@ export class MyListings {
 
 
     @ManyToOne(() => Member, (member) => member.myListing)
-    @JoinColumn({ name: "userId", foreignKeyConstraintName: "mylisting_userId_fk", referencedColumnName: "userId" })
+    @JoinColumn()
     user!: any
 
 }

@@ -58,8 +58,8 @@ export class Jobs {
     keywords!: string[]
 
 
-    @ManyToOne(type => Member, member => member.userId)
-    @JoinColumn({ name: "userId", referencedColumnName: "userId", foreignKeyConstraintName: "jobs_postedBy" })
+    @ManyToOne(type => Member, member => member.id)
+    @JoinColumn({ foreignKeyConstraintName: "jobs_postedBy" })
     @Index()
     postedBy!: string
 

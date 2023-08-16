@@ -6,8 +6,8 @@ export class MoreInfo {
     @PrimaryGeneratedColumn()
     id!: number
     
-    @OneToOne(() => Member, (member) => member.userId)
-    @JoinColumn({name:"userId",foreignKeyConstraintName: "userId",referencedColumnName: "userId"})
+    @OneToOne(() => Member, (member) => member.id)
+    @JoinColumn({foreignKeyConstraintName: "userId"})
     user!: Member
 
     @Column({ type: 'json', nullable: true })

@@ -9,25 +9,25 @@ export class AppliedJobs {
     @PrimaryGeneratedColumn()
     id!: number
 
-    @ManyToOne(type => Member, mem => mem.userId)
-    @JoinColumn({ name: "userId", referencedColumnName: "userId", foreignKeyConstraintName: "jobAppliedByUser" })
+    @ManyToOne(type => Member, mem => mem.id)
+    @JoinColumn({ foreignKeyConstraintName: "jobAppliedByUser" })
     @Index()
-    user?: Member
+    user?: any
    
     @ManyToOne(type => Jobs, jobs => jobs.id)
     @JoinColumn({ name: "jobId", referencedColumnName: "id", foreignKeyConstraintName: "appliedForJobId" })
     @Index()
-    job?: Jobs[]
+    job?: Jobs
 
-    @ManyToOne(type => Member, mem => mem.userId)
-    @JoinColumn({ name: "postedBy", referencedColumnName: "userId", foreignKeyConstraintName: "jobPostedByUser" })
+    @ManyToOne(type => Member, mem => mem.id)
+    @JoinColumn({  foreignKeyConstraintName: "jobPostedByUser" })
     @Index()
-    posted_by?: string
+    posted_by?: any
 
     @ManyToOne(type => Companies, company =>company.id)
-    @JoinColumn({ name: "companyId", referencedColumnName: "id", foreignKeyConstraintName: "jobRelatedToCompany" })
+    @JoinColumn({ foreignKeyConstraintName: "jobRelatedToCompany" })
     @Index()
-    companyId?: number
+    company?: Companies
 
     @CreateDateColumn()
     appliedOn!: Date

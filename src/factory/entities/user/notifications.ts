@@ -6,8 +6,8 @@ export class Notifications {
     @PrimaryGeneratedColumn()
     id!: number
 
-    @OneToOne(() => Member, (member) => member.userId, { nullable: false })
-    @JoinColumn({name:"userId" ,foreignKeyConstraintName: "notification_userId_fk", referencedColumnName: "userId"})
+    @OneToOne(() => Member, (member) => member.id, { nullable: false })
+    @JoinColumn({foreignKeyConstraintName: "notification_userId_fk",})
     user!: any
 
     @Column()
