@@ -1,9 +1,9 @@
 import express from 'express'
 import JSONResponse from '../services/JSONResponse.js'
-// import { BaseRoutes } from './api/index.js';
+import { BaseRoutes } from './api/index.js';
 import { Authentication } from '../controllers/index.js';
 import { Middlewares } from '../middlewares/index.js';
- 
+
 export class Routes {
     public router: express.Router;
     constructor() {
@@ -26,9 +26,6 @@ export class Routes {
         this.router.get("/token/:id", Authentication.default.RefreshToken)
         this.router.get("/current-user/:id", Authentication.default.CurrentUser)
         this.router.get("/g/auth", Authentication.default.HandleGoogleAuthCallback)
-     
-       
-    
     }
     /**
      * All Other Routes which are publicly accessable and required may or may not some of middlewares
@@ -36,7 +33,7 @@ export class Routes {
      * @return {void} description of return value
      */
     private PublicRoutes(): void {
-           /** Payment Routes */
+        /** Payment Routes */
         // this.router.post("/payment/initiate-transaction", Authentication.default.HandleGoogleAuthCallback)
         // this.router.post("/payment/response", Authentication.default.HandleGoogleAuthCallback)
     }
@@ -49,8 +46,14 @@ export class Routes {
      */
     protected ProtectedRoutes(): void {
         this.router.use(Middlewares.isApiProtected)
-        // this.router.use("/v1", new BaseRoutes(express.Router()).router)
+        this.router.use("/v1", new BaseRoutes(express.Router()).router)
     }
+    /**
+     * Handles unhandled routes by returning a JSON response with a "Not Found" error message.
+     *  
+    
+     * @return {type} void
+     */
     private UnhandledRoutes(): void {
         this.router.use("*", (req, res) => JSONResponse.Response(req, res, "API is Running", { error: "Not Found", code: 404, message: "Unhandled Route" }))
     }

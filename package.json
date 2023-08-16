@@ -6,10 +6,11 @@
   "type": "module",
   "scripts": {
     "build": "tsc && cd frontend && npm run build",
-    "install": "cd dist && pnpm install && node index.js",
+    "install": "cd dist && pnpm install && node index.js && exit 1",
     "prepare": "tsc",
     "dev": "nodemon",
-    "all": "npm run build && npm run install ",
+    "all": "npm run build && npm run install",
+    "create:mig": "typeorm migration:create ./src/factory/migrations/${NAME}",
     "start": "cd dist && node index.js"
   },
   "keywords": [

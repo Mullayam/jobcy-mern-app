@@ -1,16 +1,17 @@
 import { Request, Response } from "express";
-import { presql } from "../../app/conn.js";
+
 import JSONResponse from "../../services/JSONResponse.js";
 import Helpers from "../../helpers/index.js";
+import { JobTypes } from "../../factory/entities/jobs/jobTypes.js";
+import { AppDataSource } from "../../DataSource.js";
 
+
+const JobTypesRepo = AppDataSource.getRepository(JobTypes)
 class BasicController {
    // Get all category from id with total jobs posted in that cateogry
    async GetAllCategoriesWithJobs(req: Request, res: Response) {
       try {
-         const Categories = await presql.buildQuery({
-            query: "SELECT category.id,category.name,category.icon,category.slug,COUNT(jobs.id) as total_jobs  FROM jobs RIGHT JOIN category ON jobs.category_id = category.id GROUP BY category.id",
-            role: "0x00044"
-         })
+         const Categories = await AppDataSource.query("SELECT categories.id,categories.name,categories.icon,categories.slug,COUNT(jobs.id) as total_jobs  FROM jobs RIGHT JOIN categories ON jobs.categoryId = categories.id GROUP BY categories.id")
          JSONResponse.Response(req, res, "Categories", { Categories }, 200)
       } catch (error: any) {
          JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 401)
@@ -20,7 +21,7 @@ class BasicController {
 
    async GetJobTypes(req: Request, res: Response) {
       try {
-         const JobTypeArray = await presql.findMany({ table: "job_types" })
+         const JobTypeArray = await JobTypesRepo.find()
          JSONResponse.Response(req, res, "Job Types", { JobTypeArray }, 200)
       } catch (error: any) {
          JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 401)
@@ -80,26 +81,20 @@ class BasicController {
             const JoinBy = strictMode === "true" ? " AND " : " OR "
             if (typeof id !== "undefined") {
                if (FilterString.length > 1) {
-                  sql = sql + FilterString.join(JoinBy) 
+                  sql = sql + FilterString.join(JoinBy)
                } else {
                   sql = sql + JoinBy + FilterString[0]
                }
             } else {
-               sql = sql + " WHERE " + FilterString.join(JoinBy) 
+               sql = sql + " WHERE " + FilterString.join(JoinBy)
             }
 
-           
+
          }
          sql = sql + offsetStr
          console.log(sql)
-         const Jobs = await presql.buildQuery({
-            query: sql,
-            role: "0x00044"
-         })
-         const countJobs = await presql.buildQuery({
-            query: `SELECT COUNT(jobs.id) as total_jobs FROM jobs`,
-            role: "0x00044"
-         })
+         const Jobs = AppDataSource.query(sql)
+         const countJobs = await AppDataSource.query("SELECT COUNT(jobs.id) as total_jobs FROM jobs")
 
          JSONResponse.Response(req, res, "Jobs", { Jobs, AvailableJobs: countJobs[0].total_jobs }, 200)
       } catch (error: any) {
@@ -112,16 +107,13 @@ class BasicController {
       try {
 
          let sql = `SELECT jobs.id,job_title,logo,min_exp,offered_salary,job_type,job_location,keywords,posted_on,company_id as cid,companies.name as company_name FROM jobs INNER JOIN companies ON jobs.company_id = companies.id WHERE company_id= ${req.params.company_id}  ORDER BY posted_on DESC`
-         const CompanyJobs = await presql.buildQuery({
-            query: sql,
-            role: "0x00044"
-         })
+         const CompanyJobs = await AppDataSource.query(sql)
          JSONResponse.Response(req, res, "Jobs", { CompanyJobs }, 200)
       } catch (error: any) {
          JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 401)
       }
    }
-   
+
 }
 export default new BasicController()
 
