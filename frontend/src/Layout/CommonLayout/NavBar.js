@@ -17,7 +17,7 @@ import { useAuth } from "../../Hooks/useAuthContext";
 import darkLogo from "../../assets/images/logo-dark.png";
 import lightLogo from "../../assets/images/logo-light.png";
 import { SetisLoggedin, SetUser } from "../../Store/Events";
-import { EmptyLocalStorage } from "../../Apis/api.instance";
+import { DeleteAllCookes } from "../../Apis/api.instance";
 
 const NavBar = (props) => {  
   const { Auth ,dispatch} = useAuth(); 
@@ -32,7 +32,7 @@ const NavBar = (props) => {
   //scroll navbar
   const [navClass, setnavClass] = useState(false);
   const HandleLogout = () => {
-    EmptyLocalStorage()
+    DeleteAllCookes()
     dispatch(SetisLoggedin(false));
     dispatch(SetUser(null));
   }

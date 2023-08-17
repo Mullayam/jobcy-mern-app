@@ -13,7 +13,7 @@ export class HttpException {
  * @return {void}
  */
     private ThrowNewException({ name, message, stack }: HttpExceptionParams): void {
-        Logging.error("New Error Thrown")
+        Logging.error(`New ${name.replace(/_/g, " ")} Error Thrown`)
         let error = new Error(message);
         error.name = name;
         error.stack = stack
@@ -34,7 +34,7 @@ export class HttpException {
         res.status(errStatus).send({
             success: false,
             status: errStatus,
-            type: err.name,
+            type: err.name.replace(/_/g, " "),
             message: err.message,
             stack: process.env.NODE_ENV === 'development' ? err.stack : {}
         })

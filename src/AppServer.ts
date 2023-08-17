@@ -1,9 +1,12 @@
+import cors from 'cors'
 import bodyParser from "body-parser";
 import express, { Application, } from 'express'
 import { Routes } from './routers/index.js'
 import { AppModules } from './app/bootstrap.js';
 import Logging from './logging/Logging.js';
 import { ProductionModules } from './services/Production.js';
+import { HttpException } from "./app/libs/HttpException.js";
+import path from 'path';
 
 export class AppServer {
     protected app: Application;
@@ -12,6 +15,7 @@ export class AppServer {
         this.app = express()
         this.PORT = PORT
         this.config()
+        this.InjectDependencies()
         this.InitializeRoutes()
         this.LoadInstances()
     }
@@ -23,6 +27,10 @@ export class AppServer {
      */
     private config(): void {
         Logging.preview("Applying Configuration")
+        this.app.use(cors({
+            origin: '*',
+            methods: ["GET", "PUT", "PATCH", "POST", "DELETE"],
+        }))
         this.app.use(express.json());
         this.app.use(bodyParser.urlencoded({ extended: false }));
     }
@@ -33,6 +41,17 @@ export class AppServer {
     private LoadInstances(): void {
         new AppModules(this.app, express)
         new ProductionModules(this.app)
+    }
+    /**
+     * Injects the dependencies needed for the application.
+     *
+     * @private
+     * @return {void}
+     */
+    private InjectDependencies(): void {
+        Logging.preview("Dependencies Injected")
+        this.app.use("/_static/jobcy/images", express.static(path.join(process.cwd(), 'public', "images")));
+        this.app.use("/_static/jobcy/user/profile", express.static(path.join(process.cwd(), 'public', "uploads")));
     }
     /**
      * Initializes the routes for the application.
@@ -47,10 +66,8 @@ export class AppServer {
      */
     private InitializeRoutes(): void {
         Logging.preview("Routes Mapped")
-        this.app.get('/', (req, res) => {
-            res.status(200).json({ status: true, code: 200, message: "Api is Running Successfully" });
-        })
         this.app.use('/api', new Routes().router)
+        this.app.use('*', () => { throw new HttpException({ name: "NOT_FOUND", message: "Route Not Found", stack: { notice: "Api is Running", api_status_code: 200, info: "Unhandled Route Detected" } }) })
     }
     /**
      * Initializes the app server and starts listening on the specified port.

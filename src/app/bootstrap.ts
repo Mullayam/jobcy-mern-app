@@ -1,4 +1,4 @@
-import cors from 'cors';
+
 import path from 'path';
 import { Application } from 'express'
 import helpers from '../helpers/index.js'
@@ -16,9 +16,8 @@ export class AppModules {
     private express: any
     constructor(app: Application, express: any) {
         this.app = app
-        this.express = express
+        this.express = express         
         this.AppEngine()
-        this.InjectDependencies()
         this.InitializeMiddlewares()
         this.InitializeGraphQlServer()
         this.TypeORM_Datasource()
@@ -69,23 +68,7 @@ export class AppModules {
                 console.log(error)
             })
     }
-    /**
-     * Injects the dependencies needed for the application.
-     *
-     * @private
-     * @return {void}
-     */
-    private InjectDependencies(): void {
-        Logging.preview("Dependencies Injected")
-        this.app.use(cors({
-            origin: '*',
-            methods: ["GET", "PUT", "PATCH", "POST", "DELETE"],
-        }))
-        this.app.use("/_static/jobcy/images", this.express.static(path.join(process.cwd(), 'public', "images")));
-        this.app.use("/_static/jobcy/user/profile", this.express.static(path.join(process.cwd(), 'public', "uploads")));
-
-
-    }
+    
     /**
      * Initializes the AppEngine.
      *
@@ -93,7 +76,7 @@ export class AppModules {
      */
     private AppEngine() {
         new Engine()
-        new UnprotectedRoutes().router
+        this.app.use(new UnprotectedRoutes().router)
     }
     /**
      * Initialize the middlewares for the application.
@@ -106,10 +89,10 @@ export class AppModules {
         this.app.get('/first', (req, res) => {
             res.status(200).json({ status: true, APP_KEY: helpers.generateToken(), message: "APP KEY/SECRET Generated Successfully, Go to .env file and add APP_KEY, Restart Server" });
         })
-        this.app.use(Middlewares.MiddlewareFunction);
         if (process.env.APP_ENV === "PRODUCTION") {
             this.app.use(this.express.static(path.join(process.cwd(), 'frontend', "build")));
         }
+        this.app.use(Middlewares.MiddlewareFunction);
     }
     /**
      * Defines the routes for third-party authentication.

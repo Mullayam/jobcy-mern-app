@@ -76,7 +76,7 @@ export interface HttpStatusName {
 export interface HttpExceptionParams {
     name: keyof HttpStatusCodes;
     message: string;
-    stack?: string
+    stack?: string |any
 }
 export type HttpStatusCodes = {
     "FOUND": 302,

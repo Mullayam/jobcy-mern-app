@@ -14,6 +14,7 @@ import { MoreInfo } from '../../factory/entities/user/moreInfo.js'
 import { CacheService } from '../../app/modules/cache.js'
 import { EmailVerification } from '../../utils/templates/email/email-verification.js'
 
+const ExpiresIn = process.env.JWT_EXPIRES
 const Email = MailService.getInstance()
 const UserRepo = AppDataSource.getRepository(Member)
 const UserMoreInfo = AppDataSource.getRepository(MoreInfo)
@@ -45,12 +46,13 @@ class Authentication {
             // if (isUser.status === 0) {
             //     throw new Error("Your Email is not Verified, Please Verify Your Email");
             // }
-            const Token = jwt.sign({ id: "testID", name: "mullayam" }, SECRET_KEY, { expiresIn: "3600" })
+            const LoginInfo = { id: isUser.id, name: isUser.fullname, username: isUser.username, avatar: isUser.image, type: isUser.account, profileStatus: isUser.profileStatus }
+            const Token = jwt.sign(LoginInfo, SECRET_KEY, { expiresIn: ExpiresIn })
             const RefreshToken = Helpers.HandleRefreshToken(isUser.id)
 
             res.cookie("token", Token, { domain: process.env.APP_DOMAIN, expires: new Date(Date.now() + 1000 * 60 * 60 * 24) })
             res.cookie("refresh_token", RefreshToken, { domain: process.env.APP_DOMAIN, expires: new Date(Date.now() + 1000 * 60 * 60 * 24) })
-            return JSONResponse.Response(req, res, "Login Successful ,Redirecting...", { User: isUser, Token, RefreshToken }, 200)
+            return JSONResponse.Response(req, res, "Login Successful ,Redirecting...", { User: LoginInfo, Token, RefreshToken }, 200)
 
         } catch (error: any) {
             return JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
@@ -85,16 +87,19 @@ class Authentication {
             const CurrentInfo = await UserMoreInfo.save(Inof)
             const UserInfo = { username, fullname: req.body.name, email: req.body.email, password: HashedPassword, moreInfo: CurrentInfo } // user object
             const CreatUser = await UserRepo.save(UserInfo)
-
+            const LoginInfo = {
+                id: CreatUser.id,
+                name: CreatUser.fullname, username: CreatUser.username, avatar: CreatUser.image,
+                type: CreatUser.account, profileStatus: CreatUser.profileStatus
+            }
             // query to insert into database
-            const Token = jwt.sign({ id: CreatUser.id, username, type: CreatUser.account, profileStatus: CreatUser.profileStatus }, SECRET_KEY, { expiresIn: "24h" }) // jwt token sign
+            const Token = jwt.sign(LoginInfo, SECRET_KEY, { expiresIn: ExpiresIn })// jwt token sign
             const RefreshToken = Helpers.HandleRefreshToken(User.id) // refresh token
-
             res.cookie("token", Token, { domain: process.env.APP_DOMAIN, expires: new Date(Date.now() + 1000 * 60 * 60 * 24) })
             res.cookie("refresh_token", RefreshToken, { domain: process.env.APP_DOMAIN, expires: new Date(Date.now() + 1000 * 60 * 60 * 24) })
             const WelcomeMsg = WelcomeMessage("http://localhost:7132/_static/jobcy/images", username)
             Email.TemplateMail({ to: req.body.email, subject: "Account Created", html: WelcomeMsg, text: "", from: "Account Jobcy" })
-            return JSONResponse.Response(req, res, "User Register Successully", { Token, RefreshToken }, 200)
+            return JSONResponse.Response(req, res, "User Register Successully", { User: LoginInfo, Token, RefreshToken }, 200)
 
         } catch (error: any) {
             return JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 200)
@@ -135,7 +140,7 @@ class Authentication {
      * @param {Response} res - The response object.
      * @return {void}
      */
-    RefreshToken(req: Request, res: Response): void {
+    async RefreshToken(req: Request, res: Response): Promise<void> {
         const Tokens = Helpers.getAllTokens()
         const BlacklistedTokens = Helpers.AllBlacklistedTokens()
         try {
@@ -153,7 +158,10 @@ class Authentication {
                         BlacklistedTokens.push(req.query.refresh_token as string)
                         const RefreshToken = Helpers.HandleRefreshToken(req.params.id)
                         res.cookie("refresh_token", RefreshToken, { expires: new Date(Date.now() + 1000 * 60 * 60 * 24) })
-                        return JSONResponse.Response(req, res, "Refresh Token Generated", { message: RefreshToken }, 200)
+                        const isUser = await UserRepo.findOneBy({ username: req.params.id }) as Member
+                        const LoginInfo = { id: isUser.id, name: isUser.fullname, username: isUser.username, avatar: isUser.image, type: isUser.account, profileStatus: isUser.profileStatus }
+                        const Token = jwt.sign(LoginInfo, SECRET_KEY, { expiresIn: ExpiresIn }) // jwt token sign           
+                        return JSONResponse.Response(req, res, "Refresh Token Generated", { refresh_token:RefreshToken,token:Token }, 200)
                     }
                     throw new Error("Token checksum info is mismatched")
                 }
@@ -275,7 +283,22 @@ class Authentication {
     protected async CheckUserExistorNot(email: string): Promise<Member | null> {
         return await UserRepo.findOne({ where: { email } })
     }
-    private NewToken(): string {
+    /**
+     * Generates a new token to reset password.
+     *
+     * @return {string} The generated token.
+     */
+    protected NewToken(): string {
         return Helpers.generateToken().toString()
+    }
+    /**
+     * Generates a signed JWT token for the given login information.
+     *
+     * @param {any} LoginInfo - The login information to be used for generating the token.
+     * @return {string} The generated JWT token.
+     */
+    protected TokenSignJWT(LoginInfo:any): string {
+         
+        return jwt.sign(LoginInfo, SECRET_KEY, { expiresIn: ExpiresIn })
     }
 } export default new Authentication()

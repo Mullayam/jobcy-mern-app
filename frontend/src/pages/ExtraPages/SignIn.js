@@ -1,4 +1,4 @@
-import React, {  useReducer, useState } from "react";
+import React, { useReducer, useState } from "react";
 import { Card, CardBody, Col, Container, Input, Row } from "reactstrap";
 import { toast } from "react-toastify";
 //Import Image
@@ -9,7 +9,7 @@ import signInImage from "../../assets/images/auth/sign-in.png";
 import { Link, useNavigate } from "react-router-dom";
 import { Login } from "../../Apis/apiCore";
 import GoogleLoginButton from "../../components/Shared/GoogleLoginButton";
-import { setTokenToLocalStorage } from "../../Apis/api.instance";
+import { SetUserCookies } from "../../Apis/api.instance";
 import { SetUser, SetisLoggedin } from "../../Store/Events";
 import { AuthReducer, AuthInitialState } from "../../Store";
 
@@ -19,7 +19,7 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const redirect = useNavigate();
   const [Auth, dispatch] = useReducer(AuthReducer, AuthInitialState);
-   
+
   const handleSubmitLogin = async () => {
     if (email === "") {
       return toast.error("Please Enter Email Address");
@@ -33,15 +33,16 @@ const SignIn = () => {
       return toast.error(data.data.error);
     }
     toast.success(data.message);
+    SetUserCookies(data.data.Token, data.data.RefreshToken, data.data.User);
     dispatch(SetisLoggedin(true));
     dispatch(SetUser(data.User));
-    setTokenToLocalStorage(
-      data.data.Token,
-      data.data.RefreshToken,
-      data.data.User
-    );
+    // setTokenToLocalStorage(
+    //   data.data.Token,
+    //   data.data.RefreshToken,
+    //   data.data.User
+    // );
     return redirect("/");
-  }; 
+  };
   return (
     <React.Fragment>
       <div>
