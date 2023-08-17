@@ -3,13 +3,12 @@ import JSONResponse from '../services/JSONResponse.js'
 import { BaseRoutes } from './api/index.js';
 import { Authentication } from '../controllers/index.js';
 import { Middlewares } from '../middlewares/index.js';
-
+ 
 export class Routes {
     public router: express.Router;
     constructor() {
         this.router = express.Router();
-        this.AuthRoutes();
-        this.PublicRoutes();
+        this.AuthRoutes();        
         this.ProtectedRoutes();
         this.UnhandledRoutes();
     }
@@ -25,18 +24,15 @@ export class Routes {
         this.router.post("/forget-password", Authentication.default.ForgetPassword)
         this.router.get("/token/:id", Authentication.default.RefreshToken)
         this.router.get("/current-user/:id", Authentication.default.CurrentUser)
-        this.router.get("/g/auth", Authentication.default.HandleGoogleAuthCallback)
+        
     }
+    
     /**
      * All Other Routes which are publicly accessable and required may or may not some of middlewares
      *     
      * @return {void} description of return value
      */
-    private PublicRoutes(): void {
-        /** Payment Routes */
-        // this.router.post("/payment/initiate-transaction", Authentication.default.HandleGoogleAuthCallback)
-        // this.router.post("/payment/response", Authentication.default.HandleGoogleAuthCallback)
-    }
+   
     /**
      * Initializes the protected routes for the API.
      *

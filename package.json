@@ -10,7 +10,9 @@
     "prepare": "tsc",
     "dev": "nodemon",
     "all": "npm run build && npm run install",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "create:mig": "typeorm migration:create ./src/factory/migrations/${NAME}",
+    "run:mig": "npm run typeorm --  --dataSource=src/DataSource.ts migration:run",
     "start": "cd dist && node index.js"
   },
   "keywords": [

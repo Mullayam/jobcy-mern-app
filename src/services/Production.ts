@@ -24,9 +24,8 @@ export class ProductionModules {
     }
     /**
      * Creates a redirect route if the application environment is set to "PRODUCTION".
-     *
-     * @param {type} paramName - description of parameter
-     * @return {type} description of return value
+     *      
+     * @return {void} description of return value
      */
     protected RedirectRoute() {
         if (process.env.APP_ENV === "PRODUCTION") {
@@ -34,7 +33,7 @@ export class ProductionModules {
                 const pathname = url.parse(req.url).pathname as string;
                 const myUrlWithParams = new URL(process.env.APP_URL as string);
                 myUrlWithParams.searchParams.append("redirect_uri", pathname);
-                res.redirect(`/${myUrlWithParams.search}`);
+                res.redirect(`/${pathname}`);
             });
         }
     }

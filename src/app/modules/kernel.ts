@@ -19,7 +19,7 @@ export class Kernel {
      *
      * This function is private and does not take any parameters or return any value.
      */
-    private InitiaitePaytmInstance() {
+     InitiaitePaytmInstance() {
         Kernel.paytm = new PaytmConfig(this._PrepareEnvironment())
         return this
     }

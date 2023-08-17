@@ -1,6 +1,6 @@
 import bodyParser from "body-parser";
 import express, { Application, } from 'express'
-import { Routes } from './routers/index.js' 
+import { Routes } from './routers/index.js'
 import { AppModules } from './app/bootstrap.js';
 import Logging from './logging/Logging.js';
 import { ProductionModules } from './services/Production.js';
@@ -33,7 +33,6 @@ export class AppServer {
     private LoadInstances(): void {
         new AppModules(this.app, express)
         new ProductionModules(this.app)
-       
     }
     /**
      * Initializes the routes for the application.
@@ -48,7 +47,7 @@ export class AppServer {
      */
     private InitializeRoutes(): void {
         Logging.preview("Routes Mapped")
-        this.app.get('/', (req, res) => {            
+        this.app.get('/', (req, res) => {
             res.status(200).json({ status: true, code: 200, message: "Api is Running Successfully" });
         })
         this.app.use('/api', new Routes().router)
