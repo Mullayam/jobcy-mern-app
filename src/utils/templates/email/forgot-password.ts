@@ -1,4 +1,4 @@
-export const ForgetPassword=(url: string,token:string) =>{
+export const ForgetPassword=(url: string,ResetPassURL:string) =>{
   const html=`<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
   <head>
@@ -166,7 +166,7 @@ export const ForgetPassword=(url: string,token:string) =>{
               <td align="center" height="60" style="height:60px;">
               <![endif]-->
                 
-                  <a href="${url}/reset-password/${token}" mc:edit="mc4"   style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:18px;line-height:28px;font-weight:700;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;padding: 16px 38px 16px 38px;display: inline-block;"><span>RESET YOUR PASSWORD</span></a>
+                  <a href="${ResetPassURL}" mc:edit="mc4"   style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:18px;line-height:28px;font-weight:700;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;padding: 16px 38px 16px 38px;display: inline-block;"><span>RESET YOUR PASSWORD</span></a>
                 
               <!--[if (gte mso 9)|(IE)]>
               </td>

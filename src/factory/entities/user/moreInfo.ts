@@ -1,32 +1,31 @@
-import { Entity, Column, UpdateDateColumn, PrimaryGeneratedColumn, Index, JoinColumn, OneToOne } from "typeorm"
- 
+import { Entity, Column, UpdateDateColumn, PrimaryGeneratedColumn } from "typeorm"
 
 @Entity("more_info")
 export class MoreInfo {
     @PrimaryGeneratedColumn()
     id!: number       
 
-    @Column({ type: 'json', nullable: true })
+    @Column({ type: 'simple-json', nullable: true })
     education?: {
         [key: string]: {
             [key: string]: string
         }
     }
-    @Column({ type: 'json', nullable: true })
+    @Column({ type: 'simple-json', nullable: true })
     experiences?: {
         [key: string]: {
             [key: string]: string
         }
     }
 
-    @Column({ type: 'json', nullable: true })
+    @Column({ type: 'simple-json', nullable: true })
     projects?: {
         [key: string]: {
             [key: string]: string
         }
     }
 
-    @Column({ type: 'json', nullable: true })
+    @Column({ type: 'simple-json', nullable: true })
     cv?: {
         [key: string]: {
             [key: string]: string

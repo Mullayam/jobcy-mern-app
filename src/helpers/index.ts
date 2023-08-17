@@ -1,7 +1,7 @@
 import * as crypto from "crypto"
 import moment from "moment";
-export let Tokens = new Map();
-export let BlacklistedTokens: string[] = [];
+ let Tokens = new Map();
+ let BlacklistedTokens: string[] = [];
 class Helpers {
 
     /**
@@ -19,8 +19,41 @@ class Helpers {
      * @param {number} byteLength - The length of the refresh token in bytes. Defaults to 32.
      * @return {string} - The generated refresh token.
      */
-    CreateRefreshToken(byteLength: number = 32): string {
+    private CreateRefreshToken(byteLength: number = 32): string {
         return crypto.randomBytes(byteLength).toString("base64")
+    }
+    /**
+     * Sets the tokens for the given ID and value.
+     *
+     * @param {string | number} id - The ID of the token.
+     * @param {string} value - The value of the token.
+     * @return {Map<string, string>} - The updated map of tokens.
+     */
+    setTokens(id: string | number, value: string): Map<string, string> {
+        id = id.toString()
+        Tokens.set(id, value)
+        return Tokens
+    }
+    /**
+     * Retrieves all tokens.
+     *
+     * @return {Map<string, string>} A map containing all tokens.
+     */
+    getAllTokens(): Map<string, string> {
+        return Tokens
+    }
+    /**
+     * Retrieves the value associated with the provided key from the Tokens map.
+     *
+     * @param {string | number} key - The key used to retrieve the value from the Tokens map.
+     * @return {string} The value associated with the provided key.
+     */
+    getTokenValue(key: string|number): string{
+        key = key.toString()
+        return Tokens.get(key)
+    }
+    AllBlacklistedTokens(): string[]{
+        return BlacklistedTokens
     }
     /**
      * Generates a random request ID with the specified byte length.
@@ -37,7 +70,8 @@ class Helpers {
      * @param {string} id - The ID of the user for whom the refresh token is generated.
      * @return {string} - The newly generated refresh token.
      */
-    HandleRefreshToken(id: string): string {
+    HandleRefreshToken(id: string | number): string {
+        id = id.toString()
         const RefreshToken = this.CreateRefreshToken()
         Tokens.set(id, RefreshToken)
         return RefreshToken
@@ -48,10 +82,10 @@ class Helpers {
      *  
      * @return {number} The converted number.
      */
-    CreateOTP(min:number=100000, max:number=999999): number {
-        return  Math.floor(
+    CreateOTP(min: number = 100000, max: number = 999999): number {
+        return Math.floor(
             Math.random() * (max - min + 1) + min
-          )
+        )
 
     }
     /**
