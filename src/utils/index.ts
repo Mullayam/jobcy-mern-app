@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-
+import {CacheService} from '../app/modules/cache.js'
 const saltRounds = 10;
 const salt = bcrypt.genSaltSync(saltRounds);
 
@@ -44,7 +44,11 @@ class Utils {
         return Math.floor(
             Math.random() * (max - min + 1) + min
         )
-
+    }
+    FromCache(key: string): any {
+        
+        CacheService.set(key, "hello")
+        return 
     }
 }
 export default new Utils()

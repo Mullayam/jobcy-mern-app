@@ -1,4 +1,1 @@
- 
-export class Disk {
-     
-}
+export class Disk {}

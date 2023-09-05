@@ -41,8 +41,8 @@ export class Routes {
      * @return {void}
      */
     protected ProtectedRoutes(): void {
-        this.router.use(Middlewares.isApiProtected)
-        this.router.use("/v1", new BaseRoutes(express.Router()).router)
+        // this.router.use(Middlewares.isApiProtected)
+        this.router.use("/v1", new BaseRoutes(this.router).router)
     }
     /**
      * Handles unhandled routes by returning a JSON response with a "Not Found" error message.

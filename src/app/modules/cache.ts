@@ -2,9 +2,9 @@ import redis, { RedisClientType } from "redis";
 import Logging from "../../logging/Logging.js";
 
 export class CacheService {
-    public cache: RedisClientType
+    public static cache: RedisClientType
     constructor() {
-        this.cache = redis.createClient({
+        CacheService.cache = redis.createClient({
             password: 'l9GNnvy8Yo0tJFuoJcW2LZHb6itLqcZl',
             socket: {
                 host: 'redis-19063.c212.ap-south-1-1.ec2.cloud.redislabs.com',
@@ -21,7 +21,7 @@ export class CacheService {
      * @return {void}
      */
     private async ConnectRedisClient(): Promise<void> {
-        await this.cache.connect().then(() => Logging.info(`Redis Connected Successfully`)).catch((error: any) => Logging.error(`Error : ${error}`));
+        await CacheService.cache.connect().then(() => Logging.info(`Redis Connected Successfully`)).catch((error: any) => Logging.error(`Error : ${error}`));
     }
     /**
      * Deletes the cache.
@@ -29,7 +29,7 @@ export class CacheService {
      * @return {void} 
      */
     private DeleteCache(): void {
-        this.cache.flushAll();
+        CacheService.cache.flushAll();
     }
     /**
      * Sets a value in the cache with an optional expiration time.
@@ -44,7 +44,7 @@ export class CacheService {
         if (expiresIn !== 0) {
             EX = expiresIn
         }
-        return this.prototype.cache.set(key, value, { EX });
+        return this.cache.set(key, value, { EX });
     }
     /**
      * Retrieves a value from the cache based on the specified key.
@@ -53,7 +53,7 @@ export class CacheService {
      * @return {any} The value associated with the specified key.
      */
     public static get(key: string): any {
-        return this.prototype.cache.get(key);
+        return this.cache.get(key);
     }
     /**
      * Clears all cache.
@@ -69,6 +69,6 @@ export class CacheService {
      * @param {string} hashKey - The hash key to clear the cache for.
      */
     clearHash(hashKey: string) {
-        this.cache.del(JSON.stringify(hashKey));
+        CacheService.cache.del(JSON.stringify(hashKey));
     }
 }

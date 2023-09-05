@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert, CreateDateColumn, Index, ManyToOne, JoinColumn } from "typeorm"
+import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert, CreateDateColumn, Index, ManyToOne, JoinColumn, Relation } from "typeorm"
 import Helpers from "../../../helpers/index.js"
 import { Member } from "../user/member.js"
 import { Categories } from "../cateogory/cateogories.js"
@@ -7,9 +7,9 @@ import { Companies } from "../company/companies.js"
 export class Jobs {
     @PrimaryGeneratedColumn() id!: number
 
-    @ManyToOne(type => Categories, category => category.id)
-    @JoinColumn({ name: "categoryId", referencedColumnName: "id", foreignKeyConstraintName: "job_categories" })   
-    category!: string
+    @ManyToOne(type => Categories, category => category.jobs)    
+    // @JoinColumn({ name: "categoryId", referencedColumnName: "id", foreignKeyConstraintName: "job_categories" })   
+    category!: Relation<Categories>
 
     @Column()
     jobTitle!: string
@@ -61,7 +61,7 @@ export class Jobs {
     @ManyToOne(type => Member, member => member.id)
     @JoinColumn({ foreignKeyConstraintName: "jobs_postedBy" })
     @Index()
-    postedBy!: string
+    postedBy!: Relation<Member>
 
     @CreateDateColumn()
     postedOn!: Date
@@ -70,7 +70,7 @@ export class Jobs {
     @ManyToOne(type => Companies, companies => companies.id)
     @JoinColumn({ name: "companyId", referencedColumnName: "id", foreignKeyConstraintName: "jobRelatedCompany" })
     @Index()
-    companyId!: string
+    company!: Relation<Companies>
 
     @BeforeInsert()
     generateSlug() {

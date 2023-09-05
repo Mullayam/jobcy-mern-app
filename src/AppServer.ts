@@ -27,10 +27,7 @@ export class AppServer {
      */
     private config(): void {
         Logging.preview("Applying Configuration")
-        this.app.use(cors({
-            origin: '*',
-            methods: ["GET", "PUT", "PATCH", "POST", "DELETE"],
-        }))
+        new AppModules(this.app, express)       
         this.app.use(express.json());
         this.app.use(bodyParser.urlencoded({ extended: false }));
     }
@@ -39,7 +36,7 @@ export class AppServer {
      * Loads the instances of the AppModules and ProductionModules.
      */
     private LoadInstances(): void {
-        new AppModules(this.app, express)
+        
         new ProductionModules(this.app)
     }
     /**

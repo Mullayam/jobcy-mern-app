@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert, CreateDateColumn,ManyToOne,JoinColumn,Index } from "typeorm"
+import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert, CreateDateColumn,ManyToOne,JoinColumn,Index, Relation } from "typeorm"
 import { Jobs } from "./jobs.js"
 import { Member } from "../user/member.js"
 import { Companies } from "../company/companies.js"
@@ -12,22 +12,22 @@ export class AppliedJobs {
     @ManyToOne(type => Member, mem => mem.id)
     @JoinColumn({ foreignKeyConstraintName: "jobAppliedByUser" })
     @Index()
-    user?: any
+    user?: Relation<Member>
    
     @ManyToOne(type => Jobs, jobs => jobs.id)
     @JoinColumn({ name: "jobId", referencedColumnName: "id", foreignKeyConstraintName: "appliedForJobId" })
     @Index()
-    job?: Jobs
+    job?: Relation<Jobs>
 
-    @ManyToOne(type => Member, mem => mem.id)
+    @ManyToOne(type => Member, mem => mem.appliedJobs)
     @JoinColumn({  foreignKeyConstraintName: "jobPostedByUser" })
     @Index()
-    posted_by?: any
+    postedByUser?:  Relation<Member>
 
     @ManyToOne(type => Companies, company =>company.id)
     @JoinColumn({ foreignKeyConstraintName: "jobRelatedToCompany" })
     @Index()
-    company?: Companies
+    company?: Relation<Companies>
 
     @CreateDateColumn()
     appliedOn!: Date

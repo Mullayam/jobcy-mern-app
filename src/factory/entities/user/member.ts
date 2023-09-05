@@ -47,7 +47,7 @@ export class Member {
     @Index()
     email!: string
 
-    @Column()
+    @Column({select:false})
     password!: string
 
     @Column({ nullable: true })
@@ -88,8 +88,7 @@ export class Member {
     @UpdateDateColumn()
     updatedDate!: Date
 
-    @OneToOne(() => MoreInfo, (mem_info) => mem_info.id)
-    @JoinColumn()
+    @OneToOne(() => MoreInfo, (mem_info) => mem_info.member)
     moreInfo!: MoreInfo
 
     @OneToMany(() => MyListings, (myListings) => myListings.user)
@@ -104,7 +103,7 @@ export class Member {
     @JoinColumn()
     appliedJobs!: AppliedJobs[]
 
-    @OneToMany(() => AppliedJobs, (applied_jobs) => applied_jobs.posted_by, { nullable: false })
+    @OneToMany(() => AppliedJobs, (applied_jobs) => applied_jobs.postedByUser, { nullable: false })
     @JoinColumn()
     appliedJobsPostedBy!: AppliedJobs[]
 

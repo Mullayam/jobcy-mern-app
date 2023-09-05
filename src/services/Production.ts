@@ -27,7 +27,7 @@ export class ProductionModules {
      *      
      * @return {void} description of return value
      */
-    protected RedirectRoute() {
+    protected RedirectRoute():void {
         if (process.env.APP_ENV === "PRODUCTION") {
             this.app.use("*", (req, res) => {
                 const pathname = url.parse(req.url).pathname as string;

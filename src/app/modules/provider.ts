@@ -39,6 +39,7 @@ export class Providers {
         authProvider = authProvider.toLowerCase() as AuthProvidersList
         return scopes[authProvider as keyof typeof scopes]
     }
+    
     /**
      * Generates the Google authentication URL.
      *

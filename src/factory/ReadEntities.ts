@@ -15,5 +15,5 @@ import { Tokens } from "./entities/user/tokens.js";
 const JOBS = [Jobs, JobTypes, JobRatings, AppliedJobs]
 const COMPANY = [Companies, CompanyRatings]
 const CATEGORY = [Categories]
-const USER = [Member, MoreInfo, Tokens, MyListings, Notifications, MemberRatings,];
+const USER = [Member, MoreInfo, Tokens, MyListings, Notifications, MemberRatings];
 export const Entities = [...USER,...CATEGORY,...JOBS,...COMPANY];

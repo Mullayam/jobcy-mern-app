@@ -77,16 +77,14 @@ class Authentication {
             if (isUser) {
                 throw new Error("User Already Exist");
             }
-            const userID = Utils.CreateUserID()
-            const username = req.body.name.toLowerCase().split(" ")[0] + userID.slice(0, 5)
+
+            const username = req.body.name.toLowerCase().split(" ")[0] + Utils.CreateUserID().slice(0, 5)
             const HashedPassword = Utils.HashPassword(req.body.password)
 
-            // create custom userid
-            const Inof = new MoreInfo()
-            const User = new Member()
-            const CurrentInfo = await UserMoreInfo.save(Inof)
-            const UserInfo = { username, fullname: req.body.name, email: req.body.email, password: HashedPassword, moreInfo: CurrentInfo } // user object
+            // create custom userid 
+            const UserInfo = { username, fullname: req.body.name, email: req.body.email, password: HashedPassword } // user object
             const CreatUser = await UserRepo.save(UserInfo)
+            await UserMoreInfo.save({ member: CreatUser })
             const LoginInfo = {
                 id: CreatUser.id,
                 name: CreatUser.fullname, username: CreatUser.username, avatar: CreatUser.image,
@@ -94,9 +92,7 @@ class Authentication {
             }
             // query to insert into database
             const Token = jwt.sign(LoginInfo, SECRET_KEY, { expiresIn: ExpiresIn })// jwt token sign
-            const RefreshToken = Helpers.HandleRefreshToken(User.id) // refresh token
-            res.cookie("token", Token, { domain: process.env.APP_DOMAIN, expires: new Date(Date.now() + 1000 * 60 * 60 * 24) })
-            res.cookie("refresh_token", RefreshToken, { domain: process.env.APP_DOMAIN, expires: new Date(Date.now() + 1000 * 60 * 60 * 24) })
+            const RefreshToken = Helpers.HandleRefreshToken(LoginInfo.id) // refresh token
             const WelcomeMsg = WelcomeMessage("http://localhost:7132/_static/jobcy/images", username)
             Email.TemplateMail({ to: req.body.email, subject: "Account Created", html: WelcomeMsg, text: "", from: "Account Jobcy" })
             return JSONResponse.Response(req, res, "User Register Successully", { User: LoginInfo, Token, RefreshToken }, 200)
@@ -161,7 +157,7 @@ class Authentication {
                         const isUser = await UserRepo.findOneBy({ username: req.params.id }) as Member
                         const LoginInfo = { id: isUser.id, name: isUser.fullname, username: isUser.username, avatar: isUser.image, type: isUser.account, profileStatus: isUser.profileStatus }
                         const Token = jwt.sign(LoginInfo, SECRET_KEY, { expiresIn: ExpiresIn }) // jwt token sign           
-                        return JSONResponse.Response(req, res, "Refresh Token Generated", { refresh_token:RefreshToken,token:Token }, 200)
+                        return JSONResponse.Response(req, res, "Refresh Token Generated", { refresh_token: RefreshToken, token: Token }, 200)
                     }
                     throw new Error("Token checksum info is mismatched")
                 }
@@ -185,9 +181,9 @@ class Authentication {
         let isCached = false;
         let UserInfo;
         const id = req.params.id
-        const cache = new CacheService().cache
+
         try {
-            const cacheResults = await cache.get(id)
+            const cacheResults = await CacheService.cache.get(id)
             if (cacheResults) {
                 isCached = true;
                 UserInfo = JSON.parse(cacheResults);
@@ -195,7 +191,7 @@ class Authentication {
                 UserInfo = await UserRepo.findOneBy({
                     id: Number(id)
                 })
-                cache.set(id, JSON.stringify(UserInfo), {
+                CacheService.cache.set(id, JSON.stringify(UserInfo), {
                     EX: 180,
                     NX: true,
                 })
@@ -297,8 +293,8 @@ class Authentication {
      * @param {any} LoginInfo - The login information to be used for generating the token.
      * @return {string} The generated JWT token.
      */
-    protected TokenSignJWT(LoginInfo:any): string {
-         
+    protected TokenSignJWT(LoginInfo: any): string {
+
         return jwt.sign(LoginInfo, SECRET_KEY, { expiresIn: ExpiresIn })
     }
 } export default new Authentication()

@@ -1,9 +1,15 @@
-import { Entity, Column, UpdateDateColumn, PrimaryGeneratedColumn } from "typeorm"
+import { Entity, Column, UpdateDateColumn, PrimaryGeneratedColumn, OneToOne, JoinColumn, Relation } from "typeorm"
+import { Member } from "./member.js"
 
 @Entity("more_info")
 export class MoreInfo {
     @PrimaryGeneratedColumn()
-    id!: number       
+    id!: number
+
+
+    @OneToOne(() => Member, (mem) => mem.moreInfo, { onDelete: "CASCADE" })
+    @JoinColumn()
+    member!: Relation<Member>
 
     @Column({ type: 'simple-json', nullable: true })
     education?: {

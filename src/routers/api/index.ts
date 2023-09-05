@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { Middlewares } from '../../middlewares/index.js';
-import { Basic,   } from '../../controllers/index.js';
+import { Basic,Jobs,Company } from '../../controllers/index.js';
 import fileUpload from "express-fileupload"
 
 export class BaseRoutes {
@@ -16,27 +16,26 @@ export class BaseRoutes {
         this.router.get("/all/categories", Basic.default.GetAllCategoriesWithJobs)
 /* Company Routes */       
        
-//         this.router.get("/get-companies", Company.default.GetAllCompaniesWithJobs)
-//         this.router.route("/company/:id")
-//             .get(Company.default.GetCompany)
-//             .put(Company.default.UpdateCompany)
-//             .delete(Company.default.DeleteCompant)
+        this.router.get("/get-companies", Company.default.GetAllCompaniesWithJobs)
+        this.router.route("/company/:id")
+            .get(Company.default.GetCompany)
+            .put(Company.default.UpdateCompany)
+            .delete(Company.default.DeleteCompant)
 //         this.router.post("/add-company", Company.default.AddNewCompany)
 // /* Job Routes */       
-//         this.router.get("/total-applicants/:slug", Jobs.default.TotalApplicantsAppliedForJob)
-        
-//         this.router.get("/single-job/:jobId?", Jobs.default.GetSingleJobWithID)
-//         this.router.post("/new-job", Jobs.default.AddNewJob)
-//         this.router.route("/handle-job/action")
-//         .put(Jobs.default.UpdateExistingJobWithJobId)
-//         .delete(Jobs.default.DeleteExistingJobWithJobId)
+        this.router.get("/total-applicants/:slug", Jobs.default.TotalApplicantsAppliedForJob)        
+        this.router.get("/single-job/:jobId?", Jobs.default.GetSingleJobWithID)
+        this.router.post("/new-job", Jobs.default.AddNewJob)
+        this.router.route("/handle-job/action")
+        .put(Jobs.default.UpdateExistingJobWithJobId)
+        .delete(Jobs.default.DeleteExistingJobWithJobId)
         
 
 // /* Controller.js */
         
-//         this.router.get("/all/job-types", Basic.default.GetJobTypes)
-//         this.router.get("/get-jobs/:category_id?", Basic.default.GetJobFromCategoryIdAndQueryFilters)
-//         this.router.get("/get-company-jobs/:company_id", Basic.default.GetJobsFromCompanyId)
+        this.router.get("/all/job-types", Basic.default.GetJobTypes)
+        this.router.get("/get-jobs/:category_id?", Basic.default.GetJobFromCategoryIdAndQueryFilters)
+        this.router.get("/get-company-jobs/:company_id", Basic.default.GetJobsFromCompanyId)
 
 // /* UserController.js */
 //         this.router.post("/bookmark/job", User.default.AddOrRemoveJobFromBookmarked)

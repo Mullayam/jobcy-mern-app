@@ -4,17 +4,24 @@ import JSONResponse from "../../services/JSONResponse.js";
 import Helpers from "../../helpers/index.js";
 import { JobTypes } from "../../factory/entities/jobs/jobTypes.js";
 import { AppDataSource } from "../../DataSource.js";
+import { Categories } from "../../factory/entities/cateogory/cateogories.js";
+import { Jobs } from "../../factory/entities/jobs/jobs.js";
+import { Companies } from "../../factory/entities/company/companies.js";
 
-
+const CategoryService = AppDataSource.getRepository(Categories)
 const JobTypesRepo = AppDataSource.getRepository(JobTypes)
+const JobRepo = AppDataSource.getRepository(Jobs)
+const CompanyRepo = AppDataSource.getRepository(Companies)
 class BasicController {
+
    // Get all category from id with total jobs posted in that cateogry
    async GetAllCategoriesWithJobs(req: Request, res: Response) {
-      try {
-         const Categories = await AppDataSource.query("SELECT categories.id,categories.name,categories.icon,categories.slug,COUNT(jobs.id) as total_jobs  FROM jobs RIGHT JOIN categories ON jobs.categoryId = categories.id GROUP BY categories.id")
-         JSONResponse.Response(req, res, "Categories", { Categories }, 200)
+      try {          
+         const CategoryList = await CategoryService.createQueryBuilder('c').leftJoin(Jobs, 'j','j.categoryId = c.id').addSelect('COUNT(j.id)', 'total_jobs').groupBy('c.id').getRawMany()
+
+         JSONResponse.Response(req, res, "Categories", { Categories: CategoryList }, 200)
       } catch (error: any) {
-         JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 401)
+         JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 403)
       }
    }
    // Get all job types like full time, parttime, frreelance
@@ -24,7 +31,7 @@ class BasicController {
          const JobTypeArray = await JobTypesRepo.find()
          JSONResponse.Response(req, res, "Job Types", { JobTypeArray }, 200)
       } catch (error: any) {
-         JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 401)
+         JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 403)
       }
    }
    // Get all category from id  and filter on joblsit  limit 10
@@ -105,9 +112,8 @@ class BasicController {
    /* Get all jobs posted by a specific companys  */
    async GetJobsFromCompanyId(req: Request, res: Response) {
       try {
-
-         let sql = `SELECT jobs.id,job_title,logo,min_exp,offered_salary,job_type,job_location,keywords,posted_on,company_id as cid,companies.name as company_name FROM jobs INNER JOIN companies ON jobs.company_id = companies.id WHERE company_id= ${req.params.company_id}  ORDER BY posted_on DESC`
-         const CompanyJobs = await AppDataSource.query(sql)
+         const CompanyJobs = await JobRepo.createQueryBuilder('j').innerJoinAndSelect(Companies, "c","j.companyId = c.id").where("j.companyId = :company_id", { company_id: req.params.company_id }).orderBy("j.postedOn", "DESC").getMany()       
+          
          JSONResponse.Response(req, res, "Jobs", { CompanyJobs }, 200)
       } catch (error: any) {
          JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 401)
