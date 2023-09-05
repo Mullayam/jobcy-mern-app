@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { Middlewares } from '../../middlewares/index.js';
-import { Basic,Jobs,Company } from '../../controllers/index.js';
+import { Basic,Jobs,Company,User } from '../../controllers/index.js';
 import fileUpload from "express-fileupload"
 
 export class BaseRoutes {
@@ -38,7 +38,7 @@ export class BaseRoutes {
         this.router.get("/get-company-jobs/:company_id", Basic.default.GetJobsFromCompanyId)
 
 // /* UserController.js */
-//         this.router.post("/bookmark/job", User.default.AddOrRemoveJobFromBookmarked)
+        this.router.post("/bookmark/job", User.default.AddOrRemoveJobFromBookmarked)
 //         this.router.post("/apply/job", User.default.ApplyJob)
 //         this.router.get("/my/posted/jobs", User.default.GetJobsPostedByMember)
 //         this.router.get("/get-bookmarked/jobs", User.default.GetMemberBookmarkedJobs)

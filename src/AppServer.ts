@@ -7,6 +7,9 @@ import Logging from './logging/Logging.js';
 import { ProductionModules } from './services/Production.js';
 import { HttpException } from "./app/libs/HttpException.js";
 import path from 'path';
+import { GraphQL_Server } from './factory/index.js';
+import { ExpressMiddlewareOptions, expressMiddleware } from '@apollo/server/express4';
+import { BaseContext } from '@apollo/server';
 
 export class AppServer {
     protected app: Application;
@@ -14,7 +17,7 @@ export class AppServer {
     constructor(private PORT: number = 7132) {
         this.app = express()
         this.PORT = PORT
-        this.config()
+        this.config()        
         this.InjectDependencies()
         this.InitializeRoutes()
         this.LoadInstances()
@@ -27,8 +30,8 @@ export class AppServer {
      */
     private config(): void {
         Logging.preview("Applying Configuration")
-        new AppModules(this.app, express)       
         this.app.use(express.json());
+        this.app.use(cors({ origin: "*" }));
         this.app.use(bodyParser.urlencoded({ extended: false }));
     }
 
@@ -36,8 +39,28 @@ export class AppServer {
      * Loads the instances of the AppModules and ProductionModules.
      */
     private LoadInstances(): void {
-        
+        new AppModules(this.app, express)
         new ProductionModules(this.app)
+    }
+    /**
+    * Initializes the GraphQL server.
+    *
+    * @return {Promise<void>} A promise that resolves when the server is initialized.
+    */
+     async InitializeGraphQlServer():Promise<ExpressMiddlewareOptions<{}>> {
+        Logging.preview("Initializing GraphQL Server")
+        return   {
+                context: async ({ req, res }) => {
+                    // Get the user token from the headers.
+                    const token = req.headers.authorization || '';
+
+                    // Try to retrieve a user with the token
+                    // const user = await getUser(token);
+                    console.log("context")
+                    // Add the user to the context
+                    return { test: token };
+                }
+            }
     }
     /**
      * Injects the dependencies needed for the application.
@@ -45,8 +68,9 @@ export class AppServer {
      * @private
      * @return {void}
      */
-    private InjectDependencies(): void {
-        Logging.preview("Dependencies Injected")
+    private InjectDependencies():void {
+        Logging.preview("Dependencies Injected")     
+
         this.app.use("/_static/jobcy/images", express.static(path.join(process.cwd(), 'public', "images")));
         this.app.use("/_static/jobcy/user/profile", express.static(path.join(process.cwd(), 'public', "uploads")));
     }
@@ -58,13 +82,14 @@ export class AppServer {
      * code, and message indicating that the API is running successfully.
      * 
      * @private
-     * @memberof ClassName
-     * @return {void}
+     * @memberof ClassName     
      */
-    private InitializeRoutes(): void {
+    private async InitializeRoutes() {
         Logging.preview("Routes Mapped")
         this.app.use('/api', new Routes().router)
-        this.app.use('*', () => { throw new HttpException({ name: "NOT_FOUND", message: "Route Not Found", stack: { notice: "Api is Running", api_status_code: 200, info: "Unhandled Route Detected" } }) })
+        await GraphQL_Server.start()
+        this.app.use("/graphql", expressMiddleware(GraphQL_Server))
+        this.app.use('*', () => new HttpException({ name: "NOT_FOUND", message: "Route Not Found", stack: { notice: "Api is Running", api_status_code: 200, info: "Unhandled Route Detected" } }))
     }
     /**
      * Initializes the app server and starts listening on the specified port.

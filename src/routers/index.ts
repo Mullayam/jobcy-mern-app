@@ -3,12 +3,12 @@ import JSONResponse from '../services/JSONResponse.js'
 import { BaseRoutes } from './api/index.js';
 import { Authentication } from '../controllers/index.js';
 import { Middlewares } from '../middlewares/index.js';
- 
+
 export class Routes {
     public router: express.Router;
     constructor() {
         this.router = express.Router();
-        this.AuthRoutes();        
+        this.AuthRoutes();
         this.ProtectedRoutes();
         this.UnhandledRoutes();
     }
@@ -24,15 +24,14 @@ export class Routes {
         this.router.post("/forget-password", Authentication.default.ForgetPassword)
         this.router.get("/token/:id", Authentication.default.RefreshToken)
         this.router.get("/current-user/:id", Authentication.default.CurrentUser)
-        
     }
-    
+
     /**
      * All Other Routes which are publicly accessable and required may or may not some of middlewares
      *     
      * @return {void} description of return value
      */
-   
+
     /**
      * Initializes the protected routes for the API.
      *
@@ -40,8 +39,8 @@ export class Routes {
      *
      * @return {void}
      */
-    protected ProtectedRoutes(): void {
-        // this.router.use(Middlewares.isApiProtected)
+    protected async ProtectedRoutes() {
+        // this.router.use(Middlewares.isApiProtected)        
         this.router.use("/v1", new BaseRoutes(this.router).router)
     }
     /**

@@ -2,48 +2,21 @@ import path from 'path';
 import { Application } from 'express'
 import helpers from '../helpers/index.js'
 import Logging from '../logging/Logging.js'
-import { GraphQL_Server } from '../factory/index.js'
 import { AppDataSource } from '../DataSource.js'
 import { Middlewares } from '../middlewares/index.js'
-import { expressMiddleware } from '@apollo/server/express4';
 import { UnprotectedRoutes } from '../routers/api/UnprotectRoutes.js';
 import { Engine } from './modules/engine.js';
 
 export class AppModules {
-    public static presql = AppDataSource
-    private app: Application
+    public static TypeORM = AppDataSource   
     private express: any
-    constructor(app: Application, express: any) {
+    constructor(private app: Application, express: any) {
         this.app = app
-        this.express = express         
+        this.express = express
         this.AppEngine()
         this.InitializeMiddlewares()
-        this.InitializeGraphQlServer()
         this.TypeORM_Datasource()
-    }
-    /**
-     * Initializes the GraphQL server.
-     *
-     * @return {Promise<void>} A promise that resolves when the server is initialized.
-     */
-    private async InitializeGraphQlServer(): Promise<void> {
-        Logging.preview("Initializing GraphQL Server")
-        await GraphQL_Server.start()
-        this.app.use("/graphql", expressMiddleware(GraphQL_Server,
-            //  {
-            //     context: async ({ req, res }) => {
-            //         // Get the user token from the headers.
-            //         const token = req.headers.authorization || '';
-
-            //         // Try to retrieve a user with the token
-            //         // const user = await getUser(token);
-            //         console.log("context")
-            //         // Add the user to the context
-            //         return { test: token };
-            //     }
-            // }
-        ))
-    }
+    }   
     /**
      * Initializes the TypeORM Datasource.
      * Establish Database Connection
@@ -53,7 +26,7 @@ export class AppModules {
      * @return {Promise<void>} Promise that resolves once the datasource is initialized.
      */
     private async TypeORM_Datasource(): Promise<void> {
-        AppModules.presql.initialize()
+        AppModules.TypeORM.initialize()
             .then(() => {
                 Logging.alert("Database Connected Successfuly")
                 this.app.emit("ready", "Intiating Application Server")
@@ -67,7 +40,7 @@ export class AppModules {
                 console.log(error)
             })
     }
-    
+
     /**
      * Initializes the AppEngine.
      *
