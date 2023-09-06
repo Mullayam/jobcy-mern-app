@@ -119,6 +119,10 @@ class BasicController {
          JSONResponse.Error(req, res, "Something Went Wrong", { error: error.message }, 401)
       }
    }
+   async Test() {
+      const CategoryList = await CategoryService.createQueryBuilder('c').leftJoin(Jobs, 'j','j.categoryId = c.id').addSelect('COUNT(j.id)', 'total_jobs').groupBy('c.id').getRawMany()
+     return CategoryList
+   }
 
 }
 export default new BasicController()

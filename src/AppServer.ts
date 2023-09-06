@@ -1,4 +1,5 @@
 import cors from 'cors'
+import path from 'path'; 
 import bodyParser from "body-parser";
 import express, { Application, } from 'express'
 import { Routes } from './routers/index.js'
@@ -6,11 +7,8 @@ import { AppModules } from './app/bootstrap.js';
 import Logging from './logging/Logging.js';
 import { ProductionModules } from './services/Production.js';
 import { HttpException } from "./app/libs/HttpException.js";
-import path from 'path';
-import { GraphQL_Server } from './factory/index.js';
 import { ExpressMiddlewareOptions, expressMiddleware } from '@apollo/server/express4';
-import { BaseContext } from '@apollo/server';
-
+ 
 export class AppServer {
     protected app: Application;
 
@@ -87,8 +85,7 @@ export class AppServer {
     private async InitializeRoutes() {
         Logging.preview("Routes Mapped")
         this.app.use('/api', new Routes().router)
-        await GraphQL_Server.start()
-        this.app.use("/graphql", expressMiddleware(GraphQL_Server))
+         
         this.app.use('*', () => new HttpException({ name: "NOT_FOUND", message: "Route Not Found", stack: { notice: "Api is Running", api_status_code: 200, info: "Unhandled Route Detected" } }))
     }
     /**
