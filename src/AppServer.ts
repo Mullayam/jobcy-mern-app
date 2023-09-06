@@ -8,7 +8,7 @@ import Logging from './logging/Logging.js';
 import { ProductionModules } from './services/Production.js';
 import { HttpException } from "./app/libs/HttpException.js";
 import { ExpressMiddlewareOptions, expressMiddleware } from '@apollo/server/express4';
- 
+
 export class AppServer {
     protected app: Application;
 
