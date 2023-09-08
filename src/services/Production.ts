@@ -33,7 +33,7 @@ export class ProductionModules {
                 const pathname = url.parse(req.url).pathname as string;
                 const myUrlWithParams = new URL(process.env.APP_URL as string);
                 myUrlWithParams.searchParams.append("redirect_uri", pathname);
-                res.redirect(`/${pathname}`);
+                res.redirect(`/?redirect_uri=${pathname}`);
             });
         }
     }

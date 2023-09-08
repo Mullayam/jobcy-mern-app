@@ -54,7 +54,7 @@ export class Member {
     phone?: number
 
     @Column({
-        type: 'simple-json', nullable: true, default: LocationObject
+        type: 'simple-json', nullable: true, 
     })
     location?: {
         address1?: string
@@ -76,7 +76,7 @@ export class Member {
     @Column({ nullable: true })
     about_me?: string
 
-    @Column({ name: "profile_status", default: UserStatus.ONLINE, type: 'enum', enum: UserStatus })
+    @Column({  default: UserStatus.ONLINE, type: 'enum', enum: UserStatus })
     profileStatus?: string
 
     @Column({ default: false })
@@ -88,12 +88,12 @@ export class Member {
     @UpdateDateColumn()
     updatedDate!: Date
 
+    // Relations
     @OneToOne(() => MoreInfo, (mem_info) => mem_info.member)
     moreInfo!: MoreInfo
 
     @OneToMany(() => MyListings, (myListings) => myListings.user)
     myListing!: MyListings[]
-
 
     @OneToMany(() => Notifications, (noti) => noti.user, { nullable: false })
     @JoinColumn()

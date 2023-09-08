@@ -6,14 +6,13 @@
   "type": "module",
   "scripts": {
     "build": "tsc && cd frontend && npm run build",
-    "install": "cd dist && pnpm install && node index.js && exit 1",
+    "install": "pnpm install && 'npm run build' ",
     "prepare": "tsc",
     "dev": "nodemon",
-    "all": "npm run build && npm run install",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "create:mig": "typeorm migration:create ./src/factory/migrations/${NAME}",
     "run:mig": "npm run typeorm --  --dataSource=src/DataSource.ts migration:run",
-    "start": "cd dist && node index.js"
+    "start": "node ./dist/index.js"
   },
   "keywords": [
     "jobcy",
@@ -33,7 +32,6 @@
   },
   "license": "ISC",
   "dependencies": {
-    "@apollo/server": "^4.9.1",
     "@enjoys/paytm": "^0.0.2",
     "@rudderstack/rudder-sdk-node": "^2.0.3",
     "@types/express-fileupload": "^1.4.1",

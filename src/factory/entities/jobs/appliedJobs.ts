@@ -32,7 +32,7 @@ export class AppliedJobs {
     @CreateDateColumn()
     appliedOn!: Date
 
-    @Column({ type: "simple-json", default: "" })
+    @Column({ type: "simple-json",})
     status!: string
 
     @BeforeInsert()

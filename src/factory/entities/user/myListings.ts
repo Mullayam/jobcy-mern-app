@@ -1,4 +1,4 @@
-import { Entity, Column, JoinColumn, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn, OneToOne, ManyToOne } from "typeorm"
+import { Entity, Column, JoinColumn, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn, OneToOne, ManyToOne, Relation } from "typeorm"
 import { Member } from "./member.js"
 @Entity("my_listings")
 
@@ -18,9 +18,8 @@ export class MyListings {
     @Column({ default: false })
     isBookmarked!: boolean
 
-
     @ManyToOne(() => Member, (member) => member.myListing)
     @JoinColumn()
-    user!: any
+    user!: Relation<Member>
 
 }

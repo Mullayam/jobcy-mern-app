@@ -93,8 +93,8 @@ class Authentication {
             // query to insert into database
             const Token = jwt.sign(LoginInfo, SECRET_KEY, { expiresIn: ExpiresIn })// jwt token sign
             const RefreshToken = Helpers.HandleRefreshToken(LoginInfo.id) // refresh token
-            const WelcomeMsg = WelcomeMessage("http://localhost:7132/_static/jobcy/images", username)
-            Email.TemplateMail({ to: req.body.email, subject: "Account Created", html: WelcomeMsg, text: "", from: "Account Jobcy" })
+            // const WelcomeMsg = WelcomeMessage("http://localhost:7132/_static/jobcy/images", username)
+            // Email.TemplateMail({ to: req.body.email, subject: "Account Created", html: WelcomeMsg, text: "", from: "Account Jobcy" })
             return JSONResponse.Response(req, res, "User Register Successully", { User: LoginInfo, Token, RefreshToken }, 200)
 
         } catch (error: any) {

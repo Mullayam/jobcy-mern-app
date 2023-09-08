@@ -7,7 +7,6 @@ import { AppModules } from './app/bootstrap.js';
 import Logging from './logging/Logging.js';
 import { ProductionModules } from './services/Production.js';
 import { HttpException } from "./app/libs/HttpException.js";
-import { ExpressMiddlewareOptions, expressMiddleware } from '@apollo/server/express4';
 
 export class AppServer {
     protected app: Application;
@@ -39,27 +38,7 @@ export class AppServer {
     private LoadInstances(): void {
         new AppModules(this.app, express)
         new ProductionModules(this.app)
-    }
-    /**
-    * Initializes the GraphQL server.
-    *
-    * @return {Promise<void>} A promise that resolves when the server is initialized.
-    */
-     async InitializeGraphQlServer():Promise<ExpressMiddlewareOptions<{}>> {
-        Logging.preview("Initializing GraphQL Server")
-        return   {
-                context: async ({ req, res }) => {
-                    // Get the user token from the headers.
-                    const token = req.headers.authorization || '';
-
-                    // Try to retrieve a user with the token
-                    // const user = await getUser(token);
-                    console.log("context")
-                    // Add the user to the context
-                    return { test: token };
-                }
-            }
-    }
+    }      
     /**
      * Injects the dependencies needed for the application.
      *
@@ -67,7 +46,7 @@ export class AppServer {
      * @return {void}
      */
     private InjectDependencies():void {
-        Logging.preview("Dependencies Injected")     
+        Logging.preview("Dependencies Injected")    
 
         this.app.use("/_static/jobcy/images", express.static(path.join(process.cwd(), 'public', "images")));
         this.app.use("/_static/jobcy/user/profile", express.static(path.join(process.cwd(), 'public', "uploads")));
